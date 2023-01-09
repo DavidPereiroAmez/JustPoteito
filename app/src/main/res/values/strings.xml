@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">JustPoteito</string>
+    <string name="title_main">Just Poteito</string>
+    <string name="please_login">Please login</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="forgot_password">forgot password?</string>
+    <string name="signup_button">SIGNUP</string>
+    <string name="login_button">Login</string>
+    <string name="title_register">Register</string>
+    <string name="please_signup">Please Sign Up</string>
+    <string name="first_name">first name</string>
+    <string name="last_names">last names</string>
+    <string name="email">email</string>
+    <string name="title_resetPassword">Reset Password</string>
+    <string name="old_password">Old password</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_new_password">Confirm new password</string>
+    <string name="reset_button">Reset</string>
+</resources>
