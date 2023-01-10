@@ -17,4 +17,15 @@
     <string name="new_password">New password</string>
     <string name="confirm_new_password">Confirm new password</string>
     <string name="reset_button">Reset</string>
+    <string name="title_forgotPassword">Forgot Password</string>
+    <string name="type_your_email">type your email</string>
+    <string name="send">Send</string>
+    <string name="title_explore_by_type_of_cuisine">Explore by type of cuisine</string>
+    <string name="hi">Hi</string>
+    <string name="name">Name</string>
+    <string name="title_explore_by_dish">Explore by dish</string>
+    <string name="search">Search</string>
+    <string name="title_explore_by_cook">Explore by cook</string>
+    <string name="title_type_of_cuisine">Cuisine</string>
+    <string name="dishes">dishes</string>
 </resources>
