@@ -28,4 +28,8 @@
     <string name="title_explore_by_cook">Explore by cook</string>
     <string name="title_type_of_cuisine">Cuisine</string>
     <string name="dishes">dishes</string>
+    <string name="title_dish">Dish name</string>
+    <string name="dish_preparation_time">Time</string>
+    <string name="minutes">min</string>
+    <string name="ingredients">Ingredients</string>
 </resources>
