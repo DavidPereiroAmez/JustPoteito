@@ -14,7 +14,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="10in">
 
             <ImageView
                 android:id="@+id/imageBack"
@@ -59,10 +59,10 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.776"
+                app:layout_constraintHorizontal_bias="0.78"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.164" />
+                app:layout_constraintVertical_bias="0.077" />
 
             <TextView
                 android:id="@+id/username"
@@ -75,22 +75,22 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.975"
+                app:layout_constraintHorizontal_bias="0.974"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.164" />
+                app:layout_constraintVertical_bias="0.077" />
 
             <ImageView
                 android:id="@+id/image_vegetables"
-                android:layout_width="415dp"
-                android:layout_height="206dp"
+                android:layout_width="430dp"
+                android:layout_height="215dp"
                 android:src="@drawable/verduras"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.25"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.308" />
+                app:layout_constraintVertical_bias="0.122" />
 
             <TextView
                 android:id="@+id/ingredients"
@@ -104,10 +104,10 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintHorizontal_bias="0.548"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.643" />
+                app:layout_constraintVertical_bias="0.282" />
 
             <TextView
                 android:id="@+id/title_dish"
@@ -120,10 +120,10 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintHorizontal_bias="0.034"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.579" />
+                app:layout_constraintVertical_bias="0.247" />
 
             <TextView
                 android:id="@+id/dish_preparation_time"
@@ -136,10 +136,10 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.796"
+                app:layout_constraintHorizontal_bias="0.813"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.579" />
+                app:layout_constraintVertical_bias="0.246" />
 
             <TextView
                 android:id="@+id/minutes"
@@ -152,33 +152,108 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.994"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.579" />
+                app:layout_constraintVertical_bias="0.246" />
 
             <androidx.cardview.widget.CardView
-                android:layout_width="415dp"
-                android:layout_height="220dp"
+                android:id="@+id/cardView"
+                android:layout_width="430dp"
+                android:layout_height="235dp"
                 app:cardCornerRadius="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.542"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.969">
+                app:layout_constraintVertical_bias="0.357">
 
                 <ListView
                     android:id="@+id/load_ingredients"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="235dp" />
             </androidx.cardview.widget.CardView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <ListView
+                android:id="@+id/load_recipe"
+                android:layout_width="430dp"
+                android:layout_height="378dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView"
+                app:layout_constraintVertical_bias="0.118" />
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="4dp" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
+                android:layout_width="425dp"
+                android:layout_height="407dp"
+                app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/load_recipe"
+                app:layout_constraintVertical_bias="0.5">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="316dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="casual"
+                    android:paddingStart="15dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/comments"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ListView
+                    android:id="@+id/load_comments"
+                    android:layout_width="match_parent"
+                    android:layout_height="326dp" />
+
+            </androidx.cardview.widget.CardView>
+
+            <EditText
+                android:id="@+id/editTextTextPersonName2"
+                android:layout_width="409dp"
+                android:layout_height="75dp"
+                android:background="@color/white"
+                android:ems="10"
+                android:fontFamily="casual"
+                android:hint="@string/type_comment"
+                android:inputType="textPersonName"
+                android:paddingStart="15dp"
+                android:textColor="@color/cream"
+                android:textColorHint="@color/cream"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView2"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <ImageButton
+                android:id="@+id/imageButton3"
+                android:layout_width="59dp"
+                android:layout_height="67dp"
+                android:layout_marginTop="1612dp"
+                android:layout_marginBottom="18dp"
+                android:background="@color/white"
+                android:minHeight="48dp"
+                android:rotationY="180"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.977"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="?attr/actionModeCloseDrawable"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </LinearLayout>
