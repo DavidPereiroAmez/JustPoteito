@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.477" />
+        app:layout_constraintVertical_bias="0.499" />
 
     <ImageView
         android:id="@+id/imageBack"
@@ -70,14 +70,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.024">
-            <ImageView
+
+        <ImageView
             android:id="@+id/userPhoto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/verduras"
             android:background="@color/white"
             android:scaleType="centerCrop"
-            />
+            android:src="@drawable/verduras" />
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -111,5 +111,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.153" />
+
+    <ListView
+        android:id="@+id/cuisineTypeList"
+        android:layout_width="408dp"
+        android:layout_height="293dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="367dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
