@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
-    android:foregroundTint="#FFFFFF"
-    tools:context=".MainActivity">
-    <!--
+    android:background="@color/black"
+    tools:context=".fragments.LoginFragment">
+
     <TextView
         android:id="@+id/text_forgot_password"
         android:layout_width="wrap_content"
@@ -22,7 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.854" />
-
     <View
         android:id="@+id/divider3_main"
         android:layout_width="290dp"
@@ -46,7 +44,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/verduras" />
-
     <TextView
         android:id="@+id/title_main"
         android:layout_width="155dp"
@@ -171,15 +168,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.762" />
-
-        -->
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </FrameLayout>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
