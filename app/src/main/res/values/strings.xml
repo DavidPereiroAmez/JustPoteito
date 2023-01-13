@@ -20,12 +20,15 @@
     <string name="title_forgotPassword">Forgot Password</string>
     <string name="type_your_email">type your email</string>
     <string name="send">Send</string>
-    <string name="title_explore_by_type_of_cuisine">Explore by type of cuisine</string>
     <string name="hi">Hi</string>
     <string name="name">Name</string>
-    <string name="title_explore_by_dish">Explore by dish</string>
     <string name="search">Search</string>
+    <string name="explorer">Explore Recipes</string>
+    <string name="title_explore_by_type_of_cuisine">Explore by type of cuisine</string>
+    <string name="title_explore_by_dish">Explore by dish</string>
     <string name="title_explore_by_cook">Explore by cook</string>
+    <string name="exp_ingredients">Explore by ingredients</string>
+    <string name="title_list">Ingredients</string>
     <string name="title_type_of_cuisine">Cuisine</string>
     <string name="dishes">dishes</string>
     <string name="title_dish">Dish name</string>
@@ -43,6 +46,13 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+
+    <!-- Strings related to Profile -->
+    <string name="user">Karlos</string>
+    <string name="profile">My Profile</string>
+    <string name="prof_name">Carlos</string>
+    <string name="surname">Arguiñano</string>
+    <string name="prof_email">KarlosArguiñano@gmail.com</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
