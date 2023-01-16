@@ -1,6 +1,8 @@
 package com.example.justpoteito.models;
 
-public class Ingredient {
+import java.io.Serializable;
+
+public class Ingredient implements Serializable {
     private int id;
     private String name;
     private String type;
@@ -14,6 +16,11 @@ public class Ingredient {
         this.name = name;
         this.type = type;
         this.amount = amount;
+    }
+
+    public Ingredient(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public int getId() {

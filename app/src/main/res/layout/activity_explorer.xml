@@ -5,56 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context=".Explorer">
-
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="264dp"
-        android:layout_height="63dp"
-        android:layout_marginEnd="72dp"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/white"
-        android:fontFamily="casual"
-        android:text="@string/exp_ingredients"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/button6"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="264dp"
-        android:layout_height="63dp"
-        android:layout_marginEnd="72dp"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/white"
-        android:fontFamily="casual"
-        android:text="@string/title_explore_by_dish"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="264dp"
-        android:layout_height="63dp"
-        android:layout_marginEnd="72dp"
-        android:layout_marginBottom="91dp"
-        android:backgroundTint="@color/white"
-        android:fontFamily="casual"
-        android:text="@string/title_explore_by_cook"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+    tools:context=".ExplorerActivity">
 
     <TextView
         android:id="@+id/textView7"
@@ -120,23 +71,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_launcher_foreground" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="264dp"
-        android:layout_height="63dp"
-        android:layout_marginEnd="72dp"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/white"
-        android:fontFamily="casual"
-        android:text="@string/title_explore_by_type_of_cuisine"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="TextContrastCheck" />
-
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="267dp"
@@ -158,49 +92,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="38dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginBottom="15dp"
-        android:translationZ="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/kisspng_paella_recipe_rice_quality_paella_5b22090ef12f67_2106401015289571989879" />
-
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="47dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="48dp"
-        android:translationZ="2dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
-        app:srcCompat="@drawable/pngitem_6184970" />
-
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="44dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginBottom="15dp"
-        android:translationZ="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/button6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/_a1c7e70ca3fe7_9399725215118168168284" />
-
-    <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="62dp"
-        android:layout_height="66dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginBottom="88dp"
-        android:translationZ="2dp"
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="411dp"
+        android:layout_height="421dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/pngwing_com" />
+        app:layout_constraintTop_toTopOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.041">
+
+    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

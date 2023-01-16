@@ -1,6 +1,7 @@
 package com.example.justpoteito.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,22 +10,20 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.example.justpoteito.ExplorerActivity;
 import com.example.justpoteito.R;
-import com.example.justpoteito.models.CuisineType;
-import com.example.justpoteito.models.Ingredient;
+import com.example.justpoteito.models.Dish;
 
 import java.util.ArrayList;
 
-public class IngredientAdapter extends ArrayAdapter<Ingredient> {
+public class DishAdapter extends ArrayAdapter<Dish> {
     private final Context context;
-    private ArrayList<Ingredient> ingredientList;
-    private ExplorerActivity explorerActivity = new ExplorerActivity();
+    private ArrayList<Dish> dishList;
+    SharedPreferences sharedPreferences;
 
-    public IngredientAdapter(@NonNull Context context, int resource, ArrayList<Ingredient> ingredientList) {
-        super(context, resource, ingredientList);
+    public DishAdapter(@NonNull Context context, int resource, ArrayList<Dish> dishList) {
+        super(context, resource, dishList);
         this.context = context;
-        this.ingredientList = ingredientList;
+        this.dishList = dishList;
     }
     @Override
     public int getCount() {
@@ -34,10 +33,10 @@ public class IngredientAdapter extends ArrayAdapter<Ingredient> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate(R.layout.ingredient_list_row_layout, null);
+        View view = layoutInflater.inflate(R.layout.dish_row_layout, null);
 
         //((ImageView) view.findViewById(R.id.cuisine_type_row_imageView)).setImageURI(cuisineTypeList.get(position).getImage() + "");
-        ((TextView) view.findViewById(R.id.ingredient_name)).setText(ingredientList.get(position).getName() + "");
+        ((TextView) view.findViewById(R.id.dish_name)).setText(dishList.get(position).getName() + "");
 
         return view;
     }

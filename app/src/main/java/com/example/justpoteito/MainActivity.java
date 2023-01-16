@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             setFragment("forgotPasswordFragment");
         });
         findViewById(R.id.login_button).setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, Explorer.class);
+            Intent intent = new Intent(MainActivity.this, ExplorerActivity.class);
             //intent.putExtra("fragment", "register");
             //setContentView(R.layout.recipe);
             startActivity(intent);
