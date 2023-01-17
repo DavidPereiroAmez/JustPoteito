@@ -12,21 +12,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <include
+            layout="@layout/toolbar"
+            android:layout_width="411dp"
+            android:layout_height="55dp" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="10in">
-
-            <ImageView
-                android:id="@+id/imageBack"
-                android:layout_width="51dp"
-                android:layout_height="45dp"
-                android:src="@android:drawable/ic_menu_revert"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.044"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.023" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="90dp"
@@ -216,7 +209,7 @@
 
             <EditText
                 android:id="@+id/editTextTextPersonName2"
-                android:layout_width="409dp"
+                android:layout_width="425dp"
                 android:layout_height="75dp"
                 android:background="@color/white"
                 android:ems="10"
@@ -230,16 +223,16 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView2"
-                app:layout_constraintVertical_bias="0.5" />
+                app:layout_constraintVertical_bias="0.5"
+                tools:ignore="RtlSymmetry" />
 
             <ImageButton
-                android:id="@+id/imageButton3"
+                android:id="@+id/send_commentary"
                 android:layout_width="59dp"
                 android:layout_height="67dp"
-                android:layout_marginTop="1612dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="18dp"
                 android:background="@color/white"
                 android:minHeight="48dp"
@@ -248,8 +241,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.977"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintTop_toBottomOf="@+id/cardView2"
                 app:srcCompat="?attr/actionModeCloseDrawable"
                 tools:ignore="SpeakableTextPresentCheck" />
 
