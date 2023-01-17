@@ -7,6 +7,11 @@
     android:background="#000000"
     tools:context=".Explorer">
 
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="411dp"
+        android:layout_height="55dp" />
+
 
     <Button
         android:id="@+id/button5"
@@ -70,22 +75,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
-        android:adjustViewBounds="false"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_revert" />
-
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="122dp"
         android:layout_marginEnd="108dp"
         android:fontFamily="casual"
         android:text="@string/hi"
@@ -100,7 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="122dp"
         android:fontFamily="casual"
         android:text="@string/name"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -114,7 +108,7 @@
         android:id="@+id/imageView2"
         android:layout_width="99dp"
         android:layout_height="97dp"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="34dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
