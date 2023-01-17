@@ -11,7 +11,7 @@
         android:padding="16dp">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/back_button"
             android:layout_width="26dp"
             android:layout_height="23dp"
             app:srcCompat="@drawable/pngfind_com_arrow_sign_png_2470624">
@@ -22,7 +22,7 @@
             android:layout_width="47dp"
             android:layout_height="40dp"
             android:layout_marginStart="1dp"
-            android:layout_toEndOf="@+id/imageView"
+            android:layout_toEndOf="@+id/back_button"
             android:src="@drawable/pngwing_com"
             android:textAlignment="center">
         </ImageView>
