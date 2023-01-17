@@ -7,17 +7,10 @@
     android:background="#000000"
     tools:context=".ProfileActivity">
 
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#000000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_revert"
-        tools:ignore="SpeakableTextPresentCheck" />
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="411dp"
+        android:layout_height="55dp" />
 
     <TextView
         android:id="@+id/textView"

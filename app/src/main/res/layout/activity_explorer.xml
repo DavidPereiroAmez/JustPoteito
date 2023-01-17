@@ -5,7 +5,62 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
+
     tools:context=".ExplorerActivity">
+
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="411dp"
+        android:layout_height="55dp" />
+
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="264dp"
+        android:layout_height="63dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/white"
+        android:fontFamily="casual"
+        android:text="@string/exp_ingredients"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/button6"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="264dp"
+        android:layout_height="63dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/white"
+        android:fontFamily="casual"
+        android:text="@string/title_explore_by_dish"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="264dp"
+        android:layout_height="63dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="91dp"
+        android:backgroundTint="@color/white"
+        android:fontFamily="casual"
+        android:text="@string/title_explore_by_cook"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView7"
@@ -21,22 +76,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
-        android:adjustViewBounds="false"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_revert" />
-
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="122dp"
         android:layout_marginEnd="108dp"
         android:fontFamily="casual"
         android:text="@string/hi"
@@ -51,7 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="122dp"
         android:fontFamily="casual"
         android:text="@string/name"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -65,7 +109,7 @@
         android:id="@+id/imageView2"
         android:layout_width="99dp"
         android:layout_height="97dp"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="34dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
