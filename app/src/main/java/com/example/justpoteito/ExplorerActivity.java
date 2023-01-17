@@ -16,11 +16,13 @@ import android.widget.TextView;
 import com.example.justpoteito.adapters.CookAdapter;
 import com.example.justpoteito.adapters.DishAdapter;
 import com.example.justpoteito.adapters.IngredientAdapter;
+import com.example.justpoteito.adapters.SelectedDishAdapter;
 import com.example.justpoteito.adapters.TypeCuisineAdapter;
 import com.example.justpoteito.fragments.ExploreByCookFragment;
 import com.example.justpoteito.fragments.ExploreByCuisineTypeFragment;
 import com.example.justpoteito.fragments.ExploreByDishFragment;
 import com.example.justpoteito.fragments.ExploreByIngredientFragment;
+import com.example.justpoteito.fragments.ExploreBySelectedDishFragment;
 import com.example.justpoteito.fragments.ExploreFragment;
 import com.example.justpoteito.models.Cook;
 import com.example.justpoteito.models.CuisineType;
@@ -34,11 +36,12 @@ import java.util.List;
 
 public class ExplorerActivity extends AppCompatActivity {
     FragmentTransaction transaction;
-    Fragment exploreFragment, exploreByCuisineTypeFragment, exploreByDishFragment, exploreByIngredientFragment, exploreByCookFragment;
+    Fragment exploreFragment, exploreByCuisineTypeFragment, exploreByDishFragment, exploreByIngredientFragment, exploreByCookFragment, exploreBySelectedDishFragment;
     ArrayList<CuisineType> cuisineTypeList;
     ArrayList<Dish> dishList;
     ArrayList<Ingredient> ingredientList;
     ArrayList<Cook> cookList;
+    ArrayList<Dish> selectedDishList;
 
     SharedPreferences sharedPreferences;
     @Override
@@ -52,7 +55,7 @@ public class ExplorerActivity extends AppCompatActivity {
         exploreByDishFragment = new ExploreByDishFragment();
         exploreByIngredientFragment = new ExploreByIngredientFragment();
         exploreByCookFragment = new ExploreByCookFragment();
-
+        exploreBySelectedDishFragment = new ExploreBySelectedDishFragment();
 
         setFragment("exploreFragment");
         /*findViewById(R.id.explore_by_cuisine_button).setOnClickListener(view ->
@@ -102,6 +105,12 @@ public class ExplorerActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,exploreByCookFragment).runOnCommit(new Runnable() {
                     @Override
                     public void run() { exploreByCookOnCreate(); }
+                }).commit();
+                break;
+            case "exploreBySelectedDishFragment":
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,exploreBySelectedDishFragment).runOnCommit(new Runnable() {
+                    @Override
+                    public void run() { exploreBySelectedDishOnCreate(); }
                 }).commit();
                 break;
             case "explorer":
@@ -163,8 +172,19 @@ public class ExplorerActivity extends AppCompatActivity {
                 "Asian"
         ));
         System.out.println("prueba");
-        ((ListView) findViewById(R.id.cuisineTypeList)).setAdapter(new TypeCuisineAdapter(this, R.layout.type_cuisine_row_layout, cuisineTypeList));
-        System.out.println(cuisineTypeList);
+        //.setAdapter(new TypeCuisineAdapter(this, R.layout.type_cuisine_row_layout, cuisineTypeList));
+        //System.out.println(cuisineTypeList);
+
+        ListView cuisineTypeListView = ((ListView) findViewById(R.id.cuisineTypeList));
+        cuisineTypeListView.setAdapter(new TypeCuisineAdapter(this, R.layout.type_cuisine_row_layout, cuisineTypeList));
+
+        cuisineTypeListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                System.out.println("prueba de boton --------------------");
+                setFragment("exploreBySelectedDishFragment");
+            }
+        });
 
         /*findViewById(R.id.explore_by_cuisine_button).setOnClickListener(view ->
                 setFragment("exploreByCuisineFragment"));*/
@@ -317,6 +337,52 @@ public class ExplorerActivity extends AppCompatActivity {
         ((ListView) findViewById(R.id.cook_list)).setAdapter(new CookAdapter(this, R.layout.cook_row_layout, cookList));
         /*findViewById(R.id.explore_by_cuisine_button).setOnClickListener(view ->
                 setFragment("exploreByCuisineFragment"));*/
+    }
+    public void exploreBySelectedDishOnCreate(){
+
+        System.out.println("Probando selected dish");
+        selectedDishList = new ArrayList<>();
+        selectedDishList.add(new Dish(
+                0,
+                "Macarrones con tomate",
+                30
+        ));
+        selectedDishList.add(new Dish(
+                1,
+                "Bacalao al pil pil",
+                120
+        ));
+        selectedDishList.add(new Dish(
+                2,
+                "Huevos con patatas",
+                20
+        ));
+        selectedDishList.add(new Dish(
+                3,
+                "Paella",
+                200
+        ));
+        selectedDishList.add(new Dish(
+                4,
+                "Alubias",
+                260
+        ));
+        selectedDishList.add(new Dish(
+                5,
+                "Pizza 4 quesos",
+                60
+        ));
+        selectedDishList.add(new Dish(
+                6,
+                "Risotto",
+                90
+        ));
+        selectedDishList.add(new Dish(
+                7,
+                "Entrecot a las finas hierbas con salsa de setas",
+                25
+        ));
+        ((ListView) findViewById(R.id.selected_dish_list)).setAdapter(new SelectedDishAdapter(this, R.layout.selected_dish_row_layout, selectedDishList));
     }
 
 }

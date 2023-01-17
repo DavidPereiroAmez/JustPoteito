@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#000000"
     android:foregroundTint="#FFFFFF"
-    tools:context=".MainActivity">
+    tools:context=".ExplorerActivity">
 
     <ListView
         android:id="@+id/cuisineTypeList"
