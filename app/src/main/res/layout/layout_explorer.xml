@@ -114,17 +114,17 @@
 
     <ListView
         android:id="@+id/cuisineTypeList"
-        android:layout_width="408dp"
-        android:layout_height="293dp"
+        android:layout_width="411dp"
+        android:layout_height="367dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="367dp"
+        android:layout_marginTop="71dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/divider_explore_by_type_of_cuisine"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
