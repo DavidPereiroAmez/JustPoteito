@@ -1,6 +1,6 @@
 package com.example.justpoteito.network;
 
-import com.example.justpoteito.models.CuisineType;
+import com.example.justpoteito.models.Cook;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,10 +11,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class CuisineTypesRequest extends NetConfiguration implements Runnable {
+public class CooksRequest extends NetConfiguration implements Runnable{
+    private final String theUrl = theBaseUrl + "/cooksNoToken";
+    private ArrayList<Cook> response;
 
-    private final String theUrl = theBaseUrl + "/cuisineTypesNoToken";
-    private ArrayList<CuisineType> response;
     @Override
     public void run() {
         try {
@@ -37,21 +37,19 @@ public class CuisineTypesRequest extends NetConfiguration implements Runnable {
 
                 JSONArray jsonArray = new JSONArray (theUnprocessedJSON);
 
-                this.response = new ArrayList<CuisineType>();
+                this.response = new ArrayList<Cook>();
 
-                CuisineType cuisineType;
+                Cook cook;
                 for(int i=0; i < jsonArray.length(); i++) {
                     JSONObject object = jsonArray.getJSONObject( i );
 
-                    cuisineType = new CuisineType();
-                    cuisineType.setId(object.getInt("id"));
-                    cuisineType.setName(object.getString("name"));
-                    cuisineType.setSubtype( object.getString("subtype"));
+                    cook = new Cook();
+                    cook.setId(object.getInt("id"));
+                    cook.setName(object.getString("name"));
 
-                    this.response.add( cuisineType );
+                    this.response.add( cook );
                 }
             } else {
-                System.out.println("Desde el else de cuisine type request");
                 this.response = new ArrayList<>();
             }
         } catch (Exception e) {
@@ -60,9 +58,7 @@ public class CuisineTypesRequest extends NetConfiguration implements Runnable {
 
     }
 
-    public ArrayList<CuisineType> getResponse() {
+    public ArrayList<Cook> getResponse() {
         return response;
     }
-
-
 }

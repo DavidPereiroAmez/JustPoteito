@@ -7,7 +7,10 @@ import android.net.NetworkInfo;
 import android.widget.Toast;
 
 import com.example.justpoteito.R;
+import com.example.justpoteito.models.Cook;
 import com.example.justpoteito.models.CuisineType;
+import com.example.justpoteito.models.Dish;
+import com.example.justpoteito.models.Ingredient;
 
 import java.util.ArrayList;
 
@@ -40,8 +43,76 @@ public class NetworkUtilities {
             }
             // Processing the answer
             ArrayList<CuisineType> listCuisineType = cuisineTypesRequest.getResponse();
-            System.out.println("desde el network utilities"+listCuisineType+"---------------------------------------------------------------------------------------------------------");
             return listCuisineType;
+        } else
+            return new ArrayList<>();
+    }
+
+    public ArrayList<Dish> makeRequest(DishesRequest dishesRequest) {
+
+        if (isConnected()) {
+
+            Thread thread = new Thread(dishesRequest);
+            try {
+                thread.start();
+                thread.join(); // Awaiting response from the server...
+            } catch (InterruptedException e) {
+                // Nothing to do here...
+            }
+            // Processing the answer
+            ArrayList<Dish> listDish = dishesRequest.getResponse();
+            return listDish;
+        } else
+            return new ArrayList<>();
+    }
+    public ArrayList<Cook> makeRequest(CooksRequest cookRequest) {
+
+        if (isConnected()) {
+
+            Thread thread = new Thread(cookRequest);
+            try {
+                thread.start();
+                thread.join(); // Awaiting response from the server...
+            } catch (InterruptedException e) {
+                // Nothing to do here...
+            }
+            // Processing the answer
+            ArrayList<Cook> listCook = cookRequest.getResponse();
+            return listCook;
+        } else
+            return new ArrayList<>();
+    }
+    public ArrayList<Ingredient> makeRequest(IngredientsRequest ingredientsRequest) {
+
+        if (isConnected()) {
+
+            Thread thread = new Thread(ingredientsRequest);
+            try {
+                thread.start();
+                thread.join(); // Awaiting response from the server...
+            } catch (InterruptedException e) {
+                // Nothing to do here...
+            }
+            // Processing the answer
+            ArrayList<Ingredient> listIngredients = ingredientsRequest.getResponse();
+            return listIngredients;
+        } else
+            return new ArrayList<>();
+    }
+    public ArrayList<Dish> makeRequest(DishesByCuisineTypeRequest dishesByCuisineTypeRequest) {
+
+        if (isConnected()) {
+
+            Thread thread = new Thread(dishesByCuisineTypeRequest);
+            try {
+                thread.start();
+                thread.join(); // Awaiting response from the server...
+            } catch (InterruptedException e) {
+                // Nothing to do here...
+            }
+            // Processing the answer
+            ArrayList<Dish> listDish = dishesByCuisineTypeRequest.getResponse();
+            return listDish;
         } else
             return new ArrayList<>();
     }

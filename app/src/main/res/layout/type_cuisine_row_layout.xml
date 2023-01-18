@@ -7,7 +7,7 @@
     android:background="#000000">
 
     <TextView
-        android:id="@+id/cuisine_type_row_textView"
+        android:id="@+id/cuisine_type_row_name"
         android:layout_width="283dp"
         android:layout_height="70dp"
         android:background="#FFFFFF"
@@ -18,6 +18,8 @@
         android:textColor="#000000"
         android:textSize="30sp"
         android:textStyle="bold"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,4 +37,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.001"
         app:srcCompat="@drawable/verduras" />
+
+    <TextView
+        android:id="@+id/cuisineTypeIdTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="CuisineType ID"
+        android:visibility="gone"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        tools:ignore="TextContrastCheck"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.086"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.001"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

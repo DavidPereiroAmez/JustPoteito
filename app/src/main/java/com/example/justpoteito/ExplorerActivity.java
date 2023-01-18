@@ -1,6 +1,7 @@
 package com.example.justpoteito;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -12,7 +13,6 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.example.justpoteito.adapters.CookAdapter;
@@ -24,29 +24,31 @@ import com.example.justpoteito.fragments.ExploreByCookFragment;
 import com.example.justpoteito.fragments.ExploreByCuisineTypeFragment;
 import com.example.justpoteito.fragments.ExploreByDishFragment;
 import com.example.justpoteito.fragments.ExploreByIngredientFragment;
-import com.example.justpoteito.fragments.ExploreBySelectedDishFragment;
+import com.example.justpoteito.fragments.SelectedDishFromCuisineTypeFragment;
 import com.example.justpoteito.fragments.ExploreFragment;
 import com.example.justpoteito.models.Cook;
 import com.example.justpoteito.models.CuisineType;
 import com.example.justpoteito.models.Dish;
 import com.example.justpoteito.models.Ingredient;
+import com.example.justpoteito.network.CooksRequest;
 import com.example.justpoteito.network.CuisineTypesRequest;
+import com.example.justpoteito.network.DishesByCuisineTypeRequest;
+import com.example.justpoteito.network.DishesRequest;
+import com.example.justpoteito.network.IngredientsRequest;
 import com.example.justpoteito.network.NetworkUtilities;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class ExplorerActivity extends AppCompatActivity {
     FragmentTransaction transaction;
-    Fragment exploreFragment, exploreByCuisineTypeFragment, exploreByDishFragment, exploreByIngredientFragment, exploreByCookFragment, exploreBySelectedDishFragment;
+    Fragment exploreFragment, exploreByCuisineTypeFragment, exploreByDishFragment, exploreByIngredientFragment, exploreByCookFragment, selectedDishFromCuisineTypeFragment;
     ArrayList<CuisineType> cuisineTypeList;
     ArrayList<Dish> dishList;
     ArrayList<Ingredient> ingredientList;
     ArrayList<Cook> cookList;
     ArrayList<Dish> selectedDishList;
     NetworkUtilities networkUtilities;
+    int idCuisineType;
 
     SharedPreferences sharedPreferences;
     @Override
@@ -59,7 +61,7 @@ public class ExplorerActivity extends AppCompatActivity {
         exploreByDishFragment = new ExploreByDishFragment();
         exploreByIngredientFragment = new ExploreByIngredientFragment();
         exploreByCookFragment = new ExploreByCookFragment();
-        exploreBySelectedDishFragment = new ExploreBySelectedDishFragment();
+        selectedDishFromCuisineTypeFragment = new SelectedDishFromCuisineTypeFragment();
 
         networkUtilities = new NetworkUtilities(ExplorerActivity.this);
 
@@ -113,10 +115,10 @@ public class ExplorerActivity extends AppCompatActivity {
                     public void run() { exploreByCookOnCreate(); }
                 }).commit();
                 break;
-            case "exploreBySelectedDishFragment":
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,exploreBySelectedDishFragment).runOnCommit(new Runnable() {
+            case "SelectedDishFromCuisineTypeFragment":
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedDishFromCuisineTypeFragment).runOnCommit(new Runnable() {
                     @Override
-                    public void run() { exploreBySelectedDishOnCreate(); }
+                    public void run() { selectedDishFromCuisineTypeOnCreate(); }
                 }).commit();
                 break;
             case "explorer":
@@ -145,10 +147,9 @@ public class ExplorerActivity extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     public void exploreByCuisineTypeOnCreate(){
         cuisineTypeList = new ArrayList<>();
-        System.out.println("Desde Explorer" + cuisineTypeList + "--------------------------------------------------------");
         cuisineTypeList = networkUtilities.makeRequest(new CuisineTypesRequest());
-                //networkUtilities.makeRequest(new CuisineTypesRequest());
-        /*
+
+/*
         cuisineTypeList.add(new CuisineType(
                 0,
                 "Chinesse",
@@ -193,12 +194,22 @@ public class ExplorerActivity extends AppCompatActivity {
 */
         ListView cuisineTypeListView = ((ListView) findViewById(R.id.cuisineTypeList));
         cuisineTypeListView.setAdapter(new TypeCuisineAdapter(this, R.layout.type_cuisine_row_layout, cuisineTypeList));
-
         cuisineTypeListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                System.out.println("prueba de boton --------------------");
-                setFragment("exploreBySelectedDishFragment");
+                idCuisineType = ((CuisineType) adapterView.getItemAtPosition(position)).getId();
+
+                System.out.println("Prueba boton -> " + position + " + " + l);
+                System.out.println("Prueba ID -> " + adapterView.getItemAtPosition(position).toString());
+                String datos = adapterView.getItemAtPosition(position).toString();
+                int posicion = datos.indexOf(",");
+                System.out.println("Posicion -> "+posicion);
+                datos = datos.substring(15, 19);
+                System.out.println(datos);
+                setFragment("SelectedDishFromCuisineTypeFragment");
+
+                System.out.println("AAAAAAAAAAAAAAAAAAA: " + ((CuisineType) adapterView.getItemAtPosition(position))
+                        .getId());
             }
         });
 
@@ -206,9 +217,9 @@ public class ExplorerActivity extends AppCompatActivity {
                 setFragment("exploreFragment"));
     }
     public void exploreByDishOnCreate(){
-        System.out.println("pruebaDish");
         dishList = new ArrayList<>();
-        dishList.add(new Dish(
+        dishList = networkUtilities.makeRequest(new DishesRequest());
+        /*dishList.add(new Dish(
                 0,
                 "Macarrones con tomate",
                 30
@@ -247,7 +258,7 @@ public class ExplorerActivity extends AppCompatActivity {
                 7,
                 "Entrecot a las finas hierbas",
                 25
-        ));
+        ));*/
         System.out.println(dishList.get(0).getName());
         ((ListView) findViewById(R.id.dish_list)).setAdapter(new DishAdapter(this, R.layout.dish_row_layout, dishList));
 
@@ -256,9 +267,9 @@ public class ExplorerActivity extends AppCompatActivity {
                 setFragment("exploreFragment"));
     }
     public void exploreByIngredientOnCreate(){
-        System.out.println("Porbando Ingredient");
         ingredientList = new ArrayList<>();
-        ingredientList.add(new Ingredient(
+        ingredientList = networkUtilities.makeRequest(new IngredientsRequest());
+        /*ingredientList.add(new Ingredient(
                 0,
                 "Tomate"
         ));
@@ -289,7 +300,7 @@ public class ExplorerActivity extends AppCompatActivity {
         ingredientList.add(new Ingredient(
                 7,
                 "Lechuga"
-        ));
+        ));*/
 
         ListView ingredientListView = ((ListView) findViewById(R.id.ingredient_list));
         ingredientListView.setAdapter(new IngredientAdapter(this, R.layout.ingredient_list_row_layout, ingredientList));
@@ -315,9 +326,9 @@ public class ExplorerActivity extends AppCompatActivity {
                 setFragment("exploreFragment"));
     }
     public void exploreByCookOnCreate(){
-        System.out.println("Explore by cook");
         cookList = new ArrayList<>();
-        cookList.add(new Cook(
+        cookList = networkUtilities.makeRequest(new CooksRequest());
+        /*cookList.add(new Cook(
                 0,
                 "Carlos Argiñano"
         ));
@@ -348,17 +359,17 @@ public class ExplorerActivity extends AppCompatActivity {
         cookList.add(new Cook(
                 7,
                 "Martín Berasategi"
-        ));
+        ));*/
 
         ((ListView) findViewById(R.id.cook_list)).setAdapter(new CookAdapter(this, R.layout.cook_row_layout, cookList));
         findViewById(R.id.back_button).setOnClickListener(view ->
                 setFragment("exploreFragment"));
     }
-    public void exploreBySelectedDishOnCreate(){
-
-        System.out.println("Probando selected dish");
+    public void selectedDishFromCuisineTypeOnCreate(){
         selectedDishList = new ArrayList<>();
-        selectedDishList.add(new Dish(
+        System.out.println("BEEBEE: " + idCuisineType);
+        selectedDishList = networkUtilities.makeRequest(new DishesByCuisineTypeRequest(idCuisineType));
+        /*selectedDishList.add(new Dish(
                 0,
                 "Macarrones con tomate",
                 30
@@ -397,7 +408,7 @@ public class ExplorerActivity extends AppCompatActivity {
                 7,
                 "Entrecot a las finas hierbas con salsa de setas",
                 25
-        ));
+        ));*/
         ((ListView) findViewById(R.id.selected_dish_list)).setAdapter(new SelectedDishAdapter(this, R.layout.selected_dish_row_layout, selectedDishList));
         findViewById(R.id.back_button).setOnClickListener(view ->
                 setFragment("exploreByCuisineTypeFragment"));
