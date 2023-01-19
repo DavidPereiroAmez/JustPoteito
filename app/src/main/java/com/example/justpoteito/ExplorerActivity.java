@@ -32,6 +32,7 @@ import com.example.justpoteito.models.Dish;
 import com.example.justpoteito.models.Ingredient;
 import com.example.justpoteito.network.CooksRequest;
 import com.example.justpoteito.network.CuisineTypesRequest;
+import com.example.justpoteito.network.DishesByCookRequest;
 import com.example.justpoteito.network.DishesByCuisineTypeRequest;
 import com.example.justpoteito.network.DishesRequest;
 import com.example.justpoteito.network.IngredientsRequest;
@@ -41,7 +42,13 @@ import java.util.ArrayList;
 
 public class ExplorerActivity extends AppCompatActivity {
     FragmentTransaction transaction;
-    Fragment exploreFragment, exploreByCuisineTypeFragment, exploreByDishFragment, exploreByIngredientFragment, exploreByCookFragment, selectedDishFromCuisineTypeFragment;
+    Fragment exploreFragment,
+             exploreByCuisineTypeFragment,
+             exploreByDishFragment,
+             exploreByIngredientFragment,
+             exploreByCookFragment,
+             selectedDishFromCuisineTypeFragment,
+             selectedDishFromCookFragment;
     ArrayList<CuisineType> cuisineTypeList;
     ArrayList<Dish> dishList;
     ArrayList<Ingredient> ingredientList;
@@ -49,6 +56,7 @@ public class ExplorerActivity extends AppCompatActivity {
     ArrayList<Dish> selectedDishList;
     NetworkUtilities networkUtilities;
     int idCuisineType;
+    int idCook;
 
     SharedPreferences sharedPreferences;
     @Override
@@ -119,6 +127,14 @@ public class ExplorerActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedDishFromCuisineTypeFragment).runOnCommit(new Runnable() {
                     @Override
                     public void run() { selectedDishFromCuisineTypeOnCreate(); }
+                }).commit();
+                break;
+            case "SelectedDishFromCookFragment":
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedDishFromCookFragment).runOnCommit(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println("Probando bando");
+                        selectedDishFromCookOnCreate(); }
                 }).commit();
                 break;
             case "explorer":
@@ -198,18 +214,8 @@ public class ExplorerActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 idCuisineType = ((CuisineType) adapterView.getItemAtPosition(position)).getId();
-
-                System.out.println("Prueba boton -> " + position + " + " + l);
-                System.out.println("Prueba ID -> " + adapterView.getItemAtPosition(position).toString());
-                String datos = adapterView.getItemAtPosition(position).toString();
-                int posicion = datos.indexOf(",");
-                System.out.println("Posicion -> "+posicion);
-                datos = datos.substring(15, 19);
-                System.out.println(datos);
                 setFragment("SelectedDishFromCuisineTypeFragment");
 
-                System.out.println("AAAAAAAAAAAAAAAAAAA: " + ((CuisineType) adapterView.getItemAtPosition(position))
-                        .getId());
             }
         });
 
@@ -361,13 +367,23 @@ public class ExplorerActivity extends AppCompatActivity {
                 "Martín Berasategi"
         ));*/
 
+        ListView cookListView = ((ListView) findViewById(R.id.cook_list));
+        cookListView.setAdapter(new CookAdapter(this, R.layout.cook_row_layout, cookList));
+
+        cookListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                idCook = ((Cook) adapterView.getItemAtPosition(position)).getId();
+                setFragment("SelectedDishFromCookFragment");
+            }
+        });
+
         ((ListView) findViewById(R.id.cook_list)).setAdapter(new CookAdapter(this, R.layout.cook_row_layout, cookList));
         findViewById(R.id.back_button).setOnClickListener(view ->
                 setFragment("exploreFragment"));
     }
     public void selectedDishFromCuisineTypeOnCreate(){
         selectedDishList = new ArrayList<>();
-        System.out.println("BEEBEE: " + idCuisineType);
         selectedDishList = networkUtilities.makeRequest(new DishesByCuisineTypeRequest(idCuisineType));
         /*selectedDishList.add(new Dish(
                 0,
@@ -412,6 +428,12 @@ public class ExplorerActivity extends AppCompatActivity {
         ((ListView) findViewById(R.id.selected_dish_list)).setAdapter(new SelectedDishAdapter(this, R.layout.selected_dish_row_layout, selectedDishList));
         findViewById(R.id.back_button).setOnClickListener(view ->
                 setFragment("exploreByCuisineTypeFragment"));
+    }
+    public void selectedDishFromCookOnCreate(){
+        selectedDishList = new ArrayList<>();
+        System.out.println("IdCook------------------------------------"+idCook);
+        selectedDishList = networkUtilities.makeRequest(new DishesByCookRequest(idCook));
+        ((ListView) findViewById(R.id.selected_dish_list)).setAdapter(new SelectedDishAdapter(this, R.layout.selected_dish_row_layout, selectedDishList));
     }
 
 }
