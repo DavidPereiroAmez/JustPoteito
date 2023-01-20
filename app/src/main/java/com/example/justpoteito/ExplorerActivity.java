@@ -24,6 +24,7 @@ import com.example.justpoteito.fragments.ExploreByCookFragment;
 import com.example.justpoteito.fragments.ExploreByCuisineTypeFragment;
 import com.example.justpoteito.fragments.ExploreByDishFragment;
 import com.example.justpoteito.fragments.ExploreByIngredientFragment;
+import com.example.justpoteito.fragments.SelectedDishFromCookFragment;
 import com.example.justpoteito.fragments.SelectedDishFromCuisineTypeFragment;
 import com.example.justpoteito.fragments.ExploreFragment;
 import com.example.justpoteito.models.Cook;
@@ -70,6 +71,7 @@ public class ExplorerActivity extends AppCompatActivity {
         exploreByIngredientFragment = new ExploreByIngredientFragment();
         exploreByCookFragment = new ExploreByCookFragment();
         selectedDishFromCuisineTypeFragment = new SelectedDishFromCuisineTypeFragment();
+        selectedDishFromCookFragment = new SelectedDishFromCookFragment();
 
         networkUtilities = new NetworkUtilities(ExplorerActivity.this);
 
@@ -374,6 +376,7 @@ public class ExplorerActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 idCook = ((Cook) adapterView.getItemAtPosition(position)).getId();
+                System.out.println("Pruebaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                 setFragment("SelectedDishFromCookFragment");
             }
         });
