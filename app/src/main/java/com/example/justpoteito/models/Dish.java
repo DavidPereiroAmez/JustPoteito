@@ -22,6 +22,12 @@ public class Dish implements Serializable {
         this.alergens = alergens;
     }
 
+    public Dish(int id, String name, String subtype) {
+        this.id = id;
+        this.name = name;
+        this.subtype = subtype;
+    }
+
     public Dish(int id, String name, int prepTime) {
         this.id = id;
         this.name = name;

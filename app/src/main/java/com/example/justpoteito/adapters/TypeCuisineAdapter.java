@@ -37,8 +37,9 @@ public class TypeCuisineAdapter extends ArrayAdapter<CuisineType> {
         View view = layoutInflater.inflate(R.layout.type_cuisine_row_layout, null);
 
         //((ImageView) view.findViewById(R.id.cuisine_type_row_imageView)).setImageURI(cuisineTypeList.get(position).getImage() + "");
-        ((TextView) view.findViewById(R.id.cuisine_type_row_textView)).setText(cuisineTypeList.get(position).getName() + "");
-
+        ((TextView) view.findViewById(R.id.cuisine_type_row_name)).setText(cuisineTypeList.get(position).getName() + "");
+        ((TextView) view.findViewById(R.id.cuisineTypeIdTextView)).setText(cuisineTypeList.get(position).getId() + "");
+        System.out.println("Prueba desde el adapter -> " + ((TextView) view.findViewById(R.id.cuisineTypeIdTextView)).getText());
         return view;
     }
 }

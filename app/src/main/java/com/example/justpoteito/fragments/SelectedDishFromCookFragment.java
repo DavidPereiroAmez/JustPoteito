@@ -12,10 +12,10 @@ import com.example.justpoteito.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ExploreBySelectedDishFragment#newInstance} factory method to
+ * Use the {@link SelectedDishFromCookFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ExploreBySelectedDishFragment extends Fragment {
+public class SelectedDishFromCookFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class ExploreBySelectedDishFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ExploreBySelectedDishFragment() {
+    public SelectedDishFromCookFragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class ExploreBySelectedDishFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ExploreBySelectedDishFragment.
+     * @return A new instance of fragment SelectedDishFromCookFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ExploreBySelectedDishFragment newInstance(String param1, String param2) {
-        ExploreBySelectedDishFragment fragment = new ExploreBySelectedDishFragment();
+    public static SelectedDishFromCookFragment newInstance(String param1, String param2) {
+        SelectedDishFromCookFragment fragment = new SelectedDishFromCookFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class ExploreBySelectedDishFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_explore_by_selected_dish, container, false);
+        return inflater.inflate(R.layout.fragment_selected_dish_from_cook, container, false);
     }
 }
