@@ -98,11 +98,10 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_change_pass"
         android:layout_width="200dp"
         android:layout_height="53dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="76dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@color/cream"
         android:fontFamily="casual"
         android:text="@string/title_resetPassword"
@@ -112,8 +111,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintVertical_bias="0.216"
         tools:ignore="TextContrastCheck" />
 
     <ImageView
@@ -151,5 +152,22 @@
         app:layout_constraintVertical_bias="0.811"
         app:srcCompat="@android:drawable/ic_menu_edit"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/bnt_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-50dp"
+        android:backgroundTint="@color/cream"
+        android:fontFamily="casual"
+        android:text="@string/delete_button"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_change_pass" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

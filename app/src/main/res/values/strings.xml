@@ -6,6 +6,7 @@
     <string name="password">password</string>
     <string name="forgot_password">forgot password?</string>
     <string name="signup_button">SIGNUP</string>
+    <string name="delete_button">Delete user</string>
     <string name="login_button">Login</string>
     <string name="title_register">Register</string>
     <string name="please_signup">Please Sign Up</string>
