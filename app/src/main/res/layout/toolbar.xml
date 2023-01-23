@@ -16,14 +16,13 @@
             android:layout_height="23dp"
             app:srcCompat="@drawable/pngfind_com_arrow_sign_png_2470624">
         </ImageView>
-
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="47dp"
-            android:layout_height="40dp"
+            android:layout_width="32dp"
+            android:layout_height="25dp"
             android:layout_marginStart="1dp"
-            android:layout_toEndOf="@+id/back_button"
-            android:src="@drawable/pngwing_com"
+            android:layout_toEndOf="@+id/imageView"
+            android:src="@drawable/logojp"
             android:textAlignment="center">
         </ImageView>
 
