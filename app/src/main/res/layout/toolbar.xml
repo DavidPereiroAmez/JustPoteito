@@ -21,7 +21,7 @@
             android:layout_width="32dp"
             android:layout_height="25dp"
             android:layout_marginStart="1dp"
-            android:layout_toEndOf="@+id/imageView"
+            android:layout_toEndOf="@+id/back_button"
             android:src="@drawable/logojp"
             android:textAlignment="center">
         </ImageView>
