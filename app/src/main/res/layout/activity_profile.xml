@@ -153,14 +153,14 @@
         app:srcCompat="@android:drawable/ic_menu_edit"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-    <!--    <Button
+        <Button
         android:id="@+id/bnt_deleteUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="-10dp"
         android:backgroundTint="@color/cream"
         android:fontFamily="casual"
-        android:text="@string/delete_button"
+        android:text="@string/deleteUser_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="#000000"
         android:textSize="16sp"
@@ -169,22 +169,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_change_pass" />
-        -->
-
-    <TextView
-        android:id="@+id/deleteUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:text="@string/deleteUser"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.896" />
 
     <TextView
         android:id="@+id/userIdTextView"

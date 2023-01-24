@@ -15,8 +15,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     User user;
 
     //TextView id;
-    TextView profile, name, surname, username, email, deleteUser;
-    Button btn_changePass;
+    TextView profile, name, surname, username, email;
+    Button btn_changePass, btn_deleteUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +34,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         surname = findViewById(R.id.surname);
         username = findViewById(R.id.username);
         email = findViewById(R.id.email);
-        deleteUser = findViewById(R.id.deleteUser);
 
+        btn_deleteUser = findViewById(R.id.bnt_deleteUser);
         btn_changePass = findViewById(R.id.btn_change_pass);
 
     }
