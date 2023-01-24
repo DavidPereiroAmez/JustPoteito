@@ -4,7 +4,7 @@ public class UserResponse {
 
     private boolean access;
     private String message;
-    private String username;
+    private String email;
     private int id;
 
     public UserResponse() {
@@ -18,7 +18,7 @@ public class UserResponse {
     public UserResponse(boolean hasAccess, String message, String username, int id) {
         this.access = hasAccess;
         this.message = message;
-        this.username = username;
+        this.email = username;
         this.id = id;
     }
 
@@ -38,12 +38,12 @@ public class UserResponse {
         this.message = message;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getId() {
@@ -59,7 +59,7 @@ public class UserResponse {
         return "UserResponse{" +
                 "hasAccess=" + access +
                 ", message='" + message + '\'' +
-                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
                 ", id=" + id +
                 '}';
     }

@@ -3,6 +3,7 @@ package com.example.justpoteito.network;
 import android.content.Context;
 import android.content.res.Resources;
 
+import com.example.justpoteito.R;
 import com.example.justpoteito.models.UserResponse;
 
 import java.io.BufferedReader;
@@ -16,7 +17,7 @@ import java.net.URL;
 
 public class LoginRequest extends NetConfiguration implements Runnable {
 
-    private final String theUrl = theBaseUrl + "/loginNoToken";
+    private final String theUrl = theBaseUrl + "/loginnotoken";
     public UserResponse response;
     public static Resources res;
     String userDataJson;
@@ -68,21 +69,18 @@ public class LoginRequest extends NetConfiguration implements Runnable {
 
 
                 this.response.setAccess(true);
-                //this.response.setMessage(res.getString(R.string.welcome)+ " " + username);
-                this.response.setUsername(username);
+                this.response.setMessage(res.getString(R.string.welcome)+ " " + username);
+                this.response.setEmail(username);
                 this.response.setId(Integer.parseInt(id));
             } else {
                 response.setAccess(false);
-                //response.setMessage(res.getString(R.string.request_error));
+                response.setMessage(res.getString(R.string.request_error));
             }
-
         } catch (MalformedURLException | ProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } /*catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }*/
+        }
     }
 
     public UserResponse getResponse(){

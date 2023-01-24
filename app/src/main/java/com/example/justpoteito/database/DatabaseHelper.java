@@ -40,11 +40,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean createUser(String username, String password) {
+    public boolean createUser(String email, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put("username", username);
+        contentValues.put("email", email);
         contentValues.put("password", password);
 
         db.insert(TABLE_NAME, null, contentValues);
@@ -59,7 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         User user = new User ();
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
-            user.setUsername(cursor.getString(cursor.getColumnIndex("username")));
+            user.setEmail(cursor.getString(cursor.getColumnIndex("email")));
             user.setPassword(cursor.getString(cursor.getColumnIndex("password")));
             cursor.close();
         } else {
@@ -77,7 +77,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         User user = new User ();
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
-            user.setUsername(cursor.getString(cursor.getColumnIndex("username")));
+            user.setEmail(cursor.getString(cursor.getColumnIndex("username")));
             user.setPassword(cursor.getString(cursor.getColumnIndex("password")));
             cursor.close();
         } else {

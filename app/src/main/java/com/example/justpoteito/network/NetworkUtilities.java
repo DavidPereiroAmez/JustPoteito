@@ -11,6 +11,7 @@ import com.example.justpoteito.models.Cook;
 import com.example.justpoteito.models.CuisineType;
 import com.example.justpoteito.models.Dish;
 import com.example.justpoteito.models.Ingredient;
+import com.example.justpoteito.models.UserResponse;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,45 @@ public class NetworkUtilities {
     public NetworkUtilities(Context context, Resources res) {
         this.context = context;
         this.res = res;
+    }
+
+    public UserResponse makeRequest(CreateUserRequest createUserRequest) {
+
+        if (isConnected()) {
+
+            Thread thread = new Thread(createUserRequest);
+            try {
+                thread.start();
+                thread.join(); // Awaiting response from the server...
+            } catch (InterruptedException e) {
+                // Nothing to do here...
+            }
+            // Processing the answer
+            UserResponse response = createUserRequest.getResponse();
+
+            return response;
+
+
+        } else
+            return new UserResponse(false, res.getString(R.string.error_communication));
+    }
+
+    public UserResponse makeRequest(LoginRequest loginRequest) {
+        if (isConnected()) {
+
+            Thread thread = new Thread(loginRequest);
+            try {
+                thread.start();
+                thread.join(); // Awaiting response from the server...
+            } catch (InterruptedException e) {
+                // Nothing to do here...
+            }
+            // Processing the answer
+            UserResponse response = loginRequest.getResponse();
+
+            return response;
+        } else
+            return new UserResponse(false, res.getString(R.string.error_communication));
     }
 
     public ArrayList<CuisineType> makeRequest(CuisineTypesRequest cuisineTypesRequest) {
@@ -65,6 +105,7 @@ public class NetworkUtilities {
         } else
             return new ArrayList<>();
     }
+
     public ArrayList<Cook> makeRequest(CooksRequest cookRequest) {
 
         if (isConnected()) {
@@ -82,6 +123,7 @@ public class NetworkUtilities {
         } else
             return new ArrayList<>();
     }
+
     public ArrayList<Ingredient> makeRequest(IngredientsRequest ingredientsRequest) {
 
         if (isConnected()) {
@@ -99,6 +141,7 @@ public class NetworkUtilities {
         } else
             return new ArrayList<>();
     }
+
     public ArrayList<Dish> makeRequest(DishesByCuisineTypeRequest dishesByCuisineTypeRequest) {
 
         if (isConnected()) {
@@ -116,10 +159,10 @@ public class NetworkUtilities {
         } else
             return new ArrayList<>();
     }
+
     public ArrayList<Dish> makeRequest(DishesByCookRequest dishesByCookRequest) {
 
         if (isConnected()) {
-
             Thread thread = new Thread(dishesByCookRequest);
             try {
                 thread.start();
