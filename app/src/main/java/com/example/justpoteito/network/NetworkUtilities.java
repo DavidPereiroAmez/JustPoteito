@@ -11,6 +11,7 @@ import com.example.justpoteito.models.Cook;
 import com.example.justpoteito.models.CuisineType;
 import com.example.justpoteito.models.Dish;
 import com.example.justpoteito.models.Ingredient;
+import com.example.justpoteito.models.User;
 
 import java.util.ArrayList;
 
@@ -132,6 +133,24 @@ public class NetworkUtilities {
             return listDish;
         } else
             return new ArrayList<>();
+    }
+
+    public User makeRequest(UserRequest userRequest) {
+
+        if (isConnected()) {
+
+            Thread thread = new Thread(userRequest);
+            try {
+                thread.start();
+                thread.join(); // Awaiting response from the server...
+            } catch (InterruptedException e) {
+                // Nothing to do here...
+            }
+            // Processing the answer
+            User user = userRequest.getResponse();
+            return user;
+        } else
+            return new User();
     }
 
     public boolean isConnected() {
