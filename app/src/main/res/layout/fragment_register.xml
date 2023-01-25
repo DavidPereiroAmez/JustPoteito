@@ -75,7 +75,7 @@
         tools:ignore="TouchTargetSizeCheck" />
 
     <EditText
-        android:id="@+id/editText_username2"
+        android:id="@+id/editText_username"
         android:layout_width="258sp"
         android:layout_height="38sp"
         android:ems="10"

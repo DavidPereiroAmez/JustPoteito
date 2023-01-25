@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
-    //TODO ZOOM IN, FADE IN,
     ImageView logo;
     TextView nameApp;
     CharSequence charSequence;
@@ -45,7 +44,6 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
         }, 4000);
-
     }
 
     Runnable runnable = new Runnable() {
@@ -68,5 +66,4 @@ public class SplashActivity extends AppCompatActivity {
       handler.removeCallbacks(runnable);
       handler.postDelayed(runnable, delay);
     }
-
 }
