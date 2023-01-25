@@ -41,7 +41,6 @@ public class CreateUserRequest extends NetConfiguration implements Runnable {
 
             int responseCode = httpURLConnection.getResponseCode();
 
-
             this.response = new UserResponse();
 
             if (responseCode == 432) {

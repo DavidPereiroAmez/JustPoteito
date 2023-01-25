@@ -32,9 +32,9 @@ public class LoginRequest extends NetConfiguration implements Runnable {
     public void run() {
 
         try {
-            URL url = new URL( theUrl);
+            URL url = new URL(theUrl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod( "POST" );
+            httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setRequestProperty("Content-Type", "application/json");
             httpURLConnection.setDoOutput(true);
 

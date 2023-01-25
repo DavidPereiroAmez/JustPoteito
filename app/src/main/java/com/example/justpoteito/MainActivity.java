@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        transaction = getSupportFragmentManager().beginTransaction();
         loginFragment = new LoginFragment();
         registerFragment = new RegisterFragment();
         forgotPasswordFragment = new ForgotPasswordFragment();
@@ -42,19 +43,27 @@ public class MainActivity extends AppCompatActivity {
         switch (fragment) {
             case "registerFragment":
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, registerFragment).runOnCommit(() -> registerOnCreate()).commit();
+                transaction.addToBackStack(null);
                 break;
 
             case "loginFragment":
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,loginFragment).runOnCommit(() -> loginOnCreate()).commit();
+                transaction.addToBackStack(null);
                 break;
 
             case "forgotPasswordFragment":
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,forgotPasswordFragment).runOnCommit(() -> forgotPasswordOnCreate()).commit();
+                transaction.addToBackStack(null);
                 break;
 
             default:
-                //nothing de nothing de momento
+                showErrorInForm();
+                break;
         }
+    }
+
+    public void showErrorInForm() {
+        new Toast(this).makeText(this, (R.string.request_error), Toast.LENGTH_LONG).show();
     }
 
     public void registerOnCreate(){
@@ -75,15 +84,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void forgotPasswordOnCreate(){
-        findViewById(R.id.forgotPassword_send_button).setOnClickListener(view -> {
-        });
-
-        findViewById(R.id.login_forgot_password).setOnClickListener(view -> {
-            setFragment("loginFragment");
-        });
-    }
-
     public void loginOnCreate() {
         findViewById(R.id.signup_button).setOnClickListener(view -> {
             setFragment("registerFragment");
@@ -99,25 +99,25 @@ public class MainActivity extends AppCompatActivity {
 
         if (!databaseHelper.isEmpty()) {
             User user = databaseHelper.getAllUsers();
-            ((EditText)findViewById(R.id.editText_username)).setText(user.getEmail());
+            ((EditText)findViewById(R.id.editText_email_login)).setText(user.getEmail());
             ((EditText)findViewById(R.id.editText_password)).setText(user.getPassword());
         }
 
         findViewById(R.id.login_button).setOnClickListener(view -> {
             Intent intent = new Intent(this, ExplorerActivity.class);
 
-            String email = ((EditText)findViewById(R.id.editText_username)).getText().toString();
+            String email = ((EditText)findViewById(R.id.editText_email_login)).getText().toString();
             String password = ((EditText)findViewById(R.id.editText_password)).getText().toString();
 
             if (checkRemember.isChecked()) {
                 if ((!databaseHelper.isEmpty() && databaseHelper.deleteUser() == 1) || databaseHelper.isEmpty()) {
                     if (databaseHelper.createUser(email, password)) {
-                        Toast.makeText(this, email + " created.", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(this, email + " created.", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
 
-            if (signInFormIsValid()) {
+            if (loginFormIsValid()) {
 
                 UserResponse loginResponse = new NetworkUtilities(this).makeRequest(new LoginRequest(generateLoginJson(), this));
 
@@ -135,37 +135,31 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-        /*findViewById(R.id.login_button).setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, ExplorerActivity.class);
-            //intent.putExtra("fragment", "register");
-            //setContentView(R.layout.recipe);
-            startActivity(intent);
-        });*/
     }
 
-    private boolean signInFormIsValid() {
-        boolean isValid = true;
+    public void forgotPasswordOnCreate(){
+        findViewById(R.id.forgotPassword_send_button).setOnClickListener(view -> {
+            // TODO: Cosa de Forgot Password
+        });
 
-        if (!editTextIsValid(findViewById(R.id.editText_username), 5, false)) isValid = false;
-        if (!editTextIsValid(findViewById(R.id.editText_password), 5, false)) isValid = false;
-
-        return isValid;
+        findViewById(R.id.login_forgot_password).setOnClickListener(view -> {
+            setFragment("loginFragment");
+        });
     }
 
     private boolean registerFormIsValid() {
         boolean isValid = true;
 
-        EditText password = ((EditText)findViewById(R.id.editText_password));
+        // EditText password = ((EditText)findViewById(R.id.editText_password));
         // TODO: Confirm password?
         // EditText confirmPassword = ((EditText)findViewById(R.id.editText_password));
 
-        if (!editTextIsValid(findViewById(R.id.editText_username2), 5, false)) isValid = false;
         if (!editTextIsValid(findViewById(R.id.editText_firstName), 1, false)) isValid = false;
-        if (!editTextIsValid(findViewById(R.id.editText_email), 5, true)) isValid = false;
-        //if (!editTextIsValid(findViewById(R.id.confirmPasswordTextViewRegister), 5, false)) isValid = false;
-        if (!editTextIsValid(findViewById(R.id.editText_password), 5, false)) isValid = false;
         if (!editTextIsValid(findViewById(R.id.editText_lastNames), 1, false)) isValid = false;
+        if (!editTextIsValid(findViewById(R.id.editText_username), 5, false)) isValid = false;
+        if (!editTextIsValid(findViewById(R.id.editText_email), 5, true)) isValid = false;
+        if (!editTextIsValid(findViewById(R.id.editText_password_register), 5, false)) isValid = false;
+        //if (!editTextIsValid(findViewById(R.id.confirmPasswordTextViewRegister), 5, false)) isValid = false;
 
         /*if (!password.getText().toString().equals(confirmPassword.getText().toString())) {
             password.setError(getString(R.string.passwords_do_not_match));
@@ -176,25 +170,14 @@ public class MainActivity extends AppCompatActivity {
         return isValid;
     }
 
-    /*private boolean changePasswordFormIsValid() {
+    private boolean loginFormIsValid() {
         boolean isValid = true;
 
-        EditText password = ((EditText)findViewById(R.id.newPasswordTextViewReset));
-        EditText confirmPassword = ((EditText)findViewById(R.id.confirmNewPasswordTextViewReset));
-
-        if (!editTextIsValid(findViewById(R.id.usernameEditTextChangePass), 5, false)) isValid = false;
-        if (!editTextIsValid(findViewById(R.id.oldPasswordTextViewReset), 5, false)) isValid = false;
-        if (!editTextIsValid(password, 5, false)) isValid = false;
-        if (!editTextIsValid(confirmPassword, 5, false)) isValid = false;
-
-        if (!password.getText().toString().equals(confirmPassword.getText().toString())) {
-            password.setError(getString(R.string.passwords_do_not_match));
-            confirmPassword.setError(getString(R.string.passwords_do_not_match));
-            isValid = false;
-        }
+        if (!editTextIsValid(findViewById(R.id.editText_email_login), 5, false)) isValid = false;
+        if (!editTextIsValid(findViewById(R.id.editText_password), 5, false)) isValid = false;
 
         return isValid;
-    }*/
+    }
 
     public boolean editTextIsValid(EditText editText, int minimumLength, boolean isEmail) {
         String text = editText.getText().toString().trim();
@@ -222,18 +205,55 @@ public class MainActivity extends AppCompatActivity {
         return  "{" +
                 "\"name\": \"" + ((EditText) findViewById(R.id.editText_firstName)).getText().toString() + "\"," +
                 "\"surnames\": \"" + ((EditText) findViewById(R.id.editText_lastNames)).getText().toString() + "\"," +
-                "\"userName\": \"" + ((EditText) findViewById(R.id.editText_username2)).getText().toString() + "\"," +
+                "\"userName\": \"" + ((EditText) findViewById(R.id.editText_username)).getText().toString() + "\"," +
                 "\"email\": \"" + ((EditText) findViewById(R.id.editText_email)).getText().toString() + "\"," +
-                "\"password\": \"" + ((EditText) findViewById(R.id.editText_password)).getText().toString() + "\"" +
+                "\"password\": \"" + ((EditText) findViewById(R.id.editText_password_register)).getText().toString() + "\"" +
                 "}";
     }
 
     private String generateLoginJson() {
         return  "{" +
-                "\"email\": \"" + ((EditText) findViewById(R.id.editText_username)).getText().toString() + "\"," +
+                "\"email\": \"" + ((EditText) findViewById(R.id.editText_email_login)).getText().toString() + "\"," +
                 "\"password\": \"" + ((EditText) findViewById(R.id.editText_password)).getText().toString() + "\"" +
                 "}";
     }
+
+    /*private void changePassword_onCreate() {
+        findViewById(R.id.userFormBack).setOnClickListener(v -> {
+            setFragmentLayout("sign_in");
+        });
+
+        (findViewById(R.id.resetButton)).setOnClickListener(v -> {
+            if (changePasswordFormIsValid()){
+                RequestResponse response = new NetworkUtilites(this).makeRequest(new ChangePasswordRequest(generateChangePasswordJson(), this));
+                Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
+
+                if (response.isAccess()) {
+                    setFragmentLayout("sign_in");
+                }
+            }
+        });
+    }*/
+
+    /*private boolean changePasswordFormIsValid() {
+        boolean isValid = true;
+
+        EditText password = ((EditText)findViewById(R.id.newPasswordTextViewReset));
+        EditText confirmPassword = ((EditText)findViewById(R.id.confirmNewPasswordTextViewReset));
+
+        if (!editTextIsValid(findViewById(R.id.usernameEditTextChangePass), 5, false)) isValid = false;
+        if (!editTextIsValid(findViewById(R.id.oldPasswordTextViewReset), 5, false)) isValid = false;
+        if (!editTextIsValid(password, 5, false)) isValid = false;
+        if (!editTextIsValid(confirmPassword, 5, false)) isValid = false;
+
+        if (!password.getText().toString().equals(confirmPassword.getText().toString())) {
+            password.setError(getString(R.string.passwords_do_not_match));
+            confirmPassword.setError(getString(R.string.passwords_do_not_match));
+            isValid = false;
+        }
+
+        return isValid;
+    }*/
 
     /*private String generateChangePasswordJson() {
         return  "{" +
