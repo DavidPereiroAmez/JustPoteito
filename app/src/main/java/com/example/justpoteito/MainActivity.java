@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt("user_id", loginResponse.getId());
-                    editor.putString("email", loginResponse.getEmail());
+                    editor.putString("username", loginResponse.getUsername());
                     editor.commit();
 
                     Toast.makeText(this, loginResponse.getMessage(), Toast.LENGTH_SHORT).show();

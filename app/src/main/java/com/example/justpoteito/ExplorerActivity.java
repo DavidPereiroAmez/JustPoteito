@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.example.justpoteito.adapters.CookAdapter;
 import com.example.justpoteito.adapters.DishAdapter;
@@ -89,6 +90,7 @@ public class ExplorerActivity extends AppCompatActivity {
         setFragment("exploreFragment");
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
     }
 
     public void setFragment(String fragment) {
@@ -161,6 +163,9 @@ public class ExplorerActivity extends AppCompatActivity {
     }
 
     public void exploreOnCreate() {
+        TextView hiTextView = findViewById(R.id.textView12);
+        hiTextView.setText(sharedPreferences.getString("username", ""));
+
         findViewById(R.id.explore_by_cuisine_button).setOnClickListener(view ->
                 setFragment("exploreByCuisineTypeFragment"));
         findViewById(R.id.explore_by_dish_button).setOnClickListener(view ->

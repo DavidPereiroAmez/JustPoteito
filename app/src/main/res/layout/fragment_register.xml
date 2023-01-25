@@ -248,7 +248,7 @@
         android:layout_height="38sp"
         android:ems="10"
         android:fontFamily="casual"
-        android:hint="@string/email"
+        android:hint="@string/username"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:textColor="#FFFFFF"

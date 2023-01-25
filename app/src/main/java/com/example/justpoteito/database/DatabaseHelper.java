@@ -77,7 +77,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         User user = new User ();
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
-            user.setEmail(cursor.getString(cursor.getColumnIndex("username")));
+            user.setUsername(cursor.getString(cursor.getColumnIndex("username")));
             user.setPassword(cursor.getString(cursor.getColumnIndex("password")));
             cursor.close();
         } else {

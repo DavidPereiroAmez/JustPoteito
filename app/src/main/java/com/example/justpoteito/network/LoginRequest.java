@@ -70,7 +70,7 @@ public class LoginRequest extends NetConfiguration implements Runnable {
 
                 this.response.setAccess(true);
                 this.response.setMessage(res.getString(R.string.welcome)+ " " + username);
-                this.response.setEmail(username);
+                this.response.setUsername(username);
                 this.response.setId(Integer.parseInt(id));
             } else {
                 response.setAccess(false);
