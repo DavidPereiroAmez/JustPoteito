@@ -27,6 +27,7 @@ import com.example.justpoteito.fragments.ExploreByIngredientFragment;
 import com.example.justpoteito.fragments.SelectedDishFromCookFragment;
 import com.example.justpoteito.fragments.SelectedDishFromCuisineTypeFragment;
 import com.example.justpoteito.fragments.ExploreFragment;
+import com.example.justpoteito.fragments.SelectedDishFromIngredientFragment;
 import com.example.justpoteito.models.Cook;
 import com.example.justpoteito.models.CuisineType;
 import com.example.justpoteito.models.Dish;
@@ -35,11 +36,13 @@ import com.example.justpoteito.network.CooksRequest;
 import com.example.justpoteito.network.CuisineTypesRequest;
 import com.example.justpoteito.network.DishesByCookRequest;
 import com.example.justpoteito.network.DishesByCuisineTypeRequest;
+import com.example.justpoteito.network.DishesByIngredientRequest;
 import com.example.justpoteito.network.DishesRequest;
 import com.example.justpoteito.network.IngredientsRequest;
 import com.example.justpoteito.network.NetworkUtilities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ExplorerActivity extends AppCompatActivity {
 
@@ -51,14 +54,15 @@ public class ExplorerActivity extends AppCompatActivity {
              exploreByIngredientFragment,
              exploreByCookFragment,
              selectedDishFromCuisineTypeFragment,
-             selectedDishFromCookFragment;
+             selectedDishFromCookFragment,
+             selectedDishFromIngredientFragment;
 
     ArrayList<CuisineType> cuisineTypeList;
     ArrayList<Dish> dishList;
     ArrayList<Ingredient> ingredientList;
     ArrayList<Cook> cookList;
     ArrayList<Dish> selectedDishList;
-
+    String ingredientIds;
     NetworkUtilities networkUtilities;
 
     int idCuisineType;
@@ -78,6 +82,7 @@ public class ExplorerActivity extends AppCompatActivity {
         exploreByCookFragment = new ExploreByCookFragment();
         selectedDishFromCuisineTypeFragment = new SelectedDishFromCuisineTypeFragment();
         selectedDishFromCookFragment = new SelectedDishFromCookFragment();
+        selectedDishFromIngredientFragment = new SelectedDishFromIngredientFragment();
 
         networkUtilities = new NetworkUtilities(ExplorerActivity.this);
 
@@ -136,8 +141,15 @@ public class ExplorerActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedDishFromCookFragment).runOnCommit(new Runnable() {
                     @Override
                     public void run() {
-                        System.out.println("Probando bando");
                         selectedDishFromCookOnCreate(); }
+                }).commit();
+                break;
+
+            case "SelectedDishFromIngredientFragment":
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedDishFromIngredientFragment).runOnCommit(new Runnable() {
+                    @Override
+                    public void run() {
+                        selectedDishFromIngredientOnCreate(); }
                 }).commit();
                 break;
 
@@ -200,28 +212,21 @@ public class ExplorerActivity extends AppCompatActivity {
 
     public void exploreByIngredientOnCreate(){
         ingredientList = new ArrayList<>();
+        TextView targetView;
+        TextView ingredientIdsTextView;
         ingredientList = networkUtilities.makeRequest(new IngredientsRequest());
 
         ListView ingredientListView = ((ListView) findViewById(R.id.ingredient_list));
-        ingredientListView.setAdapter(new IngredientAdapter(this, R.layout.ingredient_list_row_layout, ingredientList));
-        System.out.println(ingredientList);
+        targetView = findViewById(R.id.ingredient_table);
+        ingredientIdsTextView = findViewById(R.id.ingredientIdListTextView);
+        ingredientListView.setAdapter(new IngredientAdapter(ExplorerActivity.this, R.layout.ingredient_list_row_layout, ingredientList, targetView, ingredientIdsTextView));
 
-        ingredientListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-
-                String ingredient_name = ((TextView) adapterView.getChildAt(position).findViewById(R.id.ingredient_name)).getText().toString();
-                String ingredient_table_text = ((TextView) findViewById(R.id.ingredient_table)).getText().toString();
-
-                if (ingredient_table_text.equals("")) {
-                    ((TextView) findViewById(R.id.ingredient_table)).setText(ingredient_name);
-                } else if (ingredient_table_text.contains(ingredient_name)){
-
-                } else {
-                    ((TextView) findViewById(R.id.ingredient_table)).setText(ingredient_table_text + ", " + ingredient_name);
-                }
-            }
-        });
+        findViewById(R.id.expore_by_ingredient_search_button).setOnClickListener(view -> {
+                ingredientIds = ingredientIdsTextView.getText().toString();
+                ingredientIds.substring(0, ingredientIds.length() - 1);
+                System.out.println(ingredientIds);
+                setFragment("SelectedDishFromIngredientFragment");
+            });
 
         findViewById(R.id.back_button).setOnClickListener(view ->
                 setFragment("exploreFragment"));
@@ -238,7 +243,6 @@ public class ExplorerActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 idCook = ((Cook) adapterView.getItemAtPosition(position)).getId();
-                System.out.println("Pruebaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                 setFragment("SelectedDishFromCookFragment");
             }
         });
@@ -259,8 +263,14 @@ public class ExplorerActivity extends AppCompatActivity {
 
     public void selectedDishFromCookOnCreate(){
         selectedDishList = new ArrayList<>();
-        System.out.println("IdCook------------------------------------"+idCook);
         selectedDishList = networkUtilities.makeRequest(new DishesByCookRequest(idCook));
         ((ListView) findViewById(R.id.selected_dish_list)).setAdapter(new SelectedDishAdapter(this, R.layout.selected_dish_row_layout, selectedDishList));
     }
+
+    public void selectedDishFromIngredientOnCreate(){
+        selectedDishList = new ArrayList<>();
+        selectedDishList = networkUtilities.makeRequest(new DishesByIngredientRequest(ingredientIds));
+        ((ListView) findViewById(R.id.selected_dish_list)).setAdapter(new SelectedDishAdapter(this, R.layout.selected_dish_row_layout, selectedDishList));
+    }
+
 }
