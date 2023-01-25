@@ -31,11 +31,11 @@ public class NetworkUtilities {
         this.res = res;
     }
 
-    public UserResponse makeRequest(CreateUserRequest createUserRequest) {
+    public UserResponse makeRequest(SignUpRequest signUpRequest) {
 
         if (isConnected()) {
 
-            Thread thread = new Thread(createUserRequest);
+            Thread thread = new Thread(signUpRequest);
             try {
                 thread.start();
                 thread.join(); // Awaiting response from the server...
@@ -43,7 +43,7 @@ public class NetworkUtilities {
                 // Nothing to do here...
             }
             // Processing the answer
-            UserResponse response = createUserRequest.getResponse();
+            UserResponse response = signUpRequest.getResponse();
 
             return response;
 
