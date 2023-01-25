@@ -133,6 +133,23 @@ public class NetworkUtilities {
         } else
             return new ArrayList<>();
     }
+    public ArrayList<Dish> makeRequest(DishesByIngredientRequest dishesByIngredientRequest) {
+
+        if (isConnected()) {
+
+            Thread thread = new Thread(dishesByIngredientRequest);
+            try {
+                thread.start();
+                thread.join(); // Awaiting response from the server...
+            } catch (InterruptedException e) {
+                // Nothing to do here...
+            }
+            // Processing the answer
+            ArrayList<Dish> listDish = dishesByIngredientRequest.getResponse();
+            return listDish;
+        } else
+            return new ArrayList<>();
+    }
 
     public boolean isConnected() {
         boolean ret = false;

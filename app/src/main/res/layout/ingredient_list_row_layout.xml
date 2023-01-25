@@ -7,16 +7,34 @@
     android:background="#000000">
 
     <TextView
+        android:id="@+id/ingredientIdTextView"
+        android:layout_width="42dp"
+        android:layout_height="38dp"
+        android:layout_weight="1"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:text="CuisineType ID"
+        android:textSize="18dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/ingredient_name"
+        app:layout_constraintEnd_toEndOf="@+id/ingredient_name"
+        app:layout_constraintHorizontal_bias="0.21"
+        app:layout_constraintStart_toStartOf="@+id/ingredient_name"
+        app:layout_constraintTop_toTopOf="@+id/ingredient_name"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="TextContrastCheck" />
+
+    <TextView
         android:id="@+id/ingredient_name"
         android:layout_width="413dp"
         android:layout_height="47dp"
+        android:background="#FFFFFF"
         android:fontFamily="casual"
         android:paddingStart="10sp"
         android:paddingTop="10sp"
         android:text="TextView"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
