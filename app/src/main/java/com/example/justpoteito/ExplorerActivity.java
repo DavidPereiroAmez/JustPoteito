@@ -47,7 +47,7 @@ import java.util.List;
 
 public class ExplorerActivity extends AppCompatActivity {
 
-    FragmentTransaction transaction;
+    FragmentTransaction fragmentTransaction;
 
     Fragment exploreFragment,
              exploreByCuisineTypeFragment,
@@ -85,6 +85,7 @@ public class ExplorerActivity extends AppCompatActivity {
         selectedDishFromCookFragment = new SelectedDishFromCookFragment();
         selectedDishFromIngredientFragment = new SelectedDishFromIngredientFragment();
 
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
         networkUtilities = new NetworkUtilities(ExplorerActivity.this);
 
         setFragment("exploreFragment");
@@ -109,6 +110,7 @@ public class ExplorerActivity extends AppCompatActivity {
                     @Override
                     public void run() { exploreByCuisineTypeOnCreate(); }
                 }).commit();
+                fragmentTransaction.addToBackStack(null);
                 break;
 
             case "exploreByDishFragment":
@@ -116,6 +118,7 @@ public class ExplorerActivity extends AppCompatActivity {
                     @Override
                     public void run() { exploreByDishOnCreate(); }
                 }).commit();
+                fragmentTransaction.addToBackStack(null);
                 break;
 
             case "exploreByIngredientFragment":
@@ -123,6 +126,7 @@ public class ExplorerActivity extends AppCompatActivity {
                     @Override
                     public void run() { exploreByIngredientOnCreate(); }
                 }).commit();
+                fragmentTransaction.addToBackStack(null);
                 break;
 
             case "exploreByCookFragment":
@@ -130,6 +134,7 @@ public class ExplorerActivity extends AppCompatActivity {
                     @Override
                     public void run() { exploreByCookOnCreate(); }
                 }).commit();
+                fragmentTransaction.addToBackStack(null);
                 break;
 
             case "SelectedDishFromCuisineTypeFragment":
@@ -137,6 +142,7 @@ public class ExplorerActivity extends AppCompatActivity {
                     @Override
                     public void run() { selectedDishFromCuisineTypeOnCreate(); }
                 }).commit();
+                fragmentTransaction.addToBackStack(null);
                 break;
 
             case "SelectedDishFromCookFragment":
@@ -145,6 +151,7 @@ public class ExplorerActivity extends AppCompatActivity {
                     public void run() {
                         selectedDishFromCookOnCreate(); }
                 }).commit();
+                fragmentTransaction.addToBackStack(null);
                 break;
 
             case "SelectedDishFromIngredientFragment":
@@ -153,12 +160,17 @@ public class ExplorerActivity extends AppCompatActivity {
                     public void run() {
                         selectedDishFromIngredientOnCreate(); }
                 }).commit();
+                fragmentTransaction.addToBackStack(null);
                 break;
 
             case "explorer":
                 setContentView(R.layout.activity_explorer);
+                fragmentTransaction.addToBackStack(null);
+                break;
             default:
                 setContentView(R.layout.activity_explorer);
+                fragmentTransaction.addToBackStack(null);
+                break;
         }
     }
 
@@ -179,8 +191,11 @@ public class ExplorerActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
-        findViewById(R.id.back_button).setOnClickListener(view ->
-                finish());
+        findViewById(R.id.back_button).setOnClickListener(view -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
     @SuppressLint("MissingInflatedId")
@@ -263,7 +278,7 @@ public class ExplorerActivity extends AppCompatActivity {
 
         ((ListView) findViewById(R.id.selected_dish_list)).setAdapter(new SelectedDishAdapter(this, R.layout.selected_dish_row_layout, selectedDishList));
         findViewById(R.id.back_button).setOnClickListener(view ->
-                setFragment("exploreByCuisineTypeFragment"));
+                setFragment("exploreFragment"));
     }
 
     public void selectedDishFromCookOnCreate(){
