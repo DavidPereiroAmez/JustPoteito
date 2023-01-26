@@ -70,6 +70,24 @@ public class NetworkUtilities {
             return new UserResponse(false, res.getString(R.string.error_communication));
     }
 
+    public String makeRequest(SendEmailRequest sendEmailRequest) {
+        if (isConnected()) {
+
+            Thread thread = new Thread(sendEmailRequest);
+            try {
+                thread.start();
+                thread.join(); // Awaiting response from the server...
+            } catch (InterruptedException e) {
+                // Nothing to do here...
+            }
+            // Processing the answer
+            String response = sendEmailRequest.getResponse();
+
+            return response;
+        } else
+            return new String("Something went wrong");
+    }
+
     public ArrayList<CuisineType> makeRequest(CuisineTypesRequest cuisineTypesRequest) {
 
         if (isConnected()) {

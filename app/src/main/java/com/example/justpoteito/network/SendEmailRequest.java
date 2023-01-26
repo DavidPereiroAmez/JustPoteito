@@ -27,35 +27,29 @@ public class SendEmailRequest extends NetConfiguration implements Runnable {
     @Override
     public void run() {
         try {
+            response = new String();
 
             URL url = new URL(theUrl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setRequestProperty("Content-Type", "text/plain");
-
             httpURLConnection.setDoOutput(true);
+
             try (OutputStream os = httpURLConnection.getOutputStream()) {
                 byte[] input = email.getBytes("utf-8");
                 os.write(input, 0, input.length);
             }
 
             int responseCode = httpURLConnection.getResponseCode();
-
-            this.response = new String();
-
-            BufferedReader bufferedReader = new BufferedReader(
-                    new InputStreamReader(httpURLConnection.getInputStream()));
-
-            StringBuffer response = new StringBuffer();
-            String inputLine;
-            while ((inputLine = bufferedReader.readLine()) != null) {
-                response.append(inputLine);
+            if (responseCode == 200) {
+                response = "Correo enviado.";
+            } else {
+                response = "Fallo en el envío.";
             }
-            bufferedReader.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public String getResponse() {

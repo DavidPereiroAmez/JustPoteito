@@ -18,6 +18,7 @@ import com.example.justpoteito.fragments.LoginFragment;
 import com.example.justpoteito.fragments.RegisterFragment;
 import com.example.justpoteito.models.User;
 import com.example.justpoteito.models.UserResponse;
+import com.example.justpoteito.network.SendEmailRequest;
 import com.example.justpoteito.network.SignUpRequest;
 import com.example.justpoteito.network.LoginRequest;
 import com.example.justpoteito.network.NetworkUtilities;
@@ -139,7 +140,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void forgotPasswordOnCreate(){
         findViewById(R.id.forgotPassword_send_button).setOnClickListener(view -> {
-            UserResponse loginResponse = new NetworkUtilities(this).makeRequest(new LoginRequest(generateLoginJson(), this));
+            String email = ((EditText)findViewById(R.id.editText_type_your_email)).getText().toString();
+
+            String response = new NetworkUtilities(this)
+                    .makeRequest(new SendEmailRequest(email, this));
+
+            Toast.makeText(this, response, Toast.LENGTH_SHORT).show();
         });
 
         findViewById(R.id.login_forgot_password).setOnClickListener(view -> {
