@@ -99,8 +99,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (!databaseHelper.isEmpty()) {
             User user = databaseHelper.getAllUsers();
-            ((EditText)findViewById(R.id.editText_email_login)).setText(user.getEmail());
-            ((EditText)findViewById(R.id.editText_password)).setText(user.getPassword());
+//            ((EditText)findViewById(R.id.editText_email_login)).setText(user.getEmail());
+//            ((EditText)findViewById(R.id.editText_password)).setText(user.getPassword());
+
+            ((EditText)findViewById(R.id.editText_email_login)).setText("david@gemail.com");
+            ((EditText)findViewById(R.id.editText_password)).setText("12345");
         }
 
         findViewById(R.id.login_button).setOnClickListener(view -> {
@@ -109,10 +112,10 @@ public class MainActivity extends AppCompatActivity {
             String email = ((EditText)findViewById(R.id.editText_email_login)).getText().toString();
             String password = ((EditText)findViewById(R.id.editText_password)).getText().toString();
 
+
             if (checkRemember.isChecked()) {
                 if ((!databaseHelper.isEmpty() && databaseHelper.deleteUser() == 1) || databaseHelper.isEmpty()) {
                     if (databaseHelper.createUser(email, password)) {
-                        //Toast.makeText(this, email + " created.", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -212,9 +215,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String generateLoginJson() {
+//        return  "{" +
+//                "\"email\": \"" + ((EditText) findViewById(R.id.editText_email_login)).getText().toString() + "\"," +
+//                "\"password\": \"" + ((EditText) findViewById(R.id.editText_password)).getText().toString() + "\"" +
+//                "}";
+
         return  "{" +
-                "\"email\": \"" + ((EditText) findViewById(R.id.editText_email_login)).getText().toString() + "\"," +
-                "\"password\": \"" + ((EditText) findViewById(R.id.editText_password)).getText().toString() + "\"" +
+                "\"email\": \"" + "david@gemail.com" + "\"," +
+                "\"password\": \"" + "12345" + "\"" +
                 "}";
     }
 

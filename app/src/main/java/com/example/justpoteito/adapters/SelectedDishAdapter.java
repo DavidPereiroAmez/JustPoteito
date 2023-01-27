@@ -1,6 +1,7 @@
 package com.example.justpoteito.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.justpoteito.R;
+import com.example.justpoteito.RecipeActivity;
 import com.example.justpoteito.models.Dish;
 
 import java.util.ArrayList;
@@ -37,6 +39,14 @@ public class SelectedDishAdapter extends ArrayAdapter<Dish> {
 
         //((ImageView) view.findViewById(R.id.cuisine_type_row_imageView)).setImageURI(cuisineTypeList.get(position).getImage() + "");
         ((TextView) view.findViewById(R.id.selected_dish_row_name)).setText(selectedDishList.get(position).getName() + "");
+        ((TextView) view.findViewById(R.id.dishIdTextView)).setText(selectedDishList.get(position).getId() + "");
+        view.setOnClickListener((View v) -> {
+            String dishId = ((TextView) view.findViewById(R.id.dishIdTextView)).getText().toString();
+            Intent intent = new Intent(context, RecipeActivity.class);
+            intent.putExtra("dishId", dishId);
+            context.startActivity(intent);
+        });
+
 
         return view;
     }
