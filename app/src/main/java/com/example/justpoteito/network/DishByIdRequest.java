@@ -51,7 +51,7 @@ public class DishByIdRequest extends NetConfiguration implements Runnable{
                     this.response.setIdCuisineType(jsonObject.getInt("cuisineTypeId"));
                     this.response.setSubtype(jsonObject.getString("subtype"));
                     this.response.setPrepTime(jsonObject.getInt("prepTime"));
-
+                    this.response.setrecipe(jsonObject.getString("recipe"));
 
             } else {
                 this.response = null;

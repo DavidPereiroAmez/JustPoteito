@@ -64,24 +64,7 @@ public class IngredientInRecipeAdapter extends ArrayAdapter<Ingredient> {
         //((ImageView) view.findViewById(R.id.cuisine_type_row_imageView)).setImageURI(cuisineTypeList.get(position).getImage() + "");
         ((TextView) view.findViewById(R.id.row_ingredient_name)).setText(ingredientList.get(position).getName() + "");
         ((TextView) view.findViewById(R.id.ingredientIdTextView)).setText(ingredientList.get(position).getId() + "");
-
-        view.setOnClickListener((View v) -> {
-
-            String ingredient_name = ((TextView) v.findViewById(R.id.ingredient_name)).getText().toString();
-            String ingredient_id = ((TextView) v.findViewById(R.id.ingredientIdTextView)).getText().toString();
-            String ingredient_table_text = targetView.getText().toString();
-            if(ingredient_table_text.equals("")){
-                targetView.setText(ingredient_name);
-                System.out.println(ingredient_id);
-                ingredientListTextView.setText(ingredientListTextView.getText() + ingredient_id + ",");
-            }else if(ingredient_table_text.contains(ingredient_name)){
-
-            }else{
-                targetView.setText(ingredient_table_text + ", " + ingredient_name);
-                System.out.println(ingredient_id);
-                ingredientListTextView.setText(ingredientListTextView.getText() + ingredient_id + ",");
-            }
-        });
+        ((TextView) view.findViewById(R.id.ingredient_amount)).setText(ingredientList.get(position).getAmount() + "");
 
         views.put(position, view);
 
