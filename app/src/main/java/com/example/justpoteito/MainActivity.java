@@ -10,6 +10,7 @@ import android.os.Bundle;
 import com.example.justpoteito.fragments.ForgotPasswordFragment;
 import com.example.justpoteito.fragments.LoginFragment;
 import com.example.justpoteito.fragments.RegisterFragment;
+import com.example.justpoteito.fragments.ResetPasswordFragment;
 
 public class MainActivity extends AppCompatActivity {
     FragmentTransaction transaction;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         loginFragment = new LoginFragment();
         registerFragment = new RegisterFragment();
         forgotPasswordFragment = new ForgotPasswordFragment();
+
 
         setFragment("loginFragment");
 

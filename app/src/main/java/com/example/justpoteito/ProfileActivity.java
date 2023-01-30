@@ -1,6 +1,7 @@
 package com.example.justpoteito;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,9 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.justpoteito.fragments.ResetPasswordFragment;
 import com.example.justpoteito.models.User;
 
-public class ProfileActivity extends AppCompatActivity implements View.OnClickListener{
+public class ProfileActivity extends AppCompatActivity {
 
     User user;
 
@@ -26,7 +28,17 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             Intent intent = new Intent(ProfileActivity.this, ExplorerActivity.class);
             startActivity(intent);
             finish();
+
         });
+
+        findViewById(R.id.btn_change_pass).setOnClickListener(view -> {
+            Intent intent = new Intent(ProfileActivity.this, ChangePasswordActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+
+
 
         //id = findViewById(R.id.userIdTextView);
         profile = findViewById(R.id.profile);
@@ -38,11 +50,5 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         btn_deleteUser = findViewById(R.id.bnt_deleteUser);
         btn_changePass = findViewById(R.id.btn_change_pass);
 
-    }
-
-    @Override
-    public void onClick(View view) {
-
-        //change password button
     }
 }
