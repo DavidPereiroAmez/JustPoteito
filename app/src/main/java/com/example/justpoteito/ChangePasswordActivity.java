@@ -3,8 +3,13 @@ package com.example.justpoteito;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.justpoteito.models.RequestResponse;
+import com.example.justpoteito.network.ChangePasswordRequest;
+import com.example.justpoteito.network.NetworkUtilities;
 
 public class ChangePasswordActivity extends AppCompatActivity {
 
@@ -23,18 +28,19 @@ public class ChangePasswordActivity extends AppCompatActivity {
         changePass = findViewById(R.id.resetPassword_button);
         (findViewById(R.id.resetPassword_button)).setOnClickListener(v -> {
             if (changePasswordFormIsValid()) {
-                RequestResponse response = new NetworkUtilites(this).makeRequest(new ChangePasswordRequest(generateChangePasswordJson(), this));
-                Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                //RequestResponse response = new NetworkUtilities(this).makeRequest(new ChangePasswordRequest(generateChangePasswordJson(), this));
+                //Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
 
-                if (response.isAccess()) {
-                    setFragmentLayout("sign_in");
+                //if (response.isAccess()) {
+         //           setContentView(R.layout.activity_profile);
                 }
-            }
+           // }
         });
     }
 
     private boolean changePasswordFormIsValid(){
 
+        return false;
     }
 
     /*private boolean changePasswordFormIsValid() {
