@@ -37,6 +37,7 @@ public class DishAdapter extends ArrayAdapter<Dish> {
 
         //((ImageView) view.findViewById(R.id.cuisine_type_row_imageView)).setImageURI(cuisineTypeList.get(position).getImage() + "");
         ((TextView) view.findViewById(R.id.dish_name)).setText(dishList.get(position).getName() + "");
+        ((TextView) view.findViewById(R.id.dishIdTextView)).setText(dishList.get(position).getId() + "");
 
         return view;
     }

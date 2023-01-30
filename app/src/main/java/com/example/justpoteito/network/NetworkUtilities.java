@@ -14,6 +14,7 @@ import com.example.justpoteito.models.Ingredient;
 import com.example.justpoteito.models.UserResponse;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NetworkUtilities {
     Context context;
@@ -211,6 +212,39 @@ public class NetworkUtilities {
         } else
             return new ArrayList<>();
     }
+    public Dish makeRequest(DishByIdRequest dishByIdRequest) {
+        if (isConnected()) {
+            Thread thread = new Thread(dishByIdRequest);
+            try {
+                thread.start();
+                thread.join(); // Awaiting response from the server...
+            } catch (InterruptedException e) {
+                // Nothing to do here...
+            }
+            // Processing the answer
+            Dish dish = dishByIdRequest.getResponse();
+
+            return dish;
+        } else
+            return null;
+    }
+    public ArrayList<Ingredient> makeRequest(IngredientsByDishRequest ingredientsByDishRequest) {
+
+        if (isConnected()) {
+
+            Thread thread = new Thread(ingredientsByDishRequest);
+            try {
+                thread.start();
+                thread.join(); // Awaiting response from the server...
+            } catch (InterruptedException e) {
+                // Nothing to do here...
+            }
+            // Processing the answer
+            ArrayList<Ingredient> listIngredient = ingredientsByDishRequest.getResponse();
+            return listIngredient;
+        } else
+            return new ArrayList<>();
+    }
 
     public boolean isConnected() {
         boolean ret = false;
@@ -222,7 +256,7 @@ public class NetworkUtilities {
             if ((networkInfo != null) && (networkInfo.isAvailable()) && (networkInfo.isConnected()))
                 ret = true;
         } catch (Exception e) {
-            Toast.makeText(context, context.getString(R.string.error_communication), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
         return ret;
     }

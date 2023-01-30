@@ -8,18 +8,18 @@ public class Dish implements Serializable {
     private int prepTime;
     private int idCuisineType;
     private String subtype;
-    private String alergens;
+    private String recipe;
 
     public Dish() {
     }
 
-    public Dish(int id, String name, int prepTime, int idCuisineType, String subtype, String alergens) {
+    public Dish(int id, String name, int prepTime, int idCuisineType, String subtype, String recipe) {
         this.id = id;
         this.name = name;
         this.prepTime = prepTime;
         this.idCuisineType = idCuisineType;
         this.subtype = subtype;
-        this.alergens = alergens;
+        this.recipe = recipe;
     }
 
     public Dish(int id, String name, String subtype) {
@@ -74,12 +74,12 @@ public class Dish implements Serializable {
         this.subtype = subtype;
     }
 
-    public String getAlergens() {
-        return alergens;
+    public String getrecipe() {
+        return recipe;
     }
 
-    public void setAlergens(String alergens) {
-        this.alergens = alergens;
+    public void setrecipe(String recipe) {
+        this.recipe = recipe;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class Dish implements Serializable {
                 ", prepTime=" + prepTime +
                 ", idCuisineType=" + idCuisineType +
                 ", subtype='" + subtype + '\'' +
-                ", alergens='" + alergens + '\'' +
+                ", alergens='" + recipe + '\'' +
                 '}';
     }
 }
