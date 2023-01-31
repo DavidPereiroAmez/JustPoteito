@@ -75,13 +75,11 @@ public class IngredientAdapter extends ArrayAdapter<Ingredient> {
                 String ingredient_table_text = targetView.getText().toString();
                 if(ingredient_table_text.equals("")){
                     targetView.setText(ingredient_name);
-                    System.out.println(ingredient_id);
                     ingredientListTextView.setText(ingredientListTextView.getText() + ingredient_id + ",");
                 }else if(ingredient_table_text.contains(ingredient_name)){
 
                 }else{
                     targetView.setText(ingredient_table_text + ", " + ingredient_name);
-                    System.out.println(ingredient_id);
                     ingredientListTextView.setText(ingredientListTextView.getText() + ingredient_id + ",");
                 }
         });

@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.justpoteito.adapters.CookAdapter;
@@ -202,18 +203,22 @@ public class ExplorerActivity extends AppCompatActivity {
     public void exploreByCuisineTypeOnCreate(){
         cuisineTypeList = new ArrayList<>();
         cuisineTypeList = networkUtilities.makeRequest(new CuisineTypesRequest());
+        if(cuisineTypeList!=null){
+            ListView cuisineTypeListView = ((ListView) findViewById(R.id.cuisineTypeList));
+            cuisineTypeListView.setAdapter(new TypeCuisineAdapter(this, R.layout.type_cuisine_row_layout, cuisineTypeList));
+            cuisineTypeListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                    idCuisineType = ((CuisineType) adapterView.getItemAtPosition(position)).getId();
+                    setFragment("SelectedDishFromCuisineTypeFragment");
 
-        ListView cuisineTypeListView = ((ListView) findViewById(R.id.cuisineTypeList));
-        cuisineTypeListView.setAdapter(new TypeCuisineAdapter(this, R.layout.type_cuisine_row_layout, cuisineTypeList));
-        cuisineTypeListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                idCuisineType = ((CuisineType) adapterView.getItemAtPosition(position)).getId();
-                setFragment("SelectedDishFromCuisineTypeFragment");
-
-            }
-        });
-
+                }
+            });
+        }
+        else{
+            new Toast(this).makeText(this, (R.string.request_error), Toast.LENGTH_LONG).show();
+            setFragment("exploreFragment");
+        }
         findViewById(R.id.back_button).setOnClickListener(view ->
                 setFragment("exploreFragment"));
     }
@@ -221,11 +226,13 @@ public class ExplorerActivity extends AppCompatActivity {
     public void exploreByDishOnCreate(){
         dishList = new ArrayList<>();
         dishList = networkUtilities.makeRequest(new DishesRequest());
-
-        System.out.println(dishList.get(0).getName());
-        ((ListView) findViewById(R.id.dish_list)).setAdapter(new DishAdapter(this, R.layout.dish_row_layout, dishList));
-
-        System.out.println(dishList);
+        if(dishList!=null){
+            ((ListView) findViewById(R.id.dish_list)).setAdapter(new DishAdapter(this, R.layout.dish_row_layout, dishList));
+        }
+        else{
+            new Toast(this).makeText(this, (R.string.request_error), Toast.LENGTH_LONG).show();
+            setFragment("exploreFragment");
+        }
         findViewById(R.id.back_button).setOnClickListener(view ->
                 setFragment("exploreFragment"));
     }
@@ -236,17 +243,23 @@ public class ExplorerActivity extends AppCompatActivity {
         TextView ingredientIdsTextView;
         ingredientList = networkUtilities.makeRequest(new IngredientsRequest());
 
-        ListView ingredientListView = ((ListView) findViewById(R.id.ingredient_list));
-        targetView = findViewById(R.id.ingredient_table);
-        ingredientIdsTextView = findViewById(R.id.ingredientIdListTextView);
-        ingredientListView.setAdapter(new IngredientAdapter(ExplorerActivity.this, R.layout.ingredient_list_row_layout, ingredientList, targetView, ingredientIdsTextView));
+        if(ingredientList!=null){
+            ListView ingredientListView = ((ListView) findViewById(R.id.ingredient_list));
+            targetView = findViewById(R.id.ingredient_table);
+            ingredientIdsTextView = findViewById(R.id.ingredientIdListTextView);
+            ingredientListView.setAdapter(new IngredientAdapter(ExplorerActivity.this, R.layout.ingredient_list_row_layout, ingredientList, targetView, ingredientIdsTextView));
 
-        findViewById(R.id.expore_by_ingredient_search_button).setOnClickListener(view -> {
+            findViewById(R.id.expore_by_ingredient_search_button).setOnClickListener(view -> {
                 ingredientIds = ingredientIdsTextView.getText().toString();
                 ingredientIds.substring(0, ingredientIds.length() - 1);
                 System.out.println(ingredientIds);
                 setFragment("SelectedDishFromIngredientFragment");
             });
+        }
+        else{
+            new Toast(this).makeText(this, (R.string.request_error), Toast.LENGTH_LONG).show();
+            setFragment("exploreFragment");
+        }
 
         findViewById(R.id.back_button).setOnClickListener(view ->
                 setFragment("exploreFragment"));
@@ -256,18 +269,25 @@ public class ExplorerActivity extends AppCompatActivity {
         cookList = new ArrayList<>();
         cookList = networkUtilities.makeRequest(new CooksRequest());
 
-        ListView cookListView = ((ListView) findViewById(R.id.cook_list));
-        cookListView.setAdapter(new CookAdapter(this, R.layout.cook_row_layout, cookList));
+        System.out.println(cookList);
+        if(cookList!=null){
+            System.out.println("Entrando al if que no tiene que entrar");
+            ListView cookListView = ((ListView) findViewById(R.id.cook_list));
+            cookListView.setAdapter(new CookAdapter(this, R.layout.cook_row_layout, cookList));
 
-        cookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                idCook = ((Cook) adapterView.getItemAtPosition(position)).getId();
-                setFragment("SelectedDishFromCookFragment");
-            }
-        });
+            cookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                    idCook = ((Cook) adapterView.getItemAtPosition(position)).getId();
+                    setFragment("SelectedDishFromCookFragment");
+                }
+            });
+        }
+        else{
+            new Toast(this).makeText(this, (R.string.request_error), Toast.LENGTH_LONG).show();
+            setFragment("exploreFragment");
+        }
 
-        ((ListView) findViewById(R.id.cook_list)).setAdapter(new CookAdapter(this, R.layout.cook_row_layout, cookList));
         findViewById(R.id.back_button).setOnClickListener(view ->
                 setFragment("exploreFragment"));
     }
@@ -276,7 +296,14 @@ public class ExplorerActivity extends AppCompatActivity {
         selectedDishList = new ArrayList<>();
         selectedDishList = networkUtilities.makeRequest(new DishesByCuisineTypeRequest(idCuisineType));
 
-        ((ListView) findViewById(R.id.selected_dish_list)).setAdapter(new SelectedDishAdapter(this, R.layout.selected_dish_row_layout, selectedDishList));
+        if(selectedDishList!=null){
+            ((ListView) findViewById(R.id.selected_dish_list)).setAdapter(new SelectedDishAdapter(this, R.layout.selected_dish_row_layout, selectedDishList));
+        }
+        else{
+            new Toast(this).makeText(this, (R.string.request_error), Toast.LENGTH_LONG).show();
+            setFragment("exploreFragment");
+        }
+
         findViewById(R.id.back_button).setOnClickListener(view ->
                 setFragment("exploreFragment"));
     }
@@ -284,13 +311,27 @@ public class ExplorerActivity extends AppCompatActivity {
     public void selectedDishFromCookOnCreate(){
         selectedDishList = new ArrayList<>();
         selectedDishList = networkUtilities.makeRequest(new DishesByCookRequest(idCook));
-        ((ListView) findViewById(R.id.selected_dish_list)).setAdapter(new SelectedDishAdapter(this, R.layout.selected_dish_row_layout, selectedDishList));
+
+        if(selectedDishList!=null){
+            ((ListView) findViewById(R.id.selected_dish_list)).setAdapter(new SelectedDishAdapter(this, R.layout.selected_dish_row_layout, selectedDishList));
+        }
+        else{
+            new Toast(this).makeText(this, (R.string.request_error), Toast.LENGTH_LONG).show();
+            setFragment("exploreFragment");
+        }
     }
 
     public void selectedDishFromIngredientOnCreate(){
         selectedDishList = new ArrayList<>();
         selectedDishList = networkUtilities.makeRequest(new DishesByIngredientRequest(ingredientIds));
-        ((ListView) findViewById(R.id.selected_dish_list)).setAdapter(new SelectedDishAdapter(this, R.layout.selected_dish_row_layout, selectedDishList));
+
+        if(selectedDishList!=null){
+            ((ListView) findViewById(R.id.selected_dish_list)).setAdapter(new SelectedDishAdapter(this, R.layout.selected_dish_row_layout, selectedDishList));
+        }
+        else{
+            new Toast(this).makeText(this, (R.string.request_error), Toast.LENGTH_LONG).show();
+            setFragment("exploreFragment");
+        }
     }
 
 }

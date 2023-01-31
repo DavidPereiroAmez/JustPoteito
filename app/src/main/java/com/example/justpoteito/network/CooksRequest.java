@@ -46,6 +46,7 @@ public class CooksRequest extends NetConfiguration implements Runnable{
                     cook = new Cook();
                     cook.setId(object.getInt("id"));
                     cook.setName(object.getString("name"));
+                    cook.setLastNames(object.getString("last_names"));
 
                     this.response.add( cook );
                 }

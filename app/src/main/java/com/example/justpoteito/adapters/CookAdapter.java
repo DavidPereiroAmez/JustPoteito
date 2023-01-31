@@ -37,7 +37,7 @@ public class CookAdapter extends ArrayAdapter<Cook> {
         View view = layoutInflater.inflate(R.layout.cook_row_layout, null);
 
         //((ImageView) view.findViewById(R.id.cuisine_type_row_imageView)).setImageURI(cuisineTypeList.get(position).getImage() + "");
-        ((TextView) view.findViewById(R.id.cook_name)).setText(cookList.get(position).getName() + "");
+        ((TextView) view.findViewById(R.id.cook_name)).setText(cookList.get(position).getName() + " " + cookList.get(position).getLastNames());
         ((TextView) view.findViewById(R.id.cookIdTextView)).setText(cookList.get(position).getId() + "");
         return view;
     }
