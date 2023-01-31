@@ -43,6 +43,9 @@
     <string name="user_already_exists">This user already exists</string>
     <string name="request_error">Something went wrong</string>
     <string name="user_created">User created</string>
+    <string name="empty_form_field">This field cannot be empty</string>
+    <string name="short_form_filed">This filed must have at least</string>
+    <string name="character">characters</string>
     error_communication
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

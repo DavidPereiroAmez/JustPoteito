@@ -46,6 +46,23 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 "}";
     }
 
+    public boolean editTextIsValid(EditText editText, int minimumLength) {
+        String text = editText.getText().toString().trim();
+        editText.setError(null);
+
+        if (text.length() == 0) {
+            editText.setError(getString(R.string.empty_form_field));
+            return false;
+        }
+
+        if (text.length() > 0 && text.length() < minimumLength) {
+            editText.setError(getString(R.string.short_form_filed) + " " + minimumLength + " " + getString(R.string.character));
+            return false;
+        }
+
+        return true;
+    }
+
     private boolean changePasswordFormIsValid() {
         boolean isValid = true;
 
@@ -53,9 +70,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
         EditText confirmPassword = ((EditText)findViewById(R.id.editText_confirmPassword));
 
         //if (!editTextIsValid(findViewById(R.id.usernameEditTextChangePass), 5, false)) isValid = false;
-        if (!editTextIsValid(findViewById(R.id.editText_oldPassword), 5, false)) isValid = false;
-        if (!editTextIsValid(newPassword, 5, false)) isValid = false;
-        if (!editTextIsValid(confirmPassword, 5, false)) isValid = false;
+        if (!editTextIsValid(findViewById(R.id.editText_oldPassword), 5)) isValid = false;
+        if (!editTextIsValid(newPassword, 5)) isValid = false;
+        if (!editTextIsValid(confirmPassword, 5)) isValid = false;
 
         if (!newPassword.getText().toString().equals(confirmPassword.getText().toString())) {
             newPassword.setError(getString(R.string.passwords_do_not_match));

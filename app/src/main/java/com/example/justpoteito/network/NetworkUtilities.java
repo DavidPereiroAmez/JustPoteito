@@ -11,6 +11,7 @@ import com.example.justpoteito.models.Cook;
 import com.example.justpoteito.models.CuisineType;
 import com.example.justpoteito.models.Dish;
 import com.example.justpoteito.models.Ingredient;
+import com.example.justpoteito.models.RequestResponse;
 import com.example.justpoteito.models.User;
 
 import java.util.ArrayList;
@@ -166,5 +167,22 @@ public class NetworkUtilities {
             Toast.makeText(context, context.getString(R.string.error_communication), Toast.LENGTH_SHORT).show();
         }
         return ret;
+    }
+
+    public RequestResponse makeRequest(ChangePasswordRequest changePasswordRequest) {
+        if (isConnected()) {
+
+            Thread thread = new Thread(changePasswordRequest);
+            try {
+                thread.start();
+                thread.join(); // Awaiting response from the server...
+            } catch (InterruptedException e) {
+                // Nothing to do here...
+            }
+            // Processing the answer
+            RequestResponse requestResponse = changePasswordRequest.getResponse();
+            return requestResponse;
+        } else
+            return new RequestResponse();
     }
 }
