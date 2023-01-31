@@ -19,6 +19,7 @@ import com.example.justpoteito.fragments.RegisterFragment;
 import com.example.justpoteito.models.User;
 import com.example.justpoteito.models.UserResponse;
 import com.example.justpoteito.network.CreateUserRequest;
+import com.example.justpoteito.network.ErrorShow;
 import com.example.justpoteito.network.LoginRequest;
 import com.example.justpoteito.network.NetworkUtilities;
 
@@ -80,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, response.getMessage(), Toast.LENGTH_LONG).show();
                 if (response.isAccess())
                     setFragment("registerFragment");
+            }else{
+                Toast.makeText(this, ErrorShow.userNotValid(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -99,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (!databaseHelper.isEmpty()) {
             User user = databaseHelper.getAllUsers();
-//            ((EditText)findViewById(R.id.editText_email_login)).setText(user.getEmail());
-//            ((EditText)findViewById(R.id.editText_password)).setText(user.getPassword());
+            ((EditText)findViewById(R.id.editText_email_login)).setText(user.getEmail());
+            ((EditText)findViewById(R.id.editText_password)).setText(user.getPassword());
 
             ((EditText)findViewById(R.id.editText_email_login)).setText("david@gemail.com");
             ((EditText)findViewById(R.id.editText_password)).setText("12345");
@@ -135,7 +138,8 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else
-                    Toast.makeText(this, loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this, loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, ErrorShow.connectionError(), Toast.LENGTH_SHORT).show();
             }
         });
     }

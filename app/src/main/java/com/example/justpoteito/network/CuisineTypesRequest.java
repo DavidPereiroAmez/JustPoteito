@@ -51,7 +51,6 @@ public class CuisineTypesRequest extends NetConfiguration implements Runnable {
                     this.response.add( cuisineType );
                 }
             } else {
-                System.out.println("Desde el else de cuisine type request");
                 this.response = new ArrayList<>();
             }
         } catch (Exception e) {
