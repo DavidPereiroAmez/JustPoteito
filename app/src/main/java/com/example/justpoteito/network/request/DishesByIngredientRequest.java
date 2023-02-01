@@ -1,6 +1,7 @@
-package com.example.justpoteito.network;
+package com.example.justpoteito.network.request;
 
 import com.example.justpoteito.models.Dish;
+import com.example.justpoteito.network.NetConfiguration;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -10,15 +11,22 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
-public class DishesRequest extends NetConfiguration implements Runnable{
-    private final String theUrl = theBaseUrl + "/dishesNoToken";
+public class DishesByIngredientRequest extends NetConfiguration implements Runnable{
+    private String IngredientIds;
+    private final String theUrl = theBaseUrl + "/getAllDishesByIngredientNoToken";
     private ArrayList<Dish> response;
+
+    public DishesByIngredientRequest(String IngredientIds) {
+        this.IngredientIds = IngredientIds;
+    }
 
     @Override
     public void run() {
         try {
-            URL url = new URL( theUrl);
+            URL url = new URL( theUrl + "?idList=" + IngredientIds);
+
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod( "GET" );
             int responseCode = httpURLConnection.getResponseCode();
@@ -32,7 +40,7 @@ public class DishesRequest extends NetConfiguration implements Runnable{
                 }
                 bufferedReader.close();
 
-                // Processing the JSON...
+
                 String theUnprocessedJSON = response.toString();
 
                 JSONArray jsonArray = new JSONArray (theUnprocessedJSON);

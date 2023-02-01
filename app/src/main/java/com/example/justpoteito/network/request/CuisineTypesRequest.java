@@ -1,6 +1,7 @@
-package com.example.justpoteito.network;
+package com.example.justpoteito.network.request;
 
-import com.example.justpoteito.models.Dish;
+import com.example.justpoteito.models.CuisineType;
+import com.example.justpoteito.network.NetConfiguration;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,20 +12,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class DishesByCookRequest extends NetConfiguration implements Runnable{
-    private int id;
-    private final String theUrl = theBaseUrl + "/dishesByCookNoToken";
-    private ArrayList<Dish> response;
+public class CuisineTypesRequest extends NetConfiguration implements Runnable {
 
-    public DishesByCookRequest(int id) {
-        this.id = id;
-    }
-
+    private final String theUrl = theBaseUrl + "/cuisineTypesNoToken";
+    private ArrayList<CuisineType> response;
     @Override
     public void run() {
         try {
-            URL url = new URL( theUrl + "/" + id);
-            System.out.println(url);
+            URL url = new URL( theUrl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod( "GET" );
             int responseCode = httpURLConnection.getResponseCode();
@@ -38,23 +33,22 @@ public class DishesByCookRequest extends NetConfiguration implements Runnable{
                 }
                 bufferedReader.close();
 
-                // Processing the JSON...
                 String theUnprocessedJSON = response.toString();
 
                 JSONArray jsonArray = new JSONArray (theUnprocessedJSON);
 
-                this.response = new ArrayList<Dish>();
+                this.response = new ArrayList<CuisineType>();
 
-                Dish dish;
+                CuisineType cuisineType;
                 for(int i=0; i < jsonArray.length(); i++) {
                     JSONObject object = jsonArray.getJSONObject( i );
 
-                    dish = new Dish();
-                    dish.setId(object.getInt("id"));
-                    dish.setName(object.getString("name"));
-                    dish.setSubtype( object.getString("subtype"));
+                    cuisineType = new CuisineType();
+                    cuisineType.setId(object.getInt("id"));
+                    cuisineType.setName(object.getString("name"));
+                    cuisineType.setSubtype( object.getString("subtype"));
 
-                    this.response.add( dish );
+                    this.response.add( cuisineType );
                 }
             } else {
                 this.response = new ArrayList<>();
@@ -65,7 +59,9 @@ public class DishesByCookRequest extends NetConfiguration implements Runnable{
 
     }
 
-    public ArrayList<Dish> getResponse() {
+    public ArrayList<CuisineType> getResponse() {
         return response;
     }
+
+
 }

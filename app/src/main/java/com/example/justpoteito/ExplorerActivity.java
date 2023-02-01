@@ -1,7 +1,6 @@
 package com.example.justpoteito;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -15,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.example.justpoteito.adapters.CookAdapter;
 import com.example.justpoteito.adapters.DishAdapter;
@@ -34,17 +32,16 @@ import com.example.justpoteito.models.Cook;
 import com.example.justpoteito.models.CuisineType;
 import com.example.justpoteito.models.Dish;
 import com.example.justpoteito.models.Ingredient;
-import com.example.justpoteito.network.CooksRequest;
-import com.example.justpoteito.network.CuisineTypesRequest;
-import com.example.justpoteito.network.DishesByCookRequest;
-import com.example.justpoteito.network.DishesByCuisineTypeRequest;
-import com.example.justpoteito.network.DishesByIngredientRequest;
-import com.example.justpoteito.network.DishesRequest;
-import com.example.justpoteito.network.IngredientsRequest;
+import com.example.justpoteito.network.request.CooksRequest;
+import com.example.justpoteito.network.request.CuisineTypesRequest;
+import com.example.justpoteito.network.request.DishesByCookRequest;
+import com.example.justpoteito.network.request.DishesByCuisineTypeRequest;
+import com.example.justpoteito.network.request.DishesByIngredientRequest;
+import com.example.justpoteito.network.request.DishesRequest;
+import com.example.justpoteito.network.request.IngredientsRequest;
 import com.example.justpoteito.network.NetworkUtilities;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ExplorerActivity extends AppCompatActivity {
 

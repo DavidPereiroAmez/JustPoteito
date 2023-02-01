@@ -1,10 +1,11 @@
-package com.example.justpoteito.network;
+package com.example.justpoteito.network.request;
 
 import android.content.Context;
 import android.content.res.Resources;
 
 import com.example.justpoteito.R;
 import com.example.justpoteito.models.UserResponse;
+import com.example.justpoteito.network.NetConfiguration;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

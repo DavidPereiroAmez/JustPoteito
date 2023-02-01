@@ -1,6 +1,7 @@
-package com.example.justpoteito.network;
+package com.example.justpoteito.network.request;
 
-import com.example.justpoteito.models.CuisineType;
+import com.example.justpoteito.models.Ingredient;
+import com.example.justpoteito.network.NetConfiguration;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,10 +12,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class CuisineTypesRequest extends NetConfiguration implements Runnable {
+public class IngredientsRequest extends NetConfiguration implements Runnable{
+    private final String theUrl = theBaseUrl + "/ingredientsNoToken";
+    private ArrayList<Ingredient> response;
 
-    private final String theUrl = theBaseUrl + "/cuisineTypesNoToken";
-    private ArrayList<CuisineType> response;
     @Override
     public void run() {
         try {
@@ -32,23 +33,23 @@ public class CuisineTypesRequest extends NetConfiguration implements Runnable {
                 }
                 bufferedReader.close();
 
-                // Processing the JSON...
+
                 String theUnprocessedJSON = response.toString();
 
                 JSONArray jsonArray = new JSONArray (theUnprocessedJSON);
 
-                this.response = new ArrayList<CuisineType>();
+                this.response = new ArrayList<Ingredient>();
 
-                CuisineType cuisineType;
+                Ingredient ingredient;
                 for(int i=0; i < jsonArray.length(); i++) {
                     JSONObject object = jsonArray.getJSONObject( i );
 
-                    cuisineType = new CuisineType();
-                    cuisineType.setId(object.getInt("id"));
-                    cuisineType.setName(object.getString("name"));
-                    cuisineType.setSubtype( object.getString("subtype"));
-
-                    this.response.add( cuisineType );
+                    ingredient = new Ingredient();
+                    ingredient.setId(object.getInt("id"));
+                    ingredient.setName(object.getString("name"));
+                    ingredient.setType( object.getString("type"));
+                    //System.out.println(ingredient);
+                    this.response.add( ingredient );
                 }
             } else {
                 this.response = new ArrayList<>();
@@ -59,9 +60,7 @@ public class CuisineTypesRequest extends NetConfiguration implements Runnable {
 
     }
 
-    public ArrayList<CuisineType> getResponse() {
+    public ArrayList<Ingredient> getResponse() {
         return response;
     }
-
-
 }

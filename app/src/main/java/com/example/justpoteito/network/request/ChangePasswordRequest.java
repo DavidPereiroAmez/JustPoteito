@@ -1,10 +1,11 @@
-package com.example.justpoteito.network;
+package com.example.justpoteito.network.request;
 
 import android.content.Context;
 import android.content.res.Resources;
 
 import com.example.justpoteito.R;
-import com.example.justpoteito.models.UserResponse;
+import com.example.justpoteito.models.RequestResponse;
+import com.example.justpoteito.network.NetConfiguration;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -12,16 +13,16 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class SignUpRequest extends NetConfiguration implements Runnable {
+public class ChangePasswordRequest extends NetConfiguration implements Runnable {
 
-    private final String theUrl = theBaseUrl + "/auth/signup";
-    private UserResponse response;
+    private final String theUrl = theBaseUrl + "/changepasswordnotoken";
+    private RequestResponse response;
     private String userDataJson;
-    public static Resources res;
+    private Resources res;
 
-    public SignUpRequest(String userDataJson, Context context) {
-        res = context.getResources();
+    public ChangePasswordRequest(String userDataJson, Context context) {
         this.userDataJson = userDataJson;
+        res = context.getResources();
     }
 
     @Override
@@ -34,24 +35,24 @@ public class SignUpRequest extends NetConfiguration implements Runnable {
             httpURLConnection.setRequestProperty("Content-Type", "application/json");
 
             httpURLConnection.setDoOutput(true);
-            try (OutputStream os = httpURLConnection.getOutputStream()) {
+            try(OutputStream os = httpURLConnection.getOutputStream()) {
                 byte[] input = userDataJson.getBytes("utf-8");
                 os.write(input, 0, input.length);
             }
 
             int responseCode = httpURLConnection.getResponseCode();
 
-            this.response = new UserResponse();
+            response = new RequestResponse();
 
-            if (responseCode == 432) {
+            if (responseCode == 432 || responseCode == 433) {
 
                 this.response.setAccess(false);
-                this.response.setMessage(res.getString(R.string.user_already_exists));
+                //this.response.setMessage(res.getString(R.string.user_doesnt_exist));
 
-            }  else  if(responseCode == HttpURLConnection.HTTP_CREATED){
+            } else if (responseCode == HttpURLConnection.HTTP_ACCEPTED) {
 
                 BufferedReader bufferedReader = new BufferedReader(
-                        new InputStreamReader( httpURLConnection.getInputStream() ) );
+                        new InputStreamReader( httpURLConnection.getInputStream()));
                 StringBuffer response = new StringBuffer();
                 String inputLine;
                 while ((inputLine = bufferedReader.readLine()) != null) {
@@ -60,19 +61,20 @@ public class SignUpRequest extends NetConfiguration implements Runnable {
                 bufferedReader.close();
 
                 this.response.setAccess(true);
-                this.response.setMessage(res.getString(R.string.user_created));
+                //this.response.setMessage(res.getString(R.string.password_changed));
 
             } else {
                 this.response.setAccess(false);
                 this.response.setMessage(res.getString(R.string.request_error));
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    public UserResponse getResponse() {
+    public RequestResponse getResponse() {
         return response;
     }
 }

@@ -1,7 +1,7 @@
-package com.example.justpoteito.network;
+package com.example.justpoteito.network.request;
 
-import com.example.justpoteito.models.Dish;
-import com.example.justpoteito.models.Ingredient;
+import com.example.justpoteito.models.Cook;
+import com.example.justpoteito.network.NetConfiguration;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,20 +12,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class IngredientsByDishRequest extends NetConfiguration implements Runnable{
-    private final String theUrl = theBaseUrl + "/ingredientsByDishIdNoToken";
-    private ArrayList<Ingredient> response;
-    private String dishId;
-
-    public IngredientsByDishRequest(String dishId) {
-        this.dishId = dishId;
-    }
+public class CooksRequest extends NetConfiguration implements Runnable{
+    private final String theUrl = theBaseUrl + "/cooksNoToken";
+    private ArrayList<Cook> response;
 
     @Override
     public void run() {
         try {
-            URL url = new URL( theUrl + "/" + dishId);
-            System.out.println(url);
+            URL url = new URL( theUrl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod( "GET" );
             int responseCode = httpURLConnection.getResponseCode();
@@ -38,23 +32,23 @@ public class IngredientsByDishRequest extends NetConfiguration implements Runnab
                     response.append( inputLine );
                 }
                 bufferedReader.close();
-                // Processing the JSON...
+
                 String theUnprocessedJSON = response.toString();
+
                 JSONArray jsonArray = new JSONArray (theUnprocessedJSON);
 
-                this.response = new ArrayList<Ingredient>();
+                this.response = new ArrayList<Cook>();
 
-                Ingredient ingredient;
+                Cook cook;
                 for(int i=0; i < jsonArray.length(); i++) {
                     JSONObject object = jsonArray.getJSONObject( i );
 
-                    ingredient = new Ingredient();
-                    ingredient.setId(object.getInt("id"));
-                    ingredient.setName(object.getString("name"));
-                    ingredient.setType( object.getString("type"));
-                    ingredient.setAmount((object.getString("amount")));
+                    cook = new Cook();
+                    cook.setId(object.getInt("id"));
+                    cook.setName(object.getString("name"));
+                    cook.setLastNames(object.getString("last_names"));
 
-                    this.response.add( ingredient );
+                    this.response.add( cook );
                 }
             } else {
                 this.response = new ArrayList<>();
@@ -65,7 +59,7 @@ public class IngredientsByDishRequest extends NetConfiguration implements Runnab
 
     }
 
-    public ArrayList<Ingredient> getResponse() {
+    public ArrayList<Cook> getResponse() {
         return response;
     }
 }

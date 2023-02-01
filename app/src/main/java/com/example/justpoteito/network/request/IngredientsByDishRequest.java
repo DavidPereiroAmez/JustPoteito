@@ -1,6 +1,8 @@
-package com.example.justpoteito.network;
+package com.example.justpoteito.network.request;
 
 import com.example.justpoteito.models.Dish;
+import com.example.justpoteito.models.Ingredient;
+import com.example.justpoteito.network.NetConfiguration;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -10,14 +12,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
-public class DishByIdRequest extends NetConfiguration implements Runnable{
-    private final String theUrl = theBaseUrl + "/dishesNoToken";
-    private Dish response;
+public class IngredientsByDishRequest extends NetConfiguration implements Runnable{
+    private final String theUrl = theBaseUrl + "/ingredientsByDishIdNoToken";
+    private ArrayList<Ingredient> response;
     private String dishId;
 
-    public DishByIdRequest(String dishId) {
+    public IngredientsByDishRequest(String dishId) {
         this.dishId = dishId;
     }
 
@@ -25,7 +26,7 @@ public class DishByIdRequest extends NetConfiguration implements Runnable{
     public void run() {
         try {
             URL url = new URL( theUrl + "/" + dishId);
-            System.out.println(url);
+
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod( "GET" );
             int responseCode = httpURLConnection.getResponseCode();
@@ -38,23 +39,26 @@ public class DishByIdRequest extends NetConfiguration implements Runnable{
                     response.append( inputLine );
                 }
                 bufferedReader.close();
-                // Processing the JSON...
+
                 String theUnprocessedJSON = response.toString();
-                JSONObject jsonObject = new JSONObject(theUnprocessedJSON);
+                JSONArray jsonArray = new JSONArray (theUnprocessedJSON);
 
-                this.response = new Dish();
+                this.response = new ArrayList<Ingredient>();
 
-                Dish dish;
+                Ingredient ingredient;
+                for(int i=0; i < jsonArray.length(); i++) {
+                    JSONObject object = jsonArray.getJSONObject( i );
 
-                    this.response.setId(jsonObject.getInt("id"));
-                    this.response.setName(jsonObject.getString("name"));
-                    this.response.setIdCuisineType(jsonObject.getInt("cuisineTypeId"));
-                    this.response.setSubtype(jsonObject.getString("subtype"));
-                    this.response.setPrepTime(jsonObject.getInt("prepTime"));
-                    this.response.setrecipe(jsonObject.getString("recipe"));
+                    ingredient = new Ingredient();
+                    ingredient.setId(object.getInt("id"));
+                    ingredient.setName(object.getString("name"));
+                    ingredient.setType( object.getString("type"));
+                    ingredient.setAmount((object.getString("amount")));
 
+                    this.response.add( ingredient );
+                }
             } else {
-                this.response = null;
+                this.response = new ArrayList<>();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,7 +66,7 @@ public class DishByIdRequest extends NetConfiguration implements Runnable{
 
     }
 
-    public Dish getResponse() {
+    public ArrayList<Ingredient> getResponse() {
         return response;
     }
 }

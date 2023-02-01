@@ -1,6 +1,7 @@
-package com.example.justpoteito.network;
+package com.example.justpoteito.network.request;
 
-import com.example.justpoteito.models.Cook;
+import com.example.justpoteito.models.Dish;
+import com.example.justpoteito.network.NetConfiguration;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,9 +12,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class CooksRequest extends NetConfiguration implements Runnable{
-    private final String theUrl = theBaseUrl + "/cooksNoToken";
-    private ArrayList<Cook> response;
+public class DishesRequest extends NetConfiguration implements Runnable{
+    private final String theUrl = theBaseUrl + "/dishesNoToken";
+    private ArrayList<Dish> response;
 
     @Override
     public void run() {
@@ -32,23 +33,23 @@ public class CooksRequest extends NetConfiguration implements Runnable{
                 }
                 bufferedReader.close();
 
-                // Processing the JSON...
+
                 String theUnprocessedJSON = response.toString();
 
                 JSONArray jsonArray = new JSONArray (theUnprocessedJSON);
 
-                this.response = new ArrayList<Cook>();
+                this.response = new ArrayList<Dish>();
 
-                Cook cook;
+                Dish dish;
                 for(int i=0; i < jsonArray.length(); i++) {
                     JSONObject object = jsonArray.getJSONObject( i );
 
-                    cook = new Cook();
-                    cook.setId(object.getInt("id"));
-                    cook.setName(object.getString("name"));
-                    cook.setLastNames(object.getString("last_names"));
+                    dish = new Dish();
+                    dish.setId(object.getInt("id"));
+                    dish.setName(object.getString("name"));
+                    dish.setSubtype( object.getString("subtype"));
 
-                    this.response.add( cook );
+                    this.response.add( dish );
                 }
             } else {
                 this.response = new ArrayList<>();
@@ -59,7 +60,7 @@ public class CooksRequest extends NetConfiguration implements Runnable{
 
     }
 
-    public ArrayList<Cook> getResponse() {
+    public ArrayList<Dish> getResponse() {
         return response;
     }
 }

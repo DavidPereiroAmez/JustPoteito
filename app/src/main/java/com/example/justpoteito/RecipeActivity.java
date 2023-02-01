@@ -11,11 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.justpoteito.adapters.IngredientInRecipeAdapter;
-import com.example.justpoteito.adapters.TypeCuisineAdapter;
 import com.example.justpoteito.models.Dish;
 import com.example.justpoteito.models.Ingredient;
-import com.example.justpoteito.network.DishByIdRequest;
-import com.example.justpoteito.network.IngredientsByDishRequest;
+import com.example.justpoteito.network.request.DishByIdRequest;
+import com.example.justpoteito.network.request.IngredientsByDishRequest;
 import com.example.justpoteito.network.NetworkUtilities;
 
 import java.util.ArrayList;

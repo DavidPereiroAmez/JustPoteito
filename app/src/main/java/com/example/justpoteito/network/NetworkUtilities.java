@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.widget.Toast;
 
 import com.example.justpoteito.R;
 import com.example.justpoteito.models.Cook;
@@ -12,9 +11,20 @@ import com.example.justpoteito.models.CuisineType;
 import com.example.justpoteito.models.Dish;
 import com.example.justpoteito.models.Ingredient;
 import com.example.justpoteito.models.UserResponse;
+import com.example.justpoteito.network.request.CooksRequest;
+import com.example.justpoteito.network.request.CuisineTypesRequest;
+import com.example.justpoteito.network.request.DishByIdRequest;
+import com.example.justpoteito.network.request.DishesByCookRequest;
+import com.example.justpoteito.network.request.DishesByCuisineTypeRequest;
+import com.example.justpoteito.network.request.DishesByIngredientRequest;
+import com.example.justpoteito.network.request.DishesRequest;
+import com.example.justpoteito.network.request.IngredientsByDishRequest;
+import com.example.justpoteito.network.request.IngredientsRequest;
+import com.example.justpoteito.network.request.LoginRequest;
+import com.example.justpoteito.network.request.SendEmailRequest;
+import com.example.justpoteito.network.request.SignUpRequest;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class NetworkUtilities {
     Context context;

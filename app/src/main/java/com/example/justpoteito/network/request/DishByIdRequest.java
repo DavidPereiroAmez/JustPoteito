@@ -1,6 +1,7 @@
-package com.example.justpoteito.network;
+package com.example.justpoteito.network.request;
 
 import com.example.justpoteito.models.Dish;
+import com.example.justpoteito.network.NetConfiguration;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,20 +13,20 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DishesByIngredientRequest extends NetConfiguration implements Runnable{
-    private String IngredientIds;
-    private final String theUrl = theBaseUrl + "/getAllDishesByIngredientNoToken";
-    private ArrayList<Dish> response;
+public class DishByIdRequest extends NetConfiguration implements Runnable{
+    private final String theUrl = theBaseUrl + "/dishesNoToken";
+    private Dish response;
+    private String dishId;
 
-    public DishesByIngredientRequest(String IngredientIds) {
-        this.IngredientIds = IngredientIds;
+    public DishByIdRequest(String dishId) {
+        this.dishId = dishId;
     }
 
     @Override
     public void run() {
         try {
-            URL url = new URL( theUrl + "?idList=" + IngredientIds);
-            System.out.println(url);
+            URL url = new URL( theUrl + "/" + dishId);
+
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod( "GET" );
             int responseCode = httpURLConnection.getResponseCode();
@@ -38,27 +39,23 @@ public class DishesByIngredientRequest extends NetConfiguration implements Runna
                     response.append( inputLine );
                 }
                 bufferedReader.close();
-
                 // Processing the JSON...
                 String theUnprocessedJSON = response.toString();
+                JSONObject jsonObject = new JSONObject(theUnprocessedJSON);
 
-                JSONArray jsonArray = new JSONArray (theUnprocessedJSON);
-
-                this.response = new ArrayList<Dish>();
+                this.response = new Dish();
 
                 Dish dish;
-                for(int i=0; i < jsonArray.length(); i++) {
-                    JSONObject object = jsonArray.getJSONObject( i );
 
-                    dish = new Dish();
-                    dish.setId(object.getInt("id"));
-                    dish.setName(object.getString("name"));
-                    dish.setSubtype( object.getString("subtype"));
+                    this.response.setId(jsonObject.getInt("id"));
+                    this.response.setName(jsonObject.getString("name"));
+                    this.response.setIdCuisineType(jsonObject.getInt("cuisineTypeId"));
+                    this.response.setSubtype(jsonObject.getString("subtype"));
+                    this.response.setPrepTime(jsonObject.getInt("prepTime"));
+                    this.response.setrecipe(jsonObject.getString("recipe"));
 
-                    this.response.add( dish );
-                }
             } else {
-                this.response = new ArrayList<>();
+                this.response = null;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,7 +63,7 @@ public class DishesByIngredientRequest extends NetConfiguration implements Runna
 
     }
 
-    public ArrayList<Dish> getResponse() {
+    public Dish getResponse() {
         return response;
     }
 }
