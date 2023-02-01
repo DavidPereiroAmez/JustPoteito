@@ -12,14 +12,14 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class CreateUserRequest extends NetConfiguration implements Runnable {
+public class SignUpRequest extends NetConfiguration implements Runnable {
 
     private final String theUrl = theBaseUrl + "/auth/signup";
     private UserResponse response;
     private String userDataJson;
     public static Resources res;
 
-    public CreateUserRequest(String userDataJson, Context context) {
+    public SignUpRequest(String userDataJson, Context context) {
         res = context.getResources();
         this.userDataJson = userDataJson;
     }

@@ -32,11 +32,11 @@ public class NetworkUtilities {
         this.res = res;
     }
 
-    public UserResponse makeRequest(CreateUserRequest createUserRequest) {
+    public UserResponse makeRequest(SignUpRequest signUpRequest) {
 
         if (isConnected()) {
 
-            Thread thread = new Thread(createUserRequest);
+            Thread thread = new Thread(signUpRequest);
             try {
                 thread.start();
                 thread.join(10000); // Awaiting response from the server...
@@ -44,7 +44,7 @@ public class NetworkUtilities {
                 // Nothing to do here...
             }
             // Processing the answer
-            UserResponse response = createUserRequest.getResponse();
+            UserResponse response = signUpRequest.getResponse();
 
             return response;
 
@@ -69,6 +69,24 @@ public class NetworkUtilities {
             return response;
         } else
             return new UserResponse(false, res.getString(R.string.error_communication));
+    }
+
+    public String makeRequest(SendEmailRequest sendEmailRequest) {
+        if (isConnected()) {
+
+            Thread thread = new Thread(sendEmailRequest);
+            try {
+                thread.start();
+                thread.join(); // Awaiting response from the server...
+            } catch (InterruptedException e) {
+                // Nothing to do here...
+            }
+            // Processing the answer
+            String response = sendEmailRequest.getResponse();
+
+            return response;
+        } else
+            return new String("Something went wrong");
     }
 
     public ArrayList<CuisineType> makeRequest(CuisineTypesRequest cuisineTypesRequest) {
