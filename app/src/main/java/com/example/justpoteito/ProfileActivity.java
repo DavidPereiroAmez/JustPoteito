@@ -33,12 +33,11 @@ public class ProfileActivity extends AppCompatActivity {
 
         findViewById(R.id.btn_change_pass).setOnClickListener(view -> {
             Intent intent = new Intent(ProfileActivity.this, ChangePasswordActivity.class);
+            intent.putExtra("email", email.getText().toString());
+            System.out.println(email.getText().toString());
             startActivity(intent);
             finish();
         });
-
-
-
 
         //id = findViewById(R.id.userIdTextView);
         profile = findViewById(R.id.profile);
@@ -49,6 +48,5 @@ public class ProfileActivity extends AppCompatActivity {
 
         btn_deleteUser = findViewById(R.id.bnt_deleteUser);
         btn_changePass = findViewById(R.id.btn_change_pass);
-
     }
 }

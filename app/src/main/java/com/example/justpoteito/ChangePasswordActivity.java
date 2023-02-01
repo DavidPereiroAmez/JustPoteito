@@ -1,5 +1,6 @@
 package com.example.justpoteito;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +29,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
         changePass = findViewById(R.id.resetPassword_button);
         (findViewById(R.id.resetPassword_button)).setOnClickListener(v -> {
             if (changePasswordFormIsValid()) {
-                RequestResponse response = new NetworkUtilities(this).makeRequest(new ChangePasswordRequest(generateChangePasswordJson(), this));
+                Intent intent = getIntent();
+                String email = (intent != null) ? intent.getStringExtra("email") : "";
+                RequestResponse response = new NetworkUtilities(this).makeRequest(new ChangePasswordRequest(generateChangePasswordJson(email), this));
                 Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
 
                 if (response.isAccess()) {
@@ -38,9 +41,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
         });
     }
 
-    private String generateChangePasswordJson() {
+    private String generateChangePasswordJson(String email) {
         return  "{" +
-                //"\"username\": \"" + ((EditText) findViewById(R.id.usernameEditTextChangePass)).getText().toString() + "\"," +
+                "\"email\": \"" + email + "\"," +
                 "\"oldPassword\": \"" + ((EditText) findViewById(R.id.editText_oldPassword)).getText().toString() + "\"," +
                 "\"newPassword\": \"" + ((EditText) findViewById(R.id.editText_newPassword)).getText().toString() + "\"" +
                 "}";

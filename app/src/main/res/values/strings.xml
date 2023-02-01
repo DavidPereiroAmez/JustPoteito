@@ -6,8 +6,8 @@
     <string name="password">password</string>
     <string name="forgot_password">forgot password?</string>
     <string name="signup_button">SIGNUP</string>
-    <string name="deleteUser_button">Delete user</string>
     <string name="login_button">Login</string>
+    <string name="deleteUser_button">Delete user</string>
     <string name="title_register">Register</string>
     <string name="please_signup">Please Sign Up</string>
     <string name="first_name">first name</string>
@@ -19,7 +19,7 @@
     <string name="confirm_new_password">Confirm new password</string>
     <string name="reset_button">Change</string>
     <string name="title_forgotPassword">Forgot Password</string>
-    <string name="type_your_email">type your email</string>
+    <string name="type_your_email">type your username</string>
     <string name="send">Send</string>
     <string name="hi">Hi</string>
     <string name="name">Name</string>
@@ -39,14 +39,15 @@
     <string name="type_comment">Type a comment</string>
     <string name="comments">Comments 0</string>
     <string name="error_communication">Error communication</string>
+    <string name="empty_form_field">This field cannot be empty</string>
+    <string name="short_form_filed">This filed must have at least</string>
+    <string name="character">characters</string>
+    <string name="email_required_form_field">This field should be a valid username</string>
     <string name="passwords_do_not_match">Passwords do not match</string>
     <string name="user_already_exists">This user already exists</string>
     <string name="request_error">Something went wrong</string>
     <string name="user_created">User created</string>
-    <string name="empty_form_field">This field cannot be empty</string>
-    <string name="short_form_filed">This filed must have at least</string>
-    <string name="character">characters</string>
-    error_communication
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -56,6 +57,7 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="remember_me">Remember me?</string>
 
     <!-- Strings related to Profile -->
     <string name="profile">My Profile</string>
