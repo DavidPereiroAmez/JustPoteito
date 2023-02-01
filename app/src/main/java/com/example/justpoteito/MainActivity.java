@@ -18,7 +18,6 @@ import com.example.justpoteito.fragments.LoginFragment;
 import com.example.justpoteito.fragments.RegisterFragment;
 import com.example.justpoteito.models.User;
 import com.example.justpoteito.models.UserResponse;
-import com.example.justpoteito.network.CreateUserRequest;
 import com.example.justpoteito.network.ErrorShow;
 import com.example.justpoteito.network.SendEmailRequest;
 import com.example.justpoteito.network.SignUpRequest;
