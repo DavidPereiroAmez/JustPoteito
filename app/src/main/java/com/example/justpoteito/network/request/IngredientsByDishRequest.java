@@ -54,6 +54,7 @@ public class IngredientsByDishRequest extends NetConfiguration implements Runnab
                     ingredient.setName(object.getString("name"));
                     ingredient.setType( object.getString("type"));
                     ingredient.setAmount((object.getString("amount")));
+                    ingredient.setImage((object.getString("image")));
 
                     this.response.add( ingredient );
                 }

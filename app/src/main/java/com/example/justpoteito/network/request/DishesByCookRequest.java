@@ -54,6 +54,7 @@ public class DishesByCookRequest extends NetConfiguration implements Runnable{
                     dish.setId(object.getInt("id"));
                     dish.setName(object.getString("name"));
                     dish.setSubtype( object.getString("subtype"));
+                    dish.setImage(object.getString("image"));
 
                     this.response.add( dish );
                 }

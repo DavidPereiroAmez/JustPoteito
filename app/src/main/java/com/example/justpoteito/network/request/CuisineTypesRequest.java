@@ -47,6 +47,7 @@ public class CuisineTypesRequest extends NetConfiguration implements Runnable {
                     cuisineType.setId(object.getInt("id"));
                     cuisineType.setName(object.getString("name"));
                     cuisineType.setSubtype( object.getString("subtype"));
+                    cuisineType.setImage( object.getString("image"));
 
                     this.response.add( cuisineType );
                 }

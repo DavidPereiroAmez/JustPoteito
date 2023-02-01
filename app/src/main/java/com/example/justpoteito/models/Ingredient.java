@@ -7,6 +7,7 @@ public class Ingredient implements Serializable {
     private String name;
     private String type;
     private String amount;
+    private String image;
 
     public Ingredient() {
     }
@@ -16,6 +17,13 @@ public class Ingredient implements Serializable {
         this.name = name;
         this.type = type;
         this.amount = amount;
+    }
+    public Ingredient(int id, String name, String type, String amount, String image) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.amount = amount;
+        this.image = image;
     }
 
     public Ingredient(int id, String name) {
@@ -55,6 +63,14 @@ public class Ingredient implements Serializable {
         this.amount = amount;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "Ingredient{" +
@@ -62,6 +78,7 @@ public class Ingredient implements Serializable {
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", amount='" + amount + '\'' +
+                ", image='" + image + '\'' +
                 '}';
     }
 }

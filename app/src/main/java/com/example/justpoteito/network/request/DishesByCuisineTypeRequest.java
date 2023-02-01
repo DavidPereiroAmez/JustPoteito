@@ -54,6 +54,8 @@ public class DishesByCuisineTypeRequest extends NetConfiguration implements Runn
                     dish.setId(object.getInt("id"));
                     dish.setName(object.getString("name"));
                     dish.setSubtype( object.getString("subtype"));
+                    System.out.println(object.getString("image"));
+                    dish.setImage(object.getString("image"));
 
                     this.response.add( dish );
                 }

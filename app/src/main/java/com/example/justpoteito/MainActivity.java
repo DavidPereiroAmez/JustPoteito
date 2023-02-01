@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                 "\"surnames\": \"" + ((EditText) findViewById(R.id.editText_lastNames)).getText().toString() + "\"," +
                 "\"userName\": \"" + ((EditText) findViewById(R.id.editText_username)).getText().toString() + "\"," +
                 "\"email\": \"" + ((EditText) findViewById(R.id.editText_email)).getText().toString() + "\"," +
-                "\"password\": \"" + encryptedPass + "\"" +
+                "\"password\": \"" + ((EditText) findViewById(R.id.editText_password_register)).getText().toString() + "\"" +
                 "}";
     }
 

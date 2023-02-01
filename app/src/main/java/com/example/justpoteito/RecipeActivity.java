@@ -4,8 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Base64;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +62,16 @@ public class RecipeActivity extends AppCompatActivity {
     public void chargeDishData(){
         dish = networkUtilities.makeRequest(new DishByIdRequest(dishId));
         if(dish!=null){
+            System.out.println("AAA " + dish.getName() + " " + dish.getImage());
+            if(dish.getImage() == null || dish.getImage().length() == 0){
+                ((ImageView) findViewById(R.id.dish_main_image)).setImageResource(R.drawable.verduras);
+            }else{
+                byte[] decodedString = Base64.decode(dish.getImage(), Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                //Drawable image = new BitmapDrawable(context.getResources(), decodedByte);
+                ((ImageView) findViewById(R.id.dish_main_image)).setImageBitmap(decodedByte);
+            }
+
             ((TextView) findViewById(R.id.title_dish)).setText(dish.getName());
             ((TextView) findViewById(R.id.dish_preparation_time)).setText(dish.getPrepTime()+"");
             ((TextView) findViewById(R.id.load_recipe)).setText(dish.getrecipe()+"");

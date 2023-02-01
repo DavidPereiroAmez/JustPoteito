@@ -53,6 +53,7 @@ public class DishByIdRequest extends NetConfiguration implements Runnable{
                     this.response.setSubtype(jsonObject.getString("subtype"));
                     this.response.setPrepTime(jsonObject.getInt("prepTime"));
                     this.response.setrecipe(jsonObject.getString("recipe"));
+                    this.response.setImage(jsonObject.getString("image"));
 
             } else {
                 this.response = null;

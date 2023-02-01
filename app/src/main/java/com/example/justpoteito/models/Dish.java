@@ -1,5 +1,7 @@
 package com.example.justpoteito.models;
 
+import android.media.Image;
+
 import java.io.Serializable;
 
 public class Dish implements Serializable {
@@ -9,6 +11,7 @@ public class Dish implements Serializable {
     private int idCuisineType;
     private String subtype;
     private String recipe;
+    private String image;
 
     public Dish() {
     }
@@ -20,6 +23,15 @@ public class Dish implements Serializable {
         this.idCuisineType = idCuisineType;
         this.subtype = subtype;
         this.recipe = recipe;
+    }
+    public Dish(int id, String name, int prepTime, int idCuisineType, String subtype, String recipe, String image) {
+        this.id = id;
+        this.name = name;
+        this.prepTime = prepTime;
+        this.idCuisineType = idCuisineType;
+        this.subtype = subtype;
+        this.recipe = recipe;
+        this.image = image;
     }
 
     public Dish(int id, String name, String subtype) {
@@ -82,6 +94,22 @@ public class Dish implements Serializable {
         this.recipe = recipe;
     }
 
+    public String getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(String recipe) {
+        this.recipe = recipe;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "Dish{" +
@@ -90,7 +118,8 @@ public class Dish implements Serializable {
                 ", prepTime=" + prepTime +
                 ", idCuisineType=" + idCuisineType +
                 ", subtype='" + subtype + '\'' +
-                ", alergens='" + recipe + '\'' +
+                ", recipe='" + recipe + '\'' +
+                ", image='" + image + '\'' +
                 '}';
     }
 }
