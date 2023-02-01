@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.CheckBox;
@@ -24,6 +25,12 @@ import com.example.justpoteito.network.request.SendEmailRequest;
 import com.example.justpoteito.network.request.SignUpRequest;
 import com.example.justpoteito.network.request.LoginRequest;
 import com.example.justpoteito.network.NetworkUtilities;
+import com.example.justpoteito.security.RsaEncrypter;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
     FragmentTransaction transaction;
@@ -226,14 +233,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String generateLoginJson() {
-//        return  "{" +
-//                "\"email\": \"" + ((EditText) findViewById(R.id.editText_email_login)).getText().toString() + "\"," +
-//                "\"password\": \"" + ((EditText) findViewById(R.id.editText_password)).getText().toString() + "\"" +
-//                "}";
+
+        //assets
+
+        byte[] ecnryptedPass = RsaEncrypter.encryptText("12345");
+        System.out.println("RSA PASSWORD: " + ecnryptedPass);
 
         return  "{" +
-                "\"email\": \"" + "david@gemail.com" + "\"," +
-                "\"password\": \"" + "12345" + "\"" +
+                "\"email\": \"" + "david5@gmail.com" + "\"," +
+                "\"password\": \"" + ecnryptedPass + "\"" +
                 "}";
     }
 
