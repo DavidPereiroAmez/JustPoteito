@@ -26,11 +26,14 @@ import com.example.justpoteito.network.request.SignUpRequest;
 import com.example.justpoteito.network.request.LoginRequest;
 import com.example.justpoteito.network.NetworkUtilities;
 import com.example.justpoteito.security.RsaEncrypter;
+import com.example.justpoteito.security.RsaFileReader;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 
 public class MainActivity extends AppCompatActivity {
     FragmentTransaction transaction;
@@ -234,16 +237,16 @@ public class MainActivity extends AppCompatActivity {
 
     private String generateLoginJson() {
 
-        //assets
-
-        byte[] ecnryptedPass = RsaEncrypter.encryptText("12345");
+        byte[] key = RsaFileReader.readRsaFile("public.key", MainActivity.this);
+        String ecnryptedPass = RsaEncrypter.encryptText("12345", key);
         System.out.println("RSA PASSWORD: " + ecnryptedPass);
 
         return  "{" +
-                "\"email\": \"" + "david5@gmail.com" + "\"," +
+                "\"email\": \"" + "david@davidofff.com" + "\"," +
                 "\"password\": \"" + ecnryptedPass + "\"" +
                 "}";
     }
+
 
     /*private void changePassword_onCreate() {
         findViewById(R.id.userFormBack).setOnClickListener(v -> {

@@ -1,32 +1,27 @@
 package com.example.justpoteito.security;
 
+import android.os.Build;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.security.KeyFactory;
 import java.security.PublicKey;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
 
 import javax.crypto.Cipher;
 
 public class RsaEncrypter {
 
-    private static final String PUBLIC_KEY_FILE_PATH = "./public.key";
-
-    public static byte[] encryptText(String mensaje) {
+    public static String encryptText(String mensaje, byte[] public_key) {
         byte[] encodedMessage = null;
 
         try {
-            File ficheroPublica = new File(PUBLIC_KEY_FILE_PATH);
-            byte[] clavePublica = new byte[0];
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                clavePublica = Files.readAllBytes(ficheroPublica.toPath());
-            }
-
-            System.out.println("Tamanio -> " + clavePublica.length + " bytes");
+            System.out.println("Tamanio -> " + public_key.length + " bytes");
 
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-            X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(clavePublica);
+            X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(public_key);
             PublicKey publicKey = keyFactory.generatePublic(x509EncodedKeySpec);
 
             Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
@@ -35,6 +30,10 @@ public class RsaEncrypter {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return encodedMessage;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return new String(Base64.getEncoder().encode(encodedMessage));
+        }
+
+        return "";
     }
 }
