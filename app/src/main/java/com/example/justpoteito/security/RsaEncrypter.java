@@ -18,8 +18,6 @@ public class RsaEncrypter {
 
         try {
 
-            System.out.println("Tamanio -> " + public_key.length + " bytes");
-
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
             X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(public_key);
             PublicKey publicKey = keyFactory.generatePublic(x509EncodedKeySpec);

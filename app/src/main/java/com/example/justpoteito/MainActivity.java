@@ -226,27 +226,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String generateRegisterJson() {
+
+        String encryptedPass = encryptText(((EditText) findViewById(R.id.editText_password_register))
+                                .getText().toString());
+
         return  "{" +
                 "\"name\": \"" + ((EditText) findViewById(R.id.editText_firstName)).getText().toString() + "\"," +
                 "\"surnames\": \"" + ((EditText) findViewById(R.id.editText_lastNames)).getText().toString() + "\"," +
                 "\"userName\": \"" + ((EditText) findViewById(R.id.editText_username)).getText().toString() + "\"," +
                 "\"email\": \"" + ((EditText) findViewById(R.id.editText_email)).getText().toString() + "\"," +
-                "\"password\": \"" + ((EditText) findViewById(R.id.editText_password_register)).getText().toString() + "\"" +
+                "\"password\": \"" + encryptedPass + "\"" +
                 "}";
     }
 
     private String generateLoginJson() {
 
-        byte[] key = RsaFileReader.readRsaFile("public.key", MainActivity.this);
-        String ecnryptedPass = RsaEncrypter.encryptText("12345", key);
-        System.out.println("RSA PASSWORD: " + ecnryptedPass);
+        String encryptedPass = encryptText(((EditText) findViewById(R.id.editText_password))
+                            .getText().toString());
 
         return  "{" +
-                "\"email\": \"" + "david@davidofff.com" + "\"," +
-                "\"password\": \"" + ecnryptedPass + "\"" +
+                "\"email\": \"" + ((EditText) findViewById(R.id.editText_email_login)).getText().toString() + "\"," +
+                "\"password\": \"" + encryptedPass + "\"" +
                 "}";
     }
 
+    private String encryptText(String password) {
+        byte[] key = RsaFileReader.readRsaFile("public.key", MainActivity.this);
+        return RsaEncrypter.encryptText(password, key);
+    }
 
     /*private void changePassword_onCreate() {
         findViewById(R.id.userFormBack).setOnClickListener(v -> {
