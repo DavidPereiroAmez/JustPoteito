@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                 "\"surnames\": \"" + ((EditText) findViewById(R.id.editText_lastNames)).getText().toString() + "\"," +
                 "\"userName\": \"" + ((EditText) findViewById(R.id.editText_username)).getText().toString() + "\"," +
                 "\"email\": \"" + ((EditText) findViewById(R.id.editText_email)).getText().toString() + "\"," +
-                "\"password\": \"" + ((EditText) findViewById(R.id.editText_password_register)).getText().toString() + "\"" +
+                "\"password\": \"" + encryptedPass  + "\"" +
                 "}";
     }
 
@@ -254,49 +254,4 @@ public class MainActivity extends AppCompatActivity {
         byte[] key = RsaFileReader.readRsaFile("public.key", MainActivity.this);
         return RsaEncrypter.encryptText(password, key);
     }
-
-    /*private void changePassword_onCreate() {
-        findViewById(R.id.userFormBack).setOnClickListener(v -> {
-            setFragmentLayout("sign_in");
-        });
-
-        (findViewById(R.id.resetButton)).setOnClickListener(v -> {
-            if (changePasswordFormIsValid()){
-                RequestResponse response = new NetworkUtilites(this).makeRequest(new ChangePasswordRequest(generateChangePasswordJson(), this));
-                Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
-
-                if (response.isAccess()) {
-                    setFragmentLayout("sign_in");
-                }
-            }
-        });
-    }*/
-
-    /*private boolean changePasswordFormIsValid() {
-        boolean isValid = true;
-
-        EditText password = ((EditText)findViewById(R.id.newPasswordTextViewReset));
-        EditText confirmPassword = ((EditText)findViewById(R.id.confirmNewPasswordTextViewReset));
-
-        if (!editTextIsValid(findViewById(R.id.usernameEditTextChangePass), 5, false)) isValid = false;
-        if (!editTextIsValid(findViewById(R.id.oldPasswordTextViewReset), 5, false)) isValid = false;
-        if (!editTextIsValid(password, 5, false)) isValid = false;
-        if (!editTextIsValid(confirmPassword, 5, false)) isValid = false;
-
-        if (!password.getText().toString().equals(confirmPassword.getText().toString())) {
-            password.setError(getString(R.string.passwords_do_not_match));
-            confirmPassword.setError(getString(R.string.passwords_do_not_match));
-            isValid = false;
-        }
-
-        return isValid;
-    }*/
-
-    /*private String generateChangePasswordJson() {
-        return  "{" +
-                "\"username\": \"" + ((EditText) findViewById(R.id.usernameEditTextChangePass)).getText().toString() + "\"," +
-                "\"oldPassword\": \"" + ((EditText) findViewById(R.id.oldPasswordTextViewReset)).getText().toString() + "\"," +
-                "\"newPassword\": \"" + ((EditText) findViewById(R.id.newPasswordTextViewReset)).getText().toString() + "\"" +
-                "}";
-    }*/
 }
