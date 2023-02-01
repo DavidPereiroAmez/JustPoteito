@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.CheckBox;
@@ -24,6 +25,15 @@ import com.example.justpoteito.network.request.SendEmailRequest;
 import com.example.justpoteito.network.request.SignUpRequest;
 import com.example.justpoteito.network.request.LoginRequest;
 import com.example.justpoteito.network.NetworkUtilities;
+import com.example.justpoteito.security.RsaEncrypter;
+import com.example.justpoteito.security.RsaFileReader;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 
 public class MainActivity extends AppCompatActivity {
     FragmentTransaction transaction;
@@ -216,25 +226,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String generateRegisterJson() {
+
+        String encryptedPass = encryptText(((EditText) findViewById(R.id.editText_password_register))
+                                .getText().toString());
+
         return  "{" +
                 "\"name\": \"" + ((EditText) findViewById(R.id.editText_firstName)).getText().toString() + "\"," +
                 "\"surnames\": \"" + ((EditText) findViewById(R.id.editText_lastNames)).getText().toString() + "\"," +
                 "\"userName\": \"" + ((EditText) findViewById(R.id.editText_username)).getText().toString() + "\"," +
                 "\"email\": \"" + ((EditText) findViewById(R.id.editText_email)).getText().toString() + "\"," +
-                "\"password\": \"" + ((EditText) findViewById(R.id.editText_password_register)).getText().toString() + "\"" +
+                "\"password\": \"" + encryptedPass + "\"" +
                 "}";
     }
 
     private String generateLoginJson() {
-//        return  "{" +
-//                "\"email\": \"" + ((EditText) findViewById(R.id.editText_email_login)).getText().toString() + "\"," +
-//                "\"password\": \"" + ((EditText) findViewById(R.id.editText_password)).getText().toString() + "\"" +
-//                "}";
+
+        String encryptedPass = encryptText(((EditText) findViewById(R.id.editText_password))
+                            .getText().toString());
 
         return  "{" +
-                "\"email\": \"" + "david@gemail.com" + "\"," +
-                "\"password\": \"" + "12345" + "\"" +
+                "\"email\": \"" + ((EditText) findViewById(R.id.editText_email_login)).getText().toString() + "\"," +
+                "\"password\": \"" + encryptedPass + "\"" +
                 "}";
+    }
+
+    private String encryptText(String password) {
+        byte[] key = RsaFileReader.readRsaFile("public.key", MainActivity.this);
+        return RsaEncrypter.encryptText(password, key);
     }
 
     /*private void changePassword_onCreate() {

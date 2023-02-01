@@ -15,7 +15,7 @@ import java.net.URL;
 
 public class SignUpRequest extends NetConfiguration implements Runnable {
 
-    private final String theUrl = theBaseUrl + "/auth/signup";
+    private final String theUrl = theBaseUrl + "/auth/signupCrypted";
     private UserResponse response;
     private String userDataJson;
     public static Resources res;

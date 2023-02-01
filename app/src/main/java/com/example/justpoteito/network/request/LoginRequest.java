@@ -34,6 +34,7 @@ public class LoginRequest extends NetConfiguration implements Runnable {
 
         try {
             URL url = new URL(theUrl);
+
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setRequestProperty("Content-Type", "application/json");
@@ -45,6 +46,7 @@ public class LoginRequest extends NetConfiguration implements Runnable {
             }
 
             int responseCode = httpURLConnection.getResponseCode();
+            System.out.println(responseCode);
 
             if (responseCode == 432) {
                 response.setAccess(false);
