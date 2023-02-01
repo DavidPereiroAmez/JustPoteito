@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
 //                "}";
 
         return  "{" +
-                "\"email\": \"" + "david@gemail.com" + "\"," +
+                "\"email\": \"" + "david.pereiroam@elorrieta-errekamari.com" + "\"," +
                 "\"password\": \"" + "12345" + "\"" +
                 "}";
     }
