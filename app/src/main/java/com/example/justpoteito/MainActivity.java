@@ -150,6 +150,10 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putInt("user_id", loginResponse.getId());
                     editor.putString("username", loginResponse.getUsername());
+                    editor.putString("user_realName", loginResponse.getName());
+                    editor.putString("surnames", loginResponse.getSurnames());
+                    editor.putString("email", loginResponse.getEmail());
+
                     editor.commit();
 
                     Toast.makeText(this, loginResponse.getMessage(), Toast.LENGTH_SHORT).show();

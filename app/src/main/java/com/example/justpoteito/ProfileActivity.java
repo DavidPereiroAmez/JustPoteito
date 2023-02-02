@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.justpoteito.models.RequestResponse;
@@ -33,6 +34,18 @@ public class ProfileActivity extends AppCompatActivity {
         userId =  preferences.getInt("user_id", 0);
 
         setContentView(R.layout.activity_profile);
+
+        String userRealName = preferences.getString("user_realName", "");
+        ((TextView) findViewById(R.id.textView_profileName)).setText(userRealName);
+
+        String surnames = preferences.getString("surnames", "");
+        ((TextView) findViewById(R.id.textView_profileSurnames)).setText(surnames);
+
+        String userName = preferences.getString("username", "");
+        ((TextView) findViewById(R.id.textView_userName)).setText(userName);
+
+        String email = preferences.getString("email", "");
+        ((TextView) findViewById(R.id.textView_profileEmail)).setText(email);
 
         findViewById(R.id.back_button).setOnClickListener(view -> {
             Intent intent = new Intent(ProfileActivity.this, ExplorerActivity.class);

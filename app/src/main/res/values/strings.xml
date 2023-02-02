@@ -49,6 +49,7 @@
     <string name="user_created">User created</string>
     <string name="incorrect_password">The password is incorrect</string>
 
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -59,6 +60,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="remember_me">Remember me?</string>
+    <string name="user_not_enabled">This account is disabled</string>
 
     <!-- Strings related to Profile -->
     <string name="user">Karlos</string>
