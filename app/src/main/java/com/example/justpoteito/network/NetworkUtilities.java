@@ -10,7 +10,9 @@ import com.example.justpoteito.models.Cook;
 import com.example.justpoteito.models.CuisineType;
 import com.example.justpoteito.models.Dish;
 import com.example.justpoteito.models.Ingredient;
+import com.example.justpoteito.models.RequestResponse;
 import com.example.justpoteito.models.UserResponse;
+import com.example.justpoteito.network.request.ChangePasswordRequest;
 import com.example.justpoteito.network.request.CooksRequest;
 import com.example.justpoteito.network.request.CuisineTypesRequest;
 import com.example.justpoteito.network.request.DeleteUserRequest;
@@ -116,6 +118,27 @@ public class NetworkUtilities {
             return response;
         } else
             return new String("Something went wrong");
+    }
+
+    public RequestResponse makeRequest(ChangePasswordRequest changePasswordRequest) {
+
+        if (isConnected()) {
+
+            Thread thread = new Thread(changePasswordRequest);
+            try {
+                thread.start();
+                thread.join(10000); // Awaiting response from the server...
+            } catch (InterruptedException e) {
+                // Nothing to do here...
+            }
+            // Processing the answer
+            RequestResponse response = changePasswordRequest.getResponse();
+
+            return response;
+
+
+        } else
+            return new RequestResponse(false, res.getString(R.string.error_communication));
     }
 
     public ArrayList<CuisineType> makeRequest(CuisineTypesRequest cuisineTypesRequest) {
@@ -241,6 +264,7 @@ public class NetworkUtilities {
         } else
             return new ArrayList<>();
     }
+
     public Dish makeRequest(DishByIdRequest dishByIdRequest) {
         if (isConnected()) {
             Thread thread = new Thread(dishByIdRequest);
@@ -257,6 +281,7 @@ public class NetworkUtilities {
         } else
             return null;
     }
+
     public ArrayList<Ingredient> makeRequest(IngredientsByDishRequest ingredientsByDishRequest) {
 
         if (isConnected()) {
@@ -289,4 +314,5 @@ public class NetworkUtilities {
         }
         return ret;
     }
+
 }

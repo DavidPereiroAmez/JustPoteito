@@ -28,10 +28,10 @@ public class ChangePasswordRequest extends NetConfiguration implements Runnable 
     @Override
     public void run() {
         try {
-
+            System.out.println(userDataJson);
             URL url = new URL(theUrl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setRequestMethod("PUT");
             httpURLConnection.setRequestProperty("Content-Type", "application/json");
 
             httpURLConnection.setDoOutput(true);
@@ -44,10 +44,15 @@ public class ChangePasswordRequest extends NetConfiguration implements Runnable 
 
             response = new RequestResponse();
 
-            if (responseCode == 432 || responseCode == 433) {
+            if (responseCode == 433) {
 
                 this.response.setAccess(false);
-                //this.response.setMessage(res.getString(R.string.user_doesnt_exist));
+                this.response.setMessage(res.getString(R.string.user_not_updated));
+
+            } else if (responseCode == 434) {
+
+                this.response.setAccess(false);
+                this.response.setMessage(res.getString(R.string.incorrect_password));
 
             } else if (responseCode == HttpURLConnection.HTTP_ACCEPTED) {
 
@@ -61,7 +66,7 @@ public class ChangePasswordRequest extends NetConfiguration implements Runnable 
                 bufferedReader.close();
 
                 this.response.setAccess(true);
-                //this.response.setMessage(res.getString(R.string.password_changed));
+                this.response.setMessage(res.getString(R.string.password_changed));
 
             } else {
                 this.response.setAccess(false);
