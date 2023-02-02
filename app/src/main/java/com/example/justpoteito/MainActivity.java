@@ -122,9 +122,6 @@ public class MainActivity extends AppCompatActivity {
             User user = databaseHelper.getAllUsers();
             ((EditText)findViewById(R.id.editText_email_login)).setText(user.getEmail());
             ((EditText)findViewById(R.id.editText_password)).setText(user.getPassword());
-
-            ((EditText)findViewById(R.id.editText_email_login)).setText("david@gemail.com");
-            ((EditText)findViewById(R.id.editText_password)).setText("12345");
         }
 
         findViewById(R.id.login_button).setOnClickListener(view -> {
@@ -132,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
 
             String email = ((EditText)findViewById(R.id.editText_email_login)).getText().toString();
             String password = ((EditText)findViewById(R.id.editText_password)).getText().toString();
-
 
             if (checkRemember.isChecked()) {
                 if ((!databaseHelper.isEmpty() && databaseHelper.deleteUser() == 1) || databaseHelper.isEmpty()) {
@@ -160,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else
-                    //Toast.makeText(this, loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
                     Toast.makeText(this, ErrorShow.connectionError(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -184,22 +179,11 @@ public class MainActivity extends AppCompatActivity {
     private boolean registerFormIsValid() {
         boolean isValid = true;
 
-        // EditText password = ((EditText)findViewById(R.id.editText_password));
-        // TODO: Confirm password?
-        // EditText confirmPassword = ((EditText)findViewById(R.id.editText_password));
-
         if (!formValidator.editTextIsValid(findViewById(R.id.editText_firstName), 1, false)) isValid = false;
         if (!formValidator.editTextIsValid(findViewById(R.id.editText_lastNames), 1, false)) isValid = false;
         if (!formValidator.editTextIsValid(findViewById(R.id.editText_username), 5, false)) isValid = false;
         if (!formValidator.editTextIsValid(findViewById(R.id.editText_email), 5, true)) isValid = false;
         if (!formValidator.editTextIsValid(findViewById(R.id.editText_password_register), 5, false)) isValid = false;
-        //if (!editTextIsValid(findViewById(R.id.confirmPasswordTextViewRegister), 5, false)) isValid = false;
-
-        /*if (!password.getText().toString().equals(confirmPassword.getText().toString())) {
-            password.setError(getString(R.string.passwords_do_not_match));
-            confirmPassword.setError(getString(R.string.passwords_do_not_match));
-            isValid = false;
-        }*/
 
         return isValid;
     }
