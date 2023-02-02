@@ -3,6 +3,7 @@
     <string name="title_main">Just Poteito</string>
     <string name="please_login">Please login</string>
     <string name="username">username</string>
+    <string name="email">email</string>
     <string name="password">password</string>
     <string name="forgot_password">forgot password?</string>
     <string name="signup_button">SIGNUP</string>
@@ -21,7 +22,6 @@
     <string name="send">Send</string>
     <string name="hi">Hi</string>
     <string name="name">Name</string>
-    <string name="email">email</string>
     <string name="search">Search</string>
     <string name="explorer">Explore Recipes</string>
     <string name="title_explore_by_type_of_cuisine">Explore by type of cuisine</string>
@@ -64,6 +64,7 @@
     <string name="prof_name">Carlos</string>
     <string name="surname">Arguiñano</string>
     <string name="prof_email">KarlosArguiñano@gmail.com</string>
+    <string name="password_changed">The password was changed</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

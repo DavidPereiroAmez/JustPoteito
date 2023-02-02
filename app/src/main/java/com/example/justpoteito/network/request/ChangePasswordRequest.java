@@ -28,10 +28,10 @@ public class ChangePasswordRequest extends NetConfiguration implements Runnable 
     @Override
     public void run() {
         try {
-
+            System.out.println(userDataJson);
             URL url = new URL(theUrl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setRequestMethod("PUT");
             httpURLConnection.setRequestProperty("Content-Type", "application/json");
 
             httpURLConnection.setDoOutput(true);
@@ -61,7 +61,7 @@ public class ChangePasswordRequest extends NetConfiguration implements Runnable 
                 bufferedReader.close();
 
                 this.response.setAccess(true);
-                //this.response.setMessage(res.getString(R.string.password_changed));
+                this.response.setMessage(res.getString(R.string.password_changed));
 
             } else {
                 this.response.setAccess(false);

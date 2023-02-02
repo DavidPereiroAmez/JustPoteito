@@ -27,6 +27,7 @@ import com.example.justpoteito.network.request.LoginRequest;
 import com.example.justpoteito.network.NetworkUtilities;
 import com.example.justpoteito.security.RsaEncrypter;
 import com.example.justpoteito.security.RsaFileReader;
+import com.example.justpoteito.utilities.FormValidator;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -34,10 +35,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.text.Normalizer;
 
 public class MainActivity extends AppCompatActivity {
     FragmentTransaction transaction;
     Fragment loginFragment, registerFragment, forgotPasswordFragment;
+    FormValidator formValidator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         loginFragment = new LoginFragment();
         registerFragment = new RegisterFragment();
         forgotPasswordFragment = new ForgotPasswordFragment();
+        formValidator = new FormValidator(this);
 
         setFragment("loginFragment");
     }
@@ -79,12 +83,14 @@ public class MainActivity extends AppCompatActivity {
         new Toast(this).makeText(this, (R.string.request_error), Toast.LENGTH_LONG).show();
     }
 
-    public void registerOnCreate(){
+    public void registerOnCreate() {
         findViewById(R.id.login_button).setOnClickListener(view -> {
             setFragment("loginFragment");
         });
 
         findViewById(R.id.signup_button).setOnClickListener(view -> {
+
+
             if (registerFormIsValid()) {
 
                 String userDataJson = generateRegisterJson();
@@ -178,11 +184,11 @@ public class MainActivity extends AppCompatActivity {
         // TODO: Confirm password?
         // EditText confirmPassword = ((EditText)findViewById(R.id.editText_password));
 
-        if (!editTextIsValid(findViewById(R.id.editText_firstName), 1, false)) isValid = false;
-        if (!editTextIsValid(findViewById(R.id.editText_lastNames), 1, false)) isValid = false;
-        if (!editTextIsValid(findViewById(R.id.editText_username), 5, false)) isValid = false;
-        if (!editTextIsValid(findViewById(R.id.editText_email), 5, true)) isValid = false;
-        if (!editTextIsValid(findViewById(R.id.editText_password_register), 5, false)) isValid = false;
+        if (!formValidator.editTextIsValid(findViewById(R.id.editText_firstName), 1, false)) isValid = false;
+        if (!formValidator.editTextIsValid(findViewById(R.id.editText_lastNames), 1, false)) isValid = false;
+        if (!formValidator.editTextIsValid(findViewById(R.id.editText_username), 5, false)) isValid = false;
+        if (!formValidator.editTextIsValid(findViewById(R.id.editText_email), 5, true)) isValid = false;
+        if (!formValidator.editTextIsValid(findViewById(R.id.editText_password_register), 5, false)) isValid = false;
         //if (!editTextIsValid(findViewById(R.id.confirmPasswordTextViewRegister), 5, false)) isValid = false;
 
         /*if (!password.getText().toString().equals(confirmPassword.getText().toString())) {
@@ -197,32 +203,10 @@ public class MainActivity extends AppCompatActivity {
     private boolean loginFormIsValid() {
         boolean isValid = true;
 
-        if (!editTextIsValid(findViewById(R.id.editText_email_login), 5, false)) isValid = false;
-        if (!editTextIsValid(findViewById(R.id.editText_password), 5, false)) isValid = false;
+        if (!formValidator.editTextIsValid(findViewById(R.id.editText_email_login), 5, false)) isValid = false;
+        if (!formValidator.editTextIsValid(findViewById(R.id.editText_password), 5, false)) isValid = false;
 
         return isValid;
-    }
-
-    public boolean editTextIsValid(EditText editText, int minimumLength, boolean isEmail) {
-        String text = editText.getText().toString().trim();
-        editText.setError(null);
-
-        if (text.length() == 0 && !isEmail) {
-            editText.setError(getString(R.string.empty_form_field));
-            return false;
-        }
-
-        if (text.length() > 0 && text.length() < minimumLength && !isEmail) {
-            editText.setError(getString(R.string.short_form_filed) + " " + minimumLength + " " + getString(R.string.character));
-            return false;
-        }
-
-        if (isEmail && !android.util.Patterns.EMAIL_ADDRESS.matcher(text).matches()) {
-            editText.setError(getString(R.string.email_required_form_field));
-            return false;
-        }
-
-        return true;
     }
 
     private String generateRegisterJson() {
