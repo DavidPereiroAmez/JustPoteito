@@ -13,6 +13,7 @@ import com.example.justpoteito.models.Ingredient;
 import com.example.justpoteito.models.UserResponse;
 import com.example.justpoteito.network.request.CooksRequest;
 import com.example.justpoteito.network.request.CuisineTypesRequest;
+import com.example.justpoteito.network.request.DeleteUserRequest;
 import com.example.justpoteito.network.request.DishByIdRequest;
 import com.example.justpoteito.network.request.DishesByCookRequest;
 import com.example.justpoteito.network.request.DishesByCuisineTypeRequest;
@@ -93,6 +94,24 @@ public class NetworkUtilities {
             }
             // Processing the answer
             String response = sendEmailRequest.getResponse();
+
+            return response;
+        } else
+            return new String("Something went wrong");
+    }
+
+    public String makeRequest(DeleteUserRequest deleteUserRequest) {
+        if (isConnected()) {
+
+            Thread thread = new Thread(deleteUserRequest);
+            try {
+                thread.start();
+                thread.join(10000); // Awaiting response from the server...
+            } catch (InterruptedException e) {
+                // Nothing to do here...
+            }
+            // Processing the answer
+            String response = deleteUserRequest.getResponse();
 
             return response;
         } else

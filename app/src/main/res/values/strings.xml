@@ -21,7 +21,7 @@
     <string name="send">Send</string>
     <string name="hi">Hi</string>
     <string name="name">Name</string>
-    <string name="email">Email</string>
+    <string name="email">email</string>
     <string name="search">Search</string>
     <string name="explorer">Explore Recipes</string>
     <string name="title_explore_by_type_of_cuisine">Explore by type of cuisine</string>
