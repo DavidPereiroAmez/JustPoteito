@@ -48,15 +48,12 @@ public class LoginRequest extends NetConfiguration implements Runnable {
             int responseCode = httpURLConnection.getResponseCode();
             System.out.println(responseCode);
 
-            if (responseCode == 432) {
+            if (responseCode == 433) {
                 response.setAccess(false);
-                //response.setMessage(res.getString(R.string.user_not_exist));
-            } else if (responseCode == 400) {
+                response.setMessage(res.getString(R.string.user_doesnt_exist));
+            }else if (responseCode == 434) {
                 response.setAccess(false);
-                //response.setMessage(res.getString(R.string.input_wrong));
-            } else if (responseCode == 433) {
-                response.setAccess(false);
-                //response.setMessage(res.getString(R.string.password_incorrect));
+                response.setMessage(res.getString(R.string.incorrect_password));
             } else if (responseCode == 202) {
                 BufferedReader bufferedReader = new BufferedReader(
                         new InputStreamReader( httpURLConnection.getInputStream() ) );

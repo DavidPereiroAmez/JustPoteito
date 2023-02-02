@@ -17,6 +17,8 @@ import com.example.justpoteito.network.request.DeleteUserRequest;
 import com.example.justpoteito.network.request.DishByIdRequest;
 import com.example.justpoteito.network.request.LoginRequest;
 import com.example.justpoteito.network.request.SignUpRequest;
+import com.example.justpoteito.security.RsaEncrypter;
+import com.example.justpoteito.security.RsaFileReader;
 import com.example.justpoteito.utilities.FormValidator;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -63,9 +65,8 @@ public class ProfileActivity extends AppCompatActivity {
 
                     new Toast(this).makeText(this, requestResponse.getMessage(), Toast.LENGTH_LONG).show();
 
-                    if(requestResponse.isAccess()) {
-                        setContentView(R.layout.activity_profile);
-                    }
+                    finish();
+                    startActivity(getIntent());
                 }
             });
 
@@ -76,9 +77,9 @@ public class ProfileActivity extends AppCompatActivity {
         FormValidator formValidator = new FormValidator(this);
         boolean isValid = true;
 
-        if (!formValidator.editTextIsValid(findViewById(R.id.editText_oldPassword), 1, false)) isValid = false;
-        if (!formValidator.editTextIsValid(findViewById(R.id.editText_newPassword), 1, false)) isValid = false;
-        if (!formValidator.editTextIsValid(findViewById(R.id.editText_confirmPassword), 1, false)) isValid = false;
+        if (!formValidator.editTextIsValid(findViewById(R.id.editText_oldPassword), 5, false)) isValid = false;
+        if (!formValidator.editTextIsValid(findViewById(R.id.editText_newPassword), 5, false)) isValid = false;
+        if (!formValidator.editTextIsValid(findViewById(R.id.editText_confirmPassword), 5, false)) isValid = false;
 
         EditText newPass = ((EditText) findViewById(R.id.editText_newPassword));
         EditText confirmNewPass = ((EditText) findViewById(R.id.editText_confirmPassword));
@@ -97,15 +98,23 @@ public class ProfileActivity extends AppCompatActivity {
 
     private String generateChangePasswordJson() {
 
-        //String encryptedPass = encryptText(((EditText) findViewById(R.id.editText_password))
-        //       .getText().toString());
+        String encryptedNewPass = encryptText(((EditText) findViewById(R.id.editText_newPassword))
+               .getText().toString());
+
+        String encryptedOldPass = encryptText(((EditText) findViewById(R.id.editText_oldPassword))
+                .getText().toString());
 
 
         return  "{" +
                 "\"id\": \"" + userId+ "\"," +
-                "\"oldPassword\": \"" + ((EditText) findViewById(R.id.editText_oldPassword)).getText().toString() + "\"," +
-                "\"newPassword\": \"" + ((EditText) findViewById(R.id.editText_newPassword)).getText().toString() + "\"" +
+                "\"oldPassword\": \"" + encryptedOldPass + "\"," +
+                "\"newPassword\": \"" + encryptedNewPass + "\"" +
                 "}";
 
+    }
+
+    private String encryptText(String password) {
+        byte[] key = RsaFileReader.readRsaFile("public.key", ProfileActivity.this);
+        return RsaEncrypter.encryptText(password, key);
     }
 }

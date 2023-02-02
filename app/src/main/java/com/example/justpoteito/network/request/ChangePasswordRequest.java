@@ -44,10 +44,15 @@ public class ChangePasswordRequest extends NetConfiguration implements Runnable 
 
             response = new RequestResponse();
 
-            if (responseCode == 432 || responseCode == 433) {
+            if (responseCode == 433) {
 
                 this.response.setAccess(false);
-                //this.response.setMessage(res.getString(R.string.user_doesnt_exist));
+                this.response.setMessage(res.getString(R.string.user_not_updated));
+
+            } else if (responseCode == 434) {
+
+                this.response.setAccess(false);
+                this.response.setMessage(res.getString(R.string.incorrect_password));
 
             } else if (responseCode == HttpURLConnection.HTTP_ACCEPTED) {
 

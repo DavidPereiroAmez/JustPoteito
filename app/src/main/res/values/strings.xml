@@ -44,8 +44,10 @@
     <string name="email_required_form_field">This field should be a valid username</string>
     <string name="passwords_do_not_match">Passwords do not match</string>
     <string name="user_already_exists">This user already exists</string>
+    <string name="user_doesnt_exist">That user mail is not linked to any account</string>
     <string name="request_error">Something went wrong</string>
     <string name="user_created">User created</string>
+    <string name="incorrect_password">The password is incorrect</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -65,6 +67,7 @@
     <string name="surname">Arguiñano</string>
     <string name="prof_email">KarlosArguiñano@gmail.com</string>
     <string name="password_changed">The password was changed</string>
+    <string name="user_not_updated">There was a problem with your user account</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
