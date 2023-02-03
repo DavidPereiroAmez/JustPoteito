@@ -263,5 +263,29 @@
         app:layout_constraintVertical_bias="0.71"
         tools:ignore="TouchTargetSizeCheck" />
 
+    <ImageView
+        android:id="@+id/spanishButton"
+        android:layout_width="43dp"
+        android:layout_height="34dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_toStartOf="@+id/englishButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/spanish" />
+
+    <ImageView
+        android:id="@+id/englishButton"
+        android:layout_width="43dp"
+        android:layout_height="34dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toEndOf="@+id/spanishButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/english" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

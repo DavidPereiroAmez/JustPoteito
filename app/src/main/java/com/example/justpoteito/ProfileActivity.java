@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -29,6 +30,7 @@ import com.example.justpoteito.security.RsaFileReader;
 import com.example.justpoteito.utilities.FormValidator;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Locale;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -71,6 +73,30 @@ public class ProfileActivity extends AppCompatActivity {
         findViewById(R.id.back_button).setOnClickListener(view -> {
             Intent intent = new Intent(ProfileActivity.this, ExplorerActivity.class);
             startActivity(intent);
+            finish();
+        });
+
+        findViewById(R.id.spanishButton).setOnClickListener(view -> {
+            Locale locale = new Locale("es");
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+
+            Intent refresh = new Intent(this, getClass());
+            startActivity(refresh);
+            finish();
+        });
+
+        findViewById(R.id.englishButton).setOnClickListener(view -> {
+            Locale locale = new Locale("en");
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+
+            Intent refresh = new Intent(this, getClass());
+            startActivity(refresh);
             finish();
         });
 
