@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -42,6 +43,7 @@ import com.example.justpoteito.network.request.IngredientsRequest;
 import com.example.justpoteito.network.NetworkUtilities;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ExplorerActivity extends AppCompatActivity {
 
@@ -90,6 +92,29 @@ public class ExplorerActivity extends AppCompatActivity {
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
+        findViewById(R.id.spanishButton).setOnClickListener(view -> {
+            Locale locale = new Locale("es");
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+
+            Intent refresh = new Intent(this, getClass());
+            startActivity(refresh);
+            finish();
+        });
+
+        findViewById(R.id.englishButton).setOnClickListener(view -> {
+            Locale locale = new Locale("en");
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+
+            Intent refresh = new Intent(this, getClass());
+            startActivity(refresh);
+            finish();
+        });
     }
 
     public void setFragment(String fragment) {

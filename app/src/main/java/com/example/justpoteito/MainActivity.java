@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.CheckBox;
@@ -36,6 +37,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.text.Normalizer;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     FragmentTransaction transaction;
@@ -86,6 +88,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void registerOnCreate() {
+        findViewById(R.id.spanishButton).setOnClickListener(view -> {
+            Locale locale = new Locale("es");
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+
+            Intent refresh = new Intent(this, getClass());
+            startActivity(refresh);
+            finish();
+        });
+
+        findViewById(R.id.englishButton).setOnClickListener(view -> {
+            Locale locale = new Locale("en");
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+
+            Intent refresh = new Intent(this, getClass());
+            startActivity(refresh);
+            finish();
+        });
+
         findViewById(R.id.login_button).setOnClickListener(view -> {
             setFragment("loginFragment");
         });
@@ -110,6 +136,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loginOnCreate() {
+        findViewById(R.id.spanishButton).setOnClickListener(view -> {
+            Locale locale = new Locale("es");
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+
+            Intent refresh = new Intent(this, getClass());
+            startActivity(refresh);
+            finish();
+        });
+
+        findViewById(R.id.englishButton).setOnClickListener(view -> {
+            Locale locale = new Locale("en");
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+
+            Intent refresh = new Intent(this, getClass());
+            startActivity(refresh);
+            finish();
+        });
+
         findViewById(R.id.signup_button).setOnClickListener(view -> {
             setFragment("registerFragment");
         });
@@ -166,6 +216,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void forgotPasswordOnCreate(){
+        findViewById(R.id.spanishButton).setOnClickListener(view -> {
+            Locale locale = new Locale("es");
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+
+            Intent refresh = new Intent(this, getClass());
+            startActivity(refresh);
+            finish();
+        });
+
+        findViewById(R.id.englishButton).setOnClickListener(view -> {
+            Locale locale = new Locale("en");
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale = locale;
+            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+
+            Intent refresh = new Intent(this, getClass());
+            startActivity(refresh);
+            finish();
+        });
+
         findViewById(R.id.forgotPassword_send_button).setOnClickListener(view -> {
             String email = ((EditText)findViewById(R.id.editText_type_your_email)).getText().toString();
 

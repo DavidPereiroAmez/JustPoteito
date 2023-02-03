@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">JustPoteito</string>
+    <string name="title_main">Just Poteito</string>
+    <string name="please_login">Inicia sesión porfavor</string>
+    <string name="username">usuario</string>
+    <string name="password">contraseña</string>
+    <string name="forgot_password">¿Has olvidado la contraseña?</string>
+    <string name="signup_button">Registrarse</string>
+    <string name="login_button">Iniciar sesión</string>
+<!--    <string name="deleteUser_button">Eliminar usuario</string>-->
+    <string name="title_register">Registro</string>
+    <string name="please_signup">Registrate porfavor</string>
+    <string name="first_name">nombre</string>
+    <string name="last_names">apellidos</string>
+    <string name="email">correo electrónico</string>
+    <string name="title_resetPassword">Cambiar contraseña</string>
+    <string name="old_password">Contraseña antigua</string>
+    <string name="new_password">Nueva contraseña</string>
+    <string name="confirm_new_password">Confirma la contraseña</string>
+    <string name="reset_button">Cambaiar</string>
+    <string name="title_forgotPassword">Contraseña Olvidada</string>
+    <string name="type_your_email">Introduce tu correo electrónico</string>
+    <string name="send">Enviar</string>
+    <string name="hi">Hola</string>
+    <string name="name">Nombre</string>
+    <string name="search">Buscar</string>
+    <string name="explorer">Explorar recetas</string>
+    <string name="title_explore_by_type_of_cuisine">Explorar por tipo de cocina</string>
+    <string name="title_explore_by_dish">Explorar por plato</string>
+    <string name="title_explore_by_cook">Explorar por cocinero</string>
+    <string name="exp_ingredients">Explorar por ingredientes</string>
+    <string name="title_list">Ingredientes</string>
+    <string name="title_type_of_cuisine">Cocina</string>
+    <string name="dishes">platos</string>
+    <string name="title_dish">Nombre del plato</string>
+    <string name="dish_preparation_time">Tiempo</string>
+    <string name="minutes">min</string>
+    <string name="ingredients">Ingredientes</string>
+    <string name="type_comment">Escribe un comentario</string>
+    <string name="comments">Comentarios 0</string>
+    <string name="error_communication">Error de comunicación</string>
+    <string name="empty_form_field">Este campo no puede estar vacio</string>
+    <string name="short_form_filed">Este campo debe tener al menos</string>
+    <string name="character">caracteres</string>
+    <string name="email_required_form_field">Este campo debe tener un correo electrónico valido</string>
+    <string name="passwords_do_not_match">Las contraseñas no coinciden</string>
+    <string name="user_already_exists">Este usuario ya existe</string>
+    <string name="request_error">Algo ha salido mal</string>
+    <string name="user_created">Usuario creado</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Correo electrónico</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="action_sign_in">Iniciar sesión o registrarse</string>
+    <string name="action_sign_in_short">Iniciar Sesión</string>
+    <string name="welcome">"Bienvenido!"</string>
+    <string name="invalid_username">Correo electrónico invalido</string>
+    <string name="invalid_password">La contraseña debe tener mas de 5 caracteres</string>
+    <string name="login_failed">"Datos erroneos"</string>
+    <string name="remember_me">Recuerdame?</string>
+
+    <!-- Strings related to Profile -->
+    <string name="profile">Mi Perfil</string>
+    <string name="surname">apellidos</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
