@@ -178,8 +178,27 @@ public class ProfileActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
             selectedImageUri = data.getData();
+            String imageBase64 = getFileToByte(selectedImageUri.getPath());
             userImage.setImageURI(selectedImageUri);
+            System.out.println(imageBase64);
         }
+    }
+    public static String getFileToByte(String filePath){
+        Bitmap bmp = null;
+        ByteArrayOutputStream bos = null;
+        byte[] bt = null;
+        String encodeString = null;
+        try{
+            bmp = BitmapFactory.decodeFile(filePath);
+            bos = new ByteArrayOutputStream();
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            bt = bos.toByteArray();
+            encodeString = Base64.encodeToString(bt, Base64.DEFAULT);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return encodeString;
     }
 
     public String getBase64EncodedImage(String imageURL) {
@@ -187,6 +206,7 @@ public class ProfileActivity extends AppCompatActivity {
         if (imageURL != null) {
             try {
                 String imagePath = selectedImageUri.getPath();
+                System.out.println("Ruta: "+imagePath);
                 Bitmap fileContent = BitmapFactory.decodeFile(imagePath);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 fileContent.compress(Bitmap.CompressFormat.JPEG, 100, baos); // bm is the bitmap object
