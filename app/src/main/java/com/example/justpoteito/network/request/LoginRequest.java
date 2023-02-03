@@ -4,8 +4,13 @@ import android.content.Context;
 import android.content.res.Resources;
 
 import com.example.justpoteito.R;
+import com.example.justpoteito.models.Ingredient;
 import com.example.justpoteito.models.UserResponse;
 import com.example.justpoteito.network.NetConfiguration;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,15 +51,21 @@ public class LoginRequest extends NetConfiguration implements Runnable {
             }
 
             int responseCode = httpURLConnection.getResponseCode();
-            System.out.println(responseCode);
 
             if (responseCode == 433) {
                 response.setAccess(false);
                 response.setMessage(res.getString(R.string.user_doesnt_exist));
+
             }else if (responseCode == 434) {
                 response.setAccess(false);
                 response.setMessage(res.getString(R.string.incorrect_password));
+
+            } else if (responseCode == 435) {
+                response.setAccess(false);
+                response.setMessage(res.getString(R.string.incorrect_password));
+
             } else if (responseCode == 202) {
+
                 BufferedReader bufferedReader = new BufferedReader(
                         new InputStreamReader( httpURLConnection.getInputStream() ) );
                 StringBuilder response = new StringBuilder();
@@ -64,14 +75,21 @@ public class LoginRequest extends NetConfiguration implements Runnable {
                 }
                 bufferedReader.close();
 
-                String id = response.substring(2, response.indexOf(",") - 1).replace("\"\"", "");
-                String username = response.substring(response.indexOf(",") + 2, response.length() - 2).replace("\"\"", "");
+                String theUnprocessedJSON = response.toString();
+                JSONObject object = new JSONObject (theUnprocessedJSON);
+
+                System.out.println("User id: " + theUnprocessedJSON);
+
+                this.response.setId(object.getInt("id"));
+                this.response.setName(object.getString("name"));
+                this.response.setSurnames(object.getString("surnames"));
+                this.response.setUserName(object.getString("userName"));
+                this.response.setEmail(object.getString("email"));
+                this.response.setEnabled(object.getBoolean("enabled"));
 
 
                 this.response.setAccess(true);
-                this.response.setMessage(res.getString(R.string.welcome)+ " " + username);
-                this.response.setUsername(username);
-                this.response.setId(Integer.parseInt(id));
+                this.response.setMessage(res.getString(R.string.welcome)+ " " + this.response.getUserName());
             } else {
                 response.setAccess(false);
                 response.setMessage(res.getString(R.string.request_error));
@@ -80,6 +98,8 @@ public class LoginRequest extends NetConfiguration implements Runnable {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
         }
     }
 

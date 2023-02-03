@@ -24,7 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
-            db.execSQL("CREATE TABLE " + TABLE_NAME + " (username TEXT PRIMARY KEY, password TEXT)");
+            db.execSQL("CREATE TABLE " + TABLE_NAME + " (email TEXT PRIMARY KEY, password TEXT)");
         } catch (SQLiteException e) {
             try {
                 throw new IOException(e);

@@ -1,11 +1,18 @@
 package com.example.justpoteito.models;
 
+import java.util.Set;
+
 public class UserResponse {
 
     private boolean access;
     private String message;
-    private String username;
+    private String userName;
     private int id;
+    private String name;
+    private String surnames;
+    private String email;
+    private String password;
+    private boolean isEnabled;
 
     public UserResponse() {
     }
@@ -15,11 +22,16 @@ public class UserResponse {
         this.message = message;
     }
 
-    public UserResponse(boolean hasAccess, String message, String username, int id) {
-        this.access = hasAccess;
+    public UserResponse(boolean access, String message, String userName, int id, String name, String surnames, String email, String password, boolean isEnabled) {
+        this.access = access;
         this.message = message;
-        this.username = username;
+        this.userName = userName;
         this.id = id;
+        this.name = name;
+        this.surnames = surnames;
+        this.email = email;
+        this.password = password;
+        this.isEnabled = isEnabled;
     }
 
     public boolean isAccess() {
@@ -39,11 +51,11 @@ public class UserResponse {
     }
 
     public String getUsername() {
-        return username;
+        return userName;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.userName = username;
     }
 
     public int getId() {
@@ -54,13 +66,66 @@ public class UserResponse {
         this.id = id;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurnames() {
+        return surnames;
+    }
+
+    public void setSurnames(String surnames) {
+        this.surnames = surnames;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
     @Override
     public String toString() {
         return "UserResponse{" +
-                "hasAccess=" + access +
+                "access=" + access +
                 ", message='" + message + '\'' +
-                ", username='" + username + '\'' +
+                ", userName='" + userName + '\'' +
                 ", id=" + id +
+                ", name='" + name + '\'' +
+                ", surnames='" + surnames + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", isEnabled=" + isEnabled +
                 '}';
     }
 }
