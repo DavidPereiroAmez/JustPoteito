@@ -1,30 +1,52 @@
 package com.example.justpoteito.network.request;
 
-import com.example.justpoteito.models.Cook;
+import android.content.Context;
+import android.content.res.Resources;
+
+import com.example.justpoteito.R;
 import com.example.justpoteito.models.UserImage;
 import com.example.justpoteito.network.NetConfiguration;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
-public class UserImageRequest extends NetConfiguration implements Runnable{
-    private final String theUrl = theBaseUrl + "/cooksNoToken";
+public class SendUserImageRequest extends NetConfiguration implements Runnable{
+
+    private final String theUrl = theBaseUrl + "/user/image";
     private UserImage response;
+    private String userDataJson;
+    public static Resources res;
+
+    public SendUserImageRequest(String userDataJson, Context context) {
+        res = context.getResources();
+        this.userDataJson = userDataJson;
+    }
 
     @Override
     public void run() {
         try {
-            URL url = new URL( theUrl);
+            System.out.println("BBBBBBBBBBB "+userDataJson);
+
+            URL url = new URL(theUrl);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod( "GET" );
+            httpURLConnection.setRequestMethod("PUT");
+            httpURLConnection.setRequestProperty("Content-Type", "application/json");
+
+            httpURLConnection.setDoOutput(true);
+            try (OutputStream os = httpURLConnection.getOutputStream()) {
+                byte[] input = userDataJson.getBytes("utf-8");
+                os.write(input, 0, input.length);
+            }
+
             int responseCode = httpURLConnection.getResponseCode();
+
+            this.response = new UserImage();
+
             if(responseCode == HttpURLConnection.HTTP_OK){
+
                 BufferedReader bufferedReader = new BufferedReader(
                         new InputStreamReader( httpURLConnection.getInputStream() ) );
                 StringBuffer response = new StringBuffer();
@@ -34,24 +56,9 @@ public class UserImageRequest extends NetConfiguration implements Runnable{
                 }
                 bufferedReader.close();
 
-                String theUnprocessedJSON = response.toString();
 
-                JSONArray jsonArray = new JSONArray (theUnprocessedJSON);
-
-                this.response = new UserImage();
-
-                UserImage userImage;
-                for(int i=0; i < jsonArray.length(); i++) {
-                    JSONObject object = jsonArray.getJSONObject( i );
-
-                    userImage = new UserImage();
-                    userImage.setId(object.getInt("id"));
-                    userImage.setImage(object.getString("image"));
-
-                    this.response=  userImage;
-                }
             } else {
-                this.response = new UserImage();
+                this.response.setMessage(res.getString(R.string.request_error));
             }
         } catch (Exception e) {
             e.printStackTrace();

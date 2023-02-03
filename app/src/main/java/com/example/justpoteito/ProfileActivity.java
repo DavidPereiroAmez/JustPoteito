@@ -3,17 +3,15 @@ package com.example.justpoteito;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.FileUtils;
 import android.preference.PreferenceManager;
 import android.util.Base64;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,27 +19,22 @@ import android.widget.Toast;
 
 import com.example.justpoteito.models.RequestResponse;
 import com.example.justpoteito.models.UserImage;
-import com.example.justpoteito.models.UserResponse;
 import com.example.justpoteito.network.NetworkUtilities;
 import com.example.justpoteito.network.request.ChangePasswordRequest;
 import com.example.justpoteito.network.request.DeleteUserRequest;
-import com.example.justpoteito.network.request.DishByIdRequest;
-import com.example.justpoteito.network.request.LoginRequest;
-import com.example.justpoteito.network.request.SignUpRequest;
+import com.example.justpoteito.network.request.SendUserImageRequest;
 import com.example.justpoteito.network.request.UserImageRequest;
 import com.example.justpoteito.security.RsaEncrypter;
 import com.example.justpoteito.security.RsaFileReader;
 import com.example.justpoteito.utilities.FormValidator;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 
 public class ProfileActivity extends AppCompatActivity {
 
     private int userId = 0;
     Uri selectedImageUri;
-    ImageView userImage;
+    ImageView userImageView;
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int SELECT_FILE = 1;
     NetworkUtilities networkUtilities;
@@ -55,7 +48,14 @@ public class ProfileActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_profile);
 
-        userImage = findViewById(R.id.user_image);
+        userImageView = findViewById(R.id.user_image);
+
+        /*UserImage userImage = networkUtilities.makeRequest(new UserImageRequest());
+        String base64UserImage = userImage.getImage();
+        byte[] decodedString = Base64.decode(base64UserImage, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        userImageView.setImageBitmap(decodedByte);*/
+
         String userRealName = preferences.getString("user_realName", "");
         ((TextView) findViewById(R.id.textView_profileName)).setText(userRealName);
 
@@ -107,8 +107,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
         findViewById(R.id.image_pencil).setOnClickListener(v -> {
             abrirGaleria();
-            String userImageJson = generateUserImageJson();
-            UserImage userImage = new NetworkUtilities(this).makeRequest(new UserImageRequest(userImageJson, this));
+
         });
     }
 
@@ -155,7 +154,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         return  "{" +
                 "\"id\": \"" + userId + "\"," +
-                "\"image\": \"" + userImage + "\"" +
+                "\"image\": \"" + getFileToByte(userImageView) + "\"" +
                 "}";
     }
 
@@ -178,47 +177,22 @@ public class ProfileActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
             selectedImageUri = data.getData();
-            String imageBase64 = getFileToByte(selectedImageUri.getPath());
-            userImage.setImageURI(selectedImageUri);
-            System.out.println(imageBase64);
+            String imageBytes = getFileToByte(userImageView);
+            userImageView.setImageURI(selectedImageUri);
+
+            String userImageJson = generateUserImageJson();
+            UserImage userImage = new NetworkUtilities(this).makeRequest(new SendUserImageRequest(userImageJson, this));
         }
     }
-    public static String getFileToByte(String filePath){
-        Bitmap bmp = null;
-        ByteArrayOutputStream bos = null;
-        byte[] bt = null;
-        String encodeString = null;
-        try{
-            bmp = BitmapFactory.decodeFile(filePath);
-            bos = new ByteArrayOutputStream();
-            bmp.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-            bt = bos.toByteArray();
-            encodeString = Base64.encodeToString(bt, Base64.DEFAULT);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        return encodeString;
+    public static String getFileToByte(ImageView userImageView){
+        Bitmap bitmap = ((BitmapDrawable) userImageView.getDrawable()).getBitmap();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        String fotoEnBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        fotoEnBase64 = fotoEnBase64.replace("\n", "\\n");
+        return fotoEnBase64;
+
     }
 
-    public String getBase64EncodedImage(String imageURL) {
-
-        if (imageURL != null) {
-            try {
-                String imagePath = selectedImageUri.getPath();
-                System.out.println("Ruta: "+imagePath);
-                Bitmap fileContent = BitmapFactory.decodeFile(imagePath);
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                fileContent.compress(Bitmap.CompressFormat.JPEG, 100, baos); // bm is the bitmap object
-                byte[] encodedString = baos.toByteArray();
-                String encodedImage = Base64.encodeToString(encodedString, Base64.DEFAULT);
-                return encodedImage;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return "";
-            }
-        } else {
-            return "";
-        }
-    }
 }

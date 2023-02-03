@@ -27,6 +27,7 @@ import com.example.justpoteito.network.request.IngredientsRequest;
 import com.example.justpoteito.network.request.LoginRequest;
 import com.example.justpoteito.network.request.SendEmailRequest;
 import com.example.justpoteito.network.request.SignUpRequest;
+import com.example.justpoteito.network.request.SendUserImageRequest;
 import com.example.justpoteito.network.request.UserImageRequest;
 
 import java.util.ArrayList;
@@ -67,6 +68,27 @@ public class NetworkUtilities {
         } else
             return new UserResponse(false, res.getString(R.string.error_communication));
     }
+    public UserImage makeRequest(SendUserImageRequest sendUserImageRequest) {
+
+        if (isConnected()) {
+
+            Thread thread = new Thread(sendUserImageRequest);
+            try {
+                thread.start();
+                thread.join(10000); // Awaiting response from the server...
+            } catch (InterruptedException e) {
+                // Nothing to do here...
+            }
+            // Processing the answer
+            UserImage response = sendUserImageRequest.getResponse();
+
+            return response;
+
+
+        } else
+            return new UserImage();
+    }
+
     public UserImage makeRequest(UserImageRequest userImageRequest) {
 
         if (isConnected()) {

@@ -8,6 +8,11 @@ public class UserImage {
     public UserImage() {
     }
 
+    public UserImage(int id, String image) {
+        this.id = id;
+        this.image = image;
+    }
+
     public UserImage(int id, String image, String message) {
         this.id = id;
         this.image = image;
