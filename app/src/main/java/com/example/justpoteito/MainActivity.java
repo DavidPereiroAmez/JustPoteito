@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     FragmentTransaction transaction;
     Fragment loginFragment, registerFragment, forgotPasswordFragment;
     FormValidator formValidator;
+    private String userEmail;
+    private String userPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,8 +99,10 @@ public class MainActivity extends AppCompatActivity {
                 UserResponse response = new NetworkUtilities(this).makeRequest(new SignUpRequest(userDataJson, this));
 
                 Toast.makeText(this, response.getMessage(), Toast.LENGTH_LONG).show();
-                if (response.isAccess())
-                    setFragment("registerFragment");
+                if (response.isAccess()){
+                    setFragment("loginFragment");
+                }
+
             }else{
                 Toast.makeText(this, ErrorShow.userNotValid(), Toast.LENGTH_LONG).show();
             }

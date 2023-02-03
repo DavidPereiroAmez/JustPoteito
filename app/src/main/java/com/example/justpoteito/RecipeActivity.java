@@ -62,7 +62,6 @@ public class RecipeActivity extends AppCompatActivity {
     public void chargeDishData(){
         dish = networkUtilities.makeRequest(new DishByIdRequest(dishId));
         if(dish!=null){
-            System.out.println("AAA " + dish.getName() + " " + dish.getImage());
             if(dish.getImage() == null || dish.getImage().length() == 0){
                 ((ImageView) findViewById(R.id.dish_main_image)).setImageResource(R.drawable.verduras);
             }else{
