@@ -23,7 +23,7 @@ import java.net.URL;
 
 public class LoginRequest extends NetConfiguration implements Runnable {
 
-    private final String theUrl = theBaseUrl + "/loginnotoken";
+    private final String theUrl = theBaseUrl + "/notoken/login";
     public UserResponse response;
     public static Resources res;
     String userDataJson;

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class DeleteUserRequest extends NetConfiguration implements Runnable {
 
-    private final String theUrl = theBaseUrl + "/auth/users/";
+    private final String theUrl = theBaseUrl + "/notoken/delete";
     private String response;
     private int userId;
 
